@@ -13,18 +13,8 @@ namespace SkateShopAPI.Controllers {
             var Usuario = Repository.FilterQuery<Usuario>(u => u.Usuario1 == id).Select((p) => new UsuarioRetorno {
                 UsuarioID = p.Usuario1,
                 Nome = p.Nome,
-                Administrador = p.Administrador,
                 CpfCnpj = p.CpfCnpj,
-                Email = p.Email,
-                lstEndereco = p.Enderecos.Select((e) => new EnderecoRetorno {
-                    EnderecoID = e.Endereco1,
-                    UF = e.Uf,
-                    Cidade = e.Cidade,
-                    Bairro = e.Bairro,
-                    Rua = e.Rua,
-                    Numero = e.Numero,
-                    Complemento = e.Complemento
-                }).ToList()
+                Email = p.Email
             }).FirstOrDefault();
 
             if (Usuario != null) {
