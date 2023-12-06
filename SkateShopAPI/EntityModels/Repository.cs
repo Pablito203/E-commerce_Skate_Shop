@@ -5,13 +5,14 @@ using System.Linq.Expressions;
 
 namespace SkateShopAPI.EntityModels {
     public class Repository {
-        private SkateShopContext? Context = null;
+        public SkateShopContext? Context = null;
 
-        private void GenerateContext() {
+        public void GenerateContext() {
             this.Context = new SkateShopContext();
         }
 
-        public void Insert<T>(T Entity) where T: class {
+        public void Insert<T>(T Entity) where T: class 
+        {
             if (this.Context is null){
                 this.GenerateContext();
             }
@@ -19,7 +20,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public void Insert<T>(List<T> Entities) where T: class {
+        public void Insert<T>(List<T> Entities) where T: class 
+        {
             if (Context is null) {
                 this.GenerateContext();
             }
@@ -29,7 +31,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public void Update<T>(T Entity) where T: class {
+        public void Update<T>(T Entity) where T: class 
+        {
             if (this.Context is null) {
                 this.GenerateContext();
             }
@@ -37,7 +40,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public void Update<T>(List<T> Entities) where T: class {
+        public void Update<T>(List<T> Entities) where T: class 
+        {
             if (Context is null) {
                 this.GenerateContext();
             }
@@ -49,7 +53,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public void Delete<T>(T Entity) where T: class {
+        public void Delete<T>(T Entity) where T: class
+        {
             if (this.Context is null) {
                 this.GenerateContext();
             }
@@ -57,7 +62,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public void Delete<T>(List<T> Entities) where T: class {
+        public void Delete<T>(List<T> Entities) where T: class
+        {
             if (Context is null) {
                 this.GenerateContext();
             }
@@ -65,7 +71,8 @@ namespace SkateShopAPI.EntityModels {
             Context.SaveChanges();
         }
 
-        public IQueryable<T> FilterQuery<T>(Expression<System.Func<T, bool>> filter) where T : class {
+        public IQueryable<T> FilterQuery<T>(Expression<System.Func<T, bool>> filter) where T : class
+        {
             if (Context is null) {
                 this.GenerateContext();
             }
