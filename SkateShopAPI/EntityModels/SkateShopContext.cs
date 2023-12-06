@@ -32,7 +32,7 @@ public partial class SkateShopContext : DbContext
     public virtual DbSet<UsuarioFavorito> UsuarioFavoritos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=PABLO\\SQLEXPRESS;Initial Catalog=skate_shop;Integrated Security=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:skate_shop");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,7 +40,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Anexo>(entity =>
         {
-            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739E9339643E");
+            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739EF52C1388");
 
             entity.ToTable("anexo");
 
@@ -63,27 +63,37 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Endereco>(entity =>
         {
-            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D4076140546C");
+            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D407EAA22864");
 
             entity.ToTable("endereco");
 
             entity.Property(e => e.Endereco1).HasColumnName("endereco");
-            entity.Property(e => e.DataCriacao)
-                .HasColumnType("datetime")
-                .HasColumnName("data_criacao");
-            entity.Property(e => e.DataVencimento)
-                .HasColumnType("datetime")
-                .HasColumnName("data_vencimento");
-            entity.Property(e => e.IdAsaas)
+            entity.Property(e => e.Bairro)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("id_asaas");
-            entity.Property(e => e.PagamentoRealizado).HasColumnName("pagamento_realizado");
+                .HasColumnName("bairro");
+            entity.Property(e => e.Cidade)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("cidade");
+            entity.Property(e => e.Complemento)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("complemento");
+            entity.Property(e => e.Numero)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("numero");
             entity.Property(e => e.Pedido).HasColumnName("pedido");
+            entity.Property(e => e.Rua)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("rua");
+            entity.Property(e => e.Uf)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasColumnName("uf");
             entity.Property(e => e.Usuario).HasColumnName("usuario");
-            entity.Property(e => e.Valor)
-                .HasColumnType("decimal(10, 2)")
-                .HasColumnName("valor");
 
             entity.HasOne(d => d.PedidoNavigation).WithMany(p => p.Enderecos)
                 .HasForeignKey(d => d.Pedido)
@@ -96,7 +106,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Pedido>(entity =>
         {
-            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC36F1EF6DEA");
+            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC3628C55CCB");
 
             entity.ToTable("pedido");
 
@@ -125,7 +135,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<PedidoProduto>(entity =>
         {
-            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__670316751A544DD6");
+            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__67031675900009BB");
 
             entity.ToTable("pedido_produto");
 
@@ -149,7 +159,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Produto>(entity =>
         {
-            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D39E7D86413");
+            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D3917EC311B");
 
             entity.ToTable("produto");
 
@@ -178,7 +188,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<ProdutoTamanho>(entity =>
         {
-            entity.HasKey(e => e.ProdutoTamanho1).HasName("PK__produto___E19A00A006AF0D2E");
+            entity.HasKey(e => e.ProdutoTamanho1).HasName("PK__produto___E19A00A0253AE202");
 
             entity.ToTable("produto_tamanho");
 
@@ -198,7 +208,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC75A4DE00C");
+            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC76ACF5046");
 
             entity.ToTable("usuario");
 
@@ -223,12 +233,13 @@ public partial class SkateShopContext : DbContext
             entity.Property(e => e.Senha)
                 .HasMaxLength(50)
                 .IsUnicode(false)
+                .UseCollation("Latin1_General_100_CS_AI_SC_UTF8")
                 .HasColumnName("senha");
         });
 
         modelBuilder.Entity<UsuarioFavorito>(entity =>
         {
-            entity.HasKey(e => e.UsuarioFavorito1).HasName("PK__usuario___2087104F4A716136");
+            entity.HasKey(e => e.UsuarioFavorito1).HasName("PK__usuario___2087104F54158931");
 
             entity.ToTable("usuario_favorito");
 

@@ -11,15 +11,17 @@ public partial class Endereco
 
     public int? Pedido { get; set; }
 
-    public decimal Valor { get; set; }
+    public string Uf { get; set; } = null!;
 
-    public string IdAsaas { get; set; } = null!;
+    public string Cidade { get; set; } = null!;
 
-    public bool PagamentoRealizado { get; set; }
+    public string Bairro { get; set; } = null!;
 
-    public DateTime DataCriacao { get; set; }
+    public string Rua { get; set; } = null!;
 
-    public DateTime DataVencimento { get; set; }
+    public string Numero { get; set; } = null!;
+
+    public string? Complemento { get; set; }
 
     public virtual Pedido? PedidoNavigation { get; set; }
 
