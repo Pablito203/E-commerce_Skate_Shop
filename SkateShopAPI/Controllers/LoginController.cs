@@ -4,7 +4,7 @@ using SkateShopAPI.ModelsAPI;
 
 namespace SkateShopAPI.Controllers {
     [ApiController]
-    [Route("[Controller]")]
+    [Route("api/[Controller]")]
     public class LoginController : ControllerBase {
         [HttpPost]
         public RespostaAPI PostLogin(LoginBody LoginBody) {

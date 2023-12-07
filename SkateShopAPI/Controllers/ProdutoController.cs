@@ -70,7 +70,7 @@ namespace SkateShopAPI.Controllers {
             return new RespostaAPI(new { sucesso = true });
         }
 
-        [HttpDelete]
+        [HttpDelete("[Controller]/{id}")]
         public RespostaAPI DeleteProduto(int id) {
             Repository Repository = new Repository();
             var ProdutoDados = Repository.FilterQuery<Produto>((p) => p.Produto1 == id).Select((p) => new {

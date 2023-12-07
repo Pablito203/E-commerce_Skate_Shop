@@ -4,10 +4,10 @@ using SkateShopAPI.ModelsAPI;
 
 namespace SkateShopAPI.Controllers {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsuarioController : ControllerBase {
         [HttpGet("{id}")]
-        public RespostaAPI Get(int id) {
+        public RespostaAPI GetUsuario(int id) {
             var Headers = Request.Headers;
             Repository Repository = new Repository();
             var Usuario = Repository.FilterQuery<Usuario>(u => u.Usuario1 == id).Select((p) => new UsuarioRetorno {
@@ -17,7 +17,7 @@ namespace SkateShopAPI.Controllers {
                 Email = p.Email
             }).FirstOrDefault();
 
-            if (Usuario != null) {
+            if (Usuario is null) {
                 return new RespostaAPI("Registro não encontrado");
             }
 
@@ -25,7 +25,7 @@ namespace SkateShopAPI.Controllers {
         }
 
         [HttpPost]
-        public RespostaAPI Post(UsuarioBody UsuarioBody) {
+        public RespostaAPI PostUsuario(UsuarioBody UsuarioBody) {
             Usuario Usuario = new Usuario() {
                 Nome = UsuarioBody.Nome,
                 Email = UsuarioBody.Email,
@@ -39,7 +39,7 @@ namespace SkateShopAPI.Controllers {
         }
 
         [HttpPut]
-        public RespostaAPI Put(UsuarioBody UsuarioBody) {
+        public RespostaAPI PutUsuario(UsuarioBody UsuarioBody) {
             if (UsuarioBody.UsuarioID is null) {
                 return new RespostaAPI("Registro não encontrado");
             }

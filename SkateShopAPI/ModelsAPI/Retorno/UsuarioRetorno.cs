@@ -5,6 +5,5 @@
         public string Nome { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string CpfCnpj { get; set; } = null!;
-        public List<EnderecoRetorno> lstEndereco { get; set;} = new List<EnderecoRetorno>();
     }
 }
