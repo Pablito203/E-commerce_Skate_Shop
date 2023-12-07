@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "5c9c8077-3e16-45e9-ac47-457e4292f45d",
+		"name": "API - SkateShop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13647175"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "GetUsuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/Usuario/2"
+					},
+					"response": []
+				},
+				{
+					"name": "PostUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"usuario teste\",\r\n  \"email\": \"usuario.teste@teste.com\",\r\n  \"senha\": \"senha123321\",\r\n  \"CpfCnpj\": \"000.000.000-00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "PutUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"UsuarioID\": 2,\r\n  \"nome\": \"usuario teste2\",\r\n  \"email\": \"usuario.teste2@teste.com\",\r\n  \"senha\": \"senha123321\",\r\n  \"CpfCnpj\": \"000.000.000-00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Usuario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "PutProduto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProdutoID\": 1,\r\n    \"nome\": \"Roda SpitFire editada 50mm\",\r\n    \"valor\": 200,\r\n    \"destaque\": true,\r\n    \"quantidadeEstoque\": 10,\r\n    \"tamanhoUnico\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Produto"
+					},
+					"response": []
+				},
+				{
+					"name": "PostProduto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Roda SpitFire 2 52mm\",\r\n  \"valor\": 300,\r\n  \"quantidadeEstoque\": 10,\r\n  \"tamanhoUnico\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Produto"
+					},
+					"response": []
+				},
+				{
+					"name": "GetProduto",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "ListaID",
+								"value": "10,20,30",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "tipo",
+								"value": "lancamentos",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "tipo",
+								"value": "destaques",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{url}}/Produto"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/Produto/2"
+					},
+					"response": []
+				},
+				{
+					"name": "GetProdutoID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/ProdutoID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endereço",
+			"item": [
+				{
+					"name": "GetEndereco",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/Endereco/1"
+					},
+					"response": []
+				},
+				{
+					"name": "PostEndereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"UsuarioID\": 1,\r\n  \"UF\": \"PR\",\r\n  \"Cidade\": \"Curitiba\",\r\n  \"Bairro\": \"Centro\",\r\n  \"Rua\": \"Rua treze\",\r\n  \"Numero\": \"17\",\r\n  \"Complemento\": \"Casa verde\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Endereco"
+					},
+					"response": []
+				},
+				{
+					"name": "PutEndereco",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"EnderecoID\": 2,\r\n  \"UF\": \"PR\",\r\n  \"Cidade\": \"Curitiba\",\r\n  \"Bairro\": \"Centro\",\r\n  \"Rua\": \"Rua XV\",\r\n  \"Numero\": \"11\",\r\n  \"Complemento\": \"Casa azul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/Endereco"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEndereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/Endereco/3"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:7170/api"
+		}
+	]
+}
