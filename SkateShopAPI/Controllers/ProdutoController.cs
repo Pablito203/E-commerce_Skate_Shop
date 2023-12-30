@@ -87,7 +87,7 @@ namespace SkateShopAPI.Controllers {
                 Repository.Update(ProdutoDados.Produto);
                 return new RespostaAPI(new { sucesso = true }, "O produto não foi excluído por ter pedidos relacionados, o produto foi inativado");
             }
-            var lstTamanhoProduto = Repository.FilterQuery<ProdutoTamanho>((p) => p.Produto == id).ToList();
+            var lstTamanhoProduto = Repository.FilterQuery<Tamanho>((p) => p.Produto == id).ToList();
             var lstAnexo = Repository.FilterQuery<Anexo>((p) => p.Produto == id).ToList();
 
             Repository.Delete(ProdutoDados.Produto);
