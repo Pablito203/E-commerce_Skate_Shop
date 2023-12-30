@@ -13,7 +13,11 @@ public partial class PedidoProduto
 
     public decimal Valor { get; set; }
 
+    public int? Tamanho { get; set; }
+
     public virtual Pedido PedidoNavigation { get; set; } = null!;
 
     public virtual Produto ProdutoNavigation { get; set; } = null!;
+
+    public virtual Tamanho? TamanhoNavigation { get; set; }
 }

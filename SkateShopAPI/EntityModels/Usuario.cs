@@ -21,7 +21,7 @@ public partial class Usuario
 
     public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
 
-    public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+    public virtual ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
 
-    public virtual ICollection<UsuarioFavorito> UsuarioFavoritos { get; set; } = new List<UsuarioFavorito>();
+    public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
 }

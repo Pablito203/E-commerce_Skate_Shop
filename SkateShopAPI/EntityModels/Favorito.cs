@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SkateShopAPI.EntityModels;
 
-public partial class UsuarioFavorito
+public partial class Favorito
 {
-    public int UsuarioFavorito1 { get; set; }
+    public int Favorito1 { get; set; }
 
     public int Usuario { get; set; }
 

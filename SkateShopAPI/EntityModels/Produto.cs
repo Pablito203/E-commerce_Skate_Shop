@@ -23,9 +23,9 @@ public partial class Produto
 
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();
 
+    public virtual ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
+
     public virtual ICollection<PedidoProduto> PedidoProdutos { get; set; } = new List<PedidoProduto>();
 
-    public virtual ICollection<ProdutoTamanho> ProdutoTamanhos { get; set; } = new List<ProdutoTamanho>();
-
-    public virtual ICollection<UsuarioFavorito> UsuarioFavoritos { get; set; } = new List<UsuarioFavorito>();
+    public virtual ICollection<Tamanho> Tamanhos { get; set; } = new List<Tamanho>();
 }
