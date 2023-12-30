@@ -43,23 +43,23 @@ CREATE TABLE anexo (
 );
 GO
 
-CREATE TABLE produto_tamanho (
-	  produto_tamanho INT IDENTITY (1,1) NOT NULL,
+CREATE TABLE tamanho (
+	  tamanho INT IDENTITY (1,1) NOT NULL,
 	  produto INT NOT NULL,
-	  nome VARCHAR(10),
+	  nome VARCHAR(10) NOT NULL,
 	  quantidade INT NOT NULL DEFAULT 0,
-	  PRIMARY KEY CLUSTERED (produto_tamanho),
-	  CONSTRAINT FK_produtoTamanho_produto FOREIGN KEY (produto) REFERENCES produto (produto)
+	  PRIMARY KEY CLUSTERED (tamanho),
+	  CONSTRAINT FK_tamanho_produto FOREIGN KEY (produto) REFERENCES produto (produto)
 );
 GO
 
-CREATE TABLE usuario_favorito (
-	  usuario_favorito INT IDENTITY (1,1) NOT NULL,
+CREATE TABLE favorito (
+	  favorito INT IDENTITY (1,1) NOT NULL,
 	  usuario INT NOT NULL,
 	  produto INT NOT NULL,
-	  PRIMARY KEY CLUSTERED (usuario_favorito),
-	  CONSTRAINT FK_usuarioFavorito_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario),
-	  CONSTRAINT FK_usuarioFavorito_produto FOREIGN KEY (produto) REFERENCES produto (produto)
+	  PRIMARY KEY CLUSTERED (favorito),
+	  CONSTRAINT FK_favorito_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario),
+	  CONSTRAINT FK_favorito_produto FOREIGN KEY (produto) REFERENCES produto (produto)
 );
 GO
 
@@ -96,9 +96,11 @@ CREATE TABLE pedido_produto (
 	  pedido_produto INT IDENTITY (1,1) NOT NULL,
 	  pedido INT NOT NULL,
 	  produto INT NOT NULL,
+	  tamanho INT,
 	  valor DECIMAL(10, 2) NOT NULL,
 	  PRIMARY KEY CLUSTERED (pedido_produto),
 	  CONSTRAINT FK_pedidoProduto_pedido FOREIGN KEY (pedido) REFERENCES pedido (pedido),
-	  CONSTRAINT FK_pedidoProduto_produto FOREIGN KEY (produto) REFERENCES produto (produto)
+	  CONSTRAINT FK_pedidoProduto_produto FOREIGN KEY (produto) REFERENCES produto (produto),
+	  CONSTRAINT FK_pedidoProduto_tamanho FOREIGN KEY (tamanho) REFERENCES tamanho (tamanho)
 );
 GO
