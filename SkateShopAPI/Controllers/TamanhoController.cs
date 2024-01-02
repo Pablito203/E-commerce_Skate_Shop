@@ -6,7 +6,7 @@ namespace SkateShopAPI.Controllers {
 
     [ApiController]
     [Route("api/[Controller]")]
-    public class TamanhoController {
+    public class TamanhoController : ControllerBase {
 
         [HttpGet("{id}")]
         public RespostaAPI GetTamanho(int id) {

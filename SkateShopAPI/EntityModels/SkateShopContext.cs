@@ -32,7 +32,7 @@ public partial class SkateShopContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:skate_shop");
+        => optionsBuilder.UseSqlServer("Data Source=PABLO\\SQLEXPRESS;Initial Catalog=skate_shop;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

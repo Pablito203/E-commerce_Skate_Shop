@@ -1,8 +1,8 @@
 ﻿namespace SkateShopAPI.ModelsAPI {
     public class RespostaAPI {
         public object? result { get; set; }
-        public string? MensagemErro;
-        public string? MensagemAviso;
+        public string? MensagemErro { get; set; }
+        public string? MensagemAviso { get; set; }
 
         public RespostaAPI(object ObjetoResposta, string? MensagemAviso = null) {
             this.result = ObjetoResposta;

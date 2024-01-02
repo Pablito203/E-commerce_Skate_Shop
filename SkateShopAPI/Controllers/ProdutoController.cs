@@ -5,7 +5,7 @@ using SkateShopAPI.ModelsAPI;
 namespace SkateShopAPI.Controllers {
     [ApiController]
     [Route("api/")]
-    public class ProdutoController: ControllerBase {
+    public class ProdutoController : ControllerBase {
         
         [HttpGet("[Controller]")]
         public RespostaAPI GetProduto() {
