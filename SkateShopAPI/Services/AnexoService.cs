@@ -21,7 +21,7 @@ namespace SkateShopAPI.Services {
             fs.Close();
         }
 
-        public string CriarCaminhoRelativoProduto(int ProdutoID) {
+        public string CriarCaminhoRelativoDiretorioProduto(int ProdutoID) {
             string CaminhoRelativo = Path.Combine("Imagens", "Produtos");
             CaminhoRelativo = Path.Combine(CaminhoRelativo, ProdutoID.ToString());
             return CaminhoRelativo;

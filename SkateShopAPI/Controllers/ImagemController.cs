@@ -43,11 +43,11 @@ namespace SkateShopAPI.Controllers {
 
             try {
                 AnexoService anexoService = new AnexoService();
-                string CaminhoRelativo = anexoService.CriarCaminhoRelativoProduto(ProdutoID);
+                string CaminhoRelativoDiretorio = anexoService.CriarCaminhoRelativoDiretorioProduto(ProdutoID);
 
                 OpcoesSalvarArquivo opcoes = new OpcoesSalvarArquivo {
                     NomeGuid = Guid.NewGuid().ToString(),
-                    CaminhoRelativo = CaminhoRelativo,
+                    CaminhoRelativo = CaminhoRelativoDiretorio,
                     Arquivo = FormData.Files.First()
                 };
 
@@ -56,7 +56,7 @@ namespace SkateShopAPI.Controllers {
                 Anexo Anexo = new Anexo() {
                     Produto = ProdutoID,
                     Nome = strNome.First(),
-                    CaminhoRelativo = CaminhoRelativo
+                    CaminhoRelativo = Path.Combine(CaminhoRelativoDiretorio, opcoes.NomeGuid)
                 };
 
                 Repository Repository = new Repository();
