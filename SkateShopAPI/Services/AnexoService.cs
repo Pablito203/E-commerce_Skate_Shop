@@ -5,8 +5,8 @@ using System.Runtime.CompilerServices;
 namespace SkateShopAPI.Services {
     public class AnexoService {
 
-        public void SalvarArquivo(OpcoesSalvarArquivo opcoes) {
-            string Diretorio = Path.Combine(Environment.CurrentDirectory, opcoes.CaminhoRelativo);
+        public static void SalvarArquivo(OpcoesSalvarArquivo opcoes) {
+            string Diretorio = GetCaminhoAbsoluto(opcoes.CaminhoRelativo);
 
             if (!Directory.Exists(Diretorio)) {
                 Directory.CreateDirectory(Diretorio);
@@ -21,10 +21,15 @@ namespace SkateShopAPI.Services {
             fs.Close();
         }
 
-        public string CriarCaminhoRelativoDiretorioProduto(int ProdutoID) {
+        public static string CriarCaminhoRelativoDiretorioProduto(int ProdutoID) {
             string CaminhoRelativo = Path.Combine("Imagens", "Produtos");
             CaminhoRelativo = Path.Combine(CaminhoRelativo, ProdutoID.ToString());
             return CaminhoRelativo;
+        }
+
+        public static string GetCaminhoAbsoluto(string CaminhoRelativo) {
+            string CaminhoAbsoluto = Path.Combine(Environment.CurrentDirectory, CaminhoRelativo);
+            return CaminhoAbsoluto;
         }
     }
 
