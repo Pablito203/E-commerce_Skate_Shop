@@ -63,23 +63,9 @@ CREATE TABLE favorito (
 );
 GO
 
-CREATE TABLE pedido (
-	  pedido INT IDENTITY (1,1) NOT NULL,
-	  usuario INT NOT NULL,
-	  valor DECIMAL(10,2) NOT NULL,
-	  id_asaas VARCHAR(100) NOT NULL,
-	  pagamento_realizado BIT NOT NULL DEFAULT 0,
-	  data_criacao DATETIME NOT NULL,
-	  data_vencimento DATETIME NOT NULL,
-	  PRIMARY KEY CLUSTERED (pedido),
-	  CONSTRAINT FK_pedido_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario)
-);
-GO
-
 CREATE TABLE endereco (
 	  endereco INT IDENTITY (1,1) NOT NULL,
-	  usuario INT,
-	  pedido INT,
+	  usuario INT NOT NULL,
 	  uf VARCHAR(2) NOT NULL, 
 	  cidade VARCHAR(100) NOT NULL,
 	  bairro VARCHAR(100) NOT NULL,
@@ -87,8 +73,24 @@ CREATE TABLE endereco (
 	  numero VARCHAR(100) NOT NULL,
 	  complemento VARCHAR(100),
 	  PRIMARY KEY CLUSTERED (endereco),
-	  CONSTRAINT FK_endereco_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario),
-	  CONSTRAINT FK_endereco_pedido FOREIGN KEY (pedido) REFERENCES pedido (pedido)
+	  CONSTRAINT FK_endereco_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario)
+);
+GO
+
+CREATE TABLE pedido (
+	  pedido INT IDENTITY (1,1) NOT NULL,
+	  usuario INT NOT NULL,
+	  endereco INT NOT NULL,
+	  valor DECIMAL(10,2) NOT NULL,
+	  id_asaas VARCHAR(100) NOT NULL,
+	  pagamento_realizado BIT NOT NULL DEFAULT 0,
+	  data_criacao DATETIME NOT NULL,
+	  data_vencimento DATETIME NOT NULL,
+	  codigo_pagamento_pix VARCHAR(500) NOT NULL,
+	  caminho_relativo_imagem_pix VARCHAR(1000) NOT NULL,
+	  PRIMARY KEY CLUSTERED (pedido),
+	  CONSTRAINT FK_pedido_usuario FOREIGN KEY (usuario) REFERENCES usuario (usuario),
+	  CONSTRAINT FK_pedido_endereco FOREIGN KEY (endereco) REFERENCES endereco (endereco)
 );
 GO
 

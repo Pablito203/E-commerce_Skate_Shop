@@ -26,7 +26,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpPost]
         public RespostaAPI PostEndereco(EnderecoBody EnderecoBody) {
-            if (!(EnderecoBody.PedidoID.HasValue || EnderecoBody.UsuarioID.HasValue)) {
+            if (!EnderecoBody.UsuarioID.HasValue) {
                 return new RespostaAPI("Registro relacionado não encontrado");
             }
 
@@ -36,16 +36,9 @@ namespace SkateShopAPI.Controllers {
                 Bairro = EnderecoBody.Bairro,
                 Rua = EnderecoBody.Rua,
                 Numero = EnderecoBody.Numero,
-                Complemento = EnderecoBody.Complemento
+                Complemento = EnderecoBody.Complemento,
+                Usuario = EnderecoBody.UsuarioID.Value
             };
-
-            if (EnderecoBody.UsuarioID.HasValue) {
-                Endereco.Usuario = EnderecoBody.UsuarioID;
-            }
-
-            if (EnderecoBody.PedidoID.HasValue) {
-                Endereco.Pedido = EnderecoBody.PedidoID;
-            }
 
             Repository Repository = new Repository();
 
@@ -66,15 +59,20 @@ namespace SkateShopAPI.Controllers {
 
             Repository Repository = new Repository();
 
-            var Endereco = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == EnderecoBody.EnderecoID).FirstOrDefault();
+            var EnderecoDados = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == EnderecoBody.EnderecoID).Select((p) => new {
+                Endereco = p,
+                PossuiPedido = p.Pedidos.Any(),
+            }).FirstOrDefault();
 
-            if (Endereco is null) {
+            if (EnderecoDados is null) {
                 return new RespostaAPI("Registro não encontrado");
             }
 
-            if (Endereco.Pedido.HasValue) {
+            if (EnderecoDados.PossuiPedido) {
                 return new RespostaAPI("Não é possível editar um endereço com pedido vinculado");
             }
+
+            Endereco Endereco = EnderecoDados.Endereco;
 
             Endereco.Uf = EnderecoBody.UF;
             Endereco.Cidade = EnderecoBody.Cidade;
@@ -92,17 +90,20 @@ namespace SkateShopAPI.Controllers {
         public RespostaAPI DeleteEndereco(int id) {
             Repository Repository = new Repository();
 
-            var Endereco = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == id).FirstOrDefault();
+            var EnderecoDados = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == id).Select((p) => new {
+                Endereco = p,
+                PossuiPedido = p.Pedidos.Any(),
+            }).FirstOrDefault();
 
-            if (Endereco is null) {
+            if (EnderecoDados is null) {
                 return new RespostaAPI("Registro não encontrado");
             }
 
-            if (Endereco.Pedido.HasValue) {
+            if (EnderecoDados.PossuiPedido) {
                 return new RespostaAPI("Não é possível excluir um endereço com pedido vinculado");
             }
 
-            Repository.Delete(Endereco);
+            Repository.Delete(EnderecoDados.Endereco);
 
             return new RespostaAPI(new { sucesso = true });
         }

@@ -40,7 +40,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Anexo>(entity =>
         {
-            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739E1EAFBA99");
+            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739E5DA444A0");
 
             entity.ToTable("anexo");
 
@@ -63,7 +63,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Endereco>(entity =>
         {
-            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D407FC8FB741");
+            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D40738E13ED1");
 
             entity.ToTable("endereco");
 
@@ -84,7 +84,6 @@ public partial class SkateShopContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("numero");
-            entity.Property(e => e.Pedido).HasColumnName("pedido");
             entity.Property(e => e.Rua)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -95,18 +94,15 @@ public partial class SkateShopContext : DbContext
                 .HasColumnName("uf");
             entity.Property(e => e.Usuario).HasColumnName("usuario");
 
-            entity.HasOne(d => d.PedidoNavigation).WithMany(p => p.Enderecos)
-                .HasForeignKey(d => d.Pedido)
-                .HasConstraintName("FK_endereco_pedido");
-
             entity.HasOne(d => d.UsuarioNavigation).WithMany(p => p.Enderecos)
                 .HasForeignKey(d => d.Usuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_endereco_usuario");
         });
 
         modelBuilder.Entity<Favorito>(entity =>
         {
-            entity.HasKey(e => e.Favorito1).HasName("PK__favorito__F88B004D800119C1");
+            entity.HasKey(e => e.Favorito1).HasName("PK__favorito__F88B004DC232871C");
 
             entity.ToTable("favorito");
 
@@ -127,17 +123,26 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Pedido>(entity =>
         {
-            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC36636A3CA5");
+            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC3656F88796");
 
             entity.ToTable("pedido");
 
             entity.Property(e => e.Pedido1).HasColumnName("pedido");
+            entity.Property(e => e.CaminhoRelativoImagemPix)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("caminho_relativo_imagem_pix");
+            entity.Property(e => e.CodigoPagamentoPix)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("codigo_pagamento_pix");
             entity.Property(e => e.DataCriacao)
                 .HasColumnType("datetime")
                 .HasColumnName("data_criacao");
             entity.Property(e => e.DataVencimento)
                 .HasColumnType("datetime")
                 .HasColumnName("data_vencimento");
+            entity.Property(e => e.Endereco).HasColumnName("endereco");
             entity.Property(e => e.IdAsaas)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -148,6 +153,11 @@ public partial class SkateShopContext : DbContext
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("valor");
 
+            entity.HasOne(d => d.EnderecoNavigation).WithMany(p => p.Pedidos)
+                .HasForeignKey(d => d.Endereco)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_pedido_endereco");
+
             entity.HasOne(d => d.UsuarioNavigation).WithMany(p => p.Pedidos)
                 .HasForeignKey(d => d.Usuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -156,7 +166,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<PedidoProduto>(entity =>
         {
-            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__67031675043DBCA7");
+            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__67031675CF99C80A");
 
             entity.ToTable("pedido_produto");
 
@@ -185,7 +195,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Produto>(entity =>
         {
-            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D39C58A2467");
+            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D39831DD6AE");
 
             entity.ToTable("produto");
 
@@ -214,7 +224,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Tamanho>(entity =>
         {
-            entity.HasKey(e => e.Tamanho1).HasName("PK__tamanho__08D913FE6CA8983C");
+            entity.HasKey(e => e.Tamanho1).HasName("PK__tamanho__08D913FE369B47A6");
 
             entity.ToTable("tamanho");
 
@@ -234,7 +244,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC71D598CD3");
+            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC7D0FBF0EE");
 
             entity.ToTable("usuario");
 

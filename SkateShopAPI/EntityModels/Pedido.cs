@@ -9,6 +9,8 @@ public partial class Pedido
 
     public int Usuario { get; set; }
 
+    public int Endereco { get; set; }
+
     public decimal Valor { get; set; }
 
     public string IdAsaas { get; set; } = null!;
@@ -19,7 +21,11 @@ public partial class Pedido
 
     public DateTime DataVencimento { get; set; }
 
-    public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
+    public string CodigoPagamentoPix { get; set; } = null!;
+
+    public string CaminhoRelativoImagemPix { get; set; } = null!;
+
+    public virtual Endereco EnderecoNavigation { get; set; } = null!;
 
     public virtual ICollection<PedidoProduto> PedidoProdutos { get; set; } = new List<PedidoProduto>();
 

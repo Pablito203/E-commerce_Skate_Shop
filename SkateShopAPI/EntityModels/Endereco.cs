@@ -7,9 +7,7 @@ public partial class Endereco
 {
     public int Endereco1 { get; set; }
 
-    public int? Usuario { get; set; }
-
-    public int? Pedido { get; set; }
+    public int Usuario { get; set; }
 
     public string Uf { get; set; } = null!;
 
@@ -23,7 +21,7 @@ public partial class Endereco
 
     public string? Complemento { get; set; }
 
-    public virtual Pedido? PedidoNavigation { get; set; }
+    public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
 
-    public virtual Usuario? UsuarioNavigation { get; set; }
+    public virtual Usuario UsuarioNavigation { get; set; } = null!;
 }
