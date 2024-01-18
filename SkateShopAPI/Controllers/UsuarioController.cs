@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SkateShopAPI.EntityModels;
 using SkateShopAPI.ModelsAPI;
+using SkateShopAPI.Services;
 
 namespace SkateShopAPI.Controllers {
     [ApiController]
@@ -25,13 +26,20 @@ namespace SkateShopAPI.Controllers {
         }
 
         [HttpPost]
-        public RespostaAPI PostUsuario(UsuarioBody UsuarioBody) {
+        public async Task<RespostaAPI> PostUsuarioAsync(UsuarioBody UsuarioBody) {
             Usuario Usuario = new Usuario() {
                 Nome = UsuarioBody.Nome,
                 Email = UsuarioBody.Email,
                 Senha = UsuarioBody.Senha,
                 CpfCnpj = UsuarioBody.CpfCnpj
             };
+
+            bool ClienteAsaasCriado = await AsaasService.CriarCliente(Usuario);
+
+            if (!ClienteAsaasCriado) {
+                return new RespostaAPI("Erro integração asaas");
+            }
+
             Repository Repository = new Repository();
             Repository.Insert(Usuario);
 

@@ -16,8 +16,12 @@ namespace SkateShopAPI.Controllers {
             var lstImagens = repository.FilterQuery<Anexo>((p) => p.Produto == id).Select((p) => new ImagemRetorno {
                 ImagemID = p.Anexo1,
                 Nome = p.Nome,
-                CaminhoRelativo = p.CaminhoRelativo
+                CaminhoImagem = p.CaminhoRelativo
             }).ToList();
+
+            foreach (var Imagem in lstImagens) {
+                Imagem.CaminhoImagem = AnexoService.GetCaminhoAbsoluto(Imagem.CaminhoImagem);
+            }
 
             return new RespostaAPI(lstImagens);
         }
@@ -44,7 +48,7 @@ namespace SkateShopAPI.Controllers {
             try {
                 string CaminhoRelativoDiretorio = AnexoService.CriarCaminhoRelativoDiretorioProduto(ProdutoID);
 
-                OpcoesSalvarArquivo opcoes = new OpcoesSalvarArquivo {
+                AnexoService.OpcoesSalvarArquivo opcoes = new AnexoService.OpcoesSalvarArquivo {
                     NomeGuid = Guid.NewGuid().ToString(),
                     CaminhoRelativo = CaminhoRelativoDiretorio,
                     Arquivo = FormData.Files.First()

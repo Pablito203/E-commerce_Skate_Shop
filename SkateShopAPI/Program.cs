@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SkateShopAPI.EntityModels;
+using SkateShopAPI.Services;
 
 namespace SkateShopAPI
 {
@@ -20,6 +21,9 @@ namespace SkateShopAPI
             builder.Services.AddDbContext<SkateShopContext>(Options => {
                 Options.UseSqlServer(ConnectionString);
             });
+
+            var chaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaas");
+            AppSettingsService.ChaveAsaas = chaveAsaas;
 
             var app = builder.Build();
 
