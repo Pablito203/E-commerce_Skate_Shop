@@ -1,0 +1,23 @@
+ion-menu {
+
+  ion-header {
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-container {
+    width: 65%;
+    padding: 20px;
+  }
+}
+
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+
+  .pesquisa-container {
+    margin-bottom: 20px
+  }
+}

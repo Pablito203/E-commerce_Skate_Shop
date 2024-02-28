@@ -1,0 +1,7 @@
+{
+  "name": "SkateShopClient",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
