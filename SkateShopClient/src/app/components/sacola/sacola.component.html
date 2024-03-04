@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title color="light">Sacola</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="FecharModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngFor="let Produto of Sacola; let index = index">
+    <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()"></produto-card-lista>
+  </div>
+</ion-content>

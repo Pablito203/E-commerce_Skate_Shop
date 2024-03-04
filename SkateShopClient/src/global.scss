@@ -25,6 +25,13 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+html, body {
+  color: black;
+}
+
+ion-title, ion-card {
+  --color: black;
+}
 
 ion-item {
   --padding-start: 0;
@@ -32,4 +39,39 @@ ion-item {
   ion-input {
     --padding-start: 5px !important;
   }
+}
+
+.titulo {
+  font-size: 1.5em;
+}
+
+.sub-titulo {
+  font-size: 1.2em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ion-col {
+  padding: 0;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &-2 {
+    //text ellipisis com 2 linhas
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+}
+
+.alert-button {
+  color: black !important;
 }

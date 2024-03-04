@@ -1,0 +1,15 @@
+ion-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-right: 30px;
+
+  ion-img {
+    width: 200px;
+  }
+}

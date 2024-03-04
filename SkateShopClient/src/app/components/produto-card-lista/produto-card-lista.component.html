@@ -1,0 +1,38 @@
+<ion-card>
+  <ion-row>
+    <div class="produto-container">
+      <div class="img-container">
+        <ion-img [src]="Produto.CaminhoImagem"></ion-img>
+      </div>
+
+      <div class="info-container">
+        <span class="titulo bold text-ellipsis-2">{{Produto.Nome}}</span><br>
+        <span class="sub-titulo bold">{{200 | currency:'BRL'}}</span><br>
+        <span *ngIf="Tipo !== 'Favoritos' && Produto.TamanhoNome">Tamanho: {{Produto.TamanhoNome}}</span>
+      </div>
+    </div>
+  </ion-row>
+  <ion-row>
+    <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
+      <ion-button fill="none" (click)="SubtrairClick()" [disabled]="this.Produto.Quantidade <= 1">
+        -
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="Tipo === 'Sacola'" size="2" style="display: flex; justify-content: center;">
+      <ion-button fill="none" [disabled]="true" style="opacity: 1;">
+        {{Produto.Quantidade}}
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
+      <ion-button fill="none" (click)="AdicionarClick()">
+        +
+      </ion-button>
+    </ion-col>
+    <ion-col></ion-col>
+    <ion-col size="auto" style="display: flex; justify-content: end;">
+      <ion-button fill="none" (click)="ExcluirClick()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card>

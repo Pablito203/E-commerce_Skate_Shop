@@ -1,0 +1,20 @@
+ion-card {
+  padding: 10px;
+}
+
+.produto-container {
+  display: flex;
+
+  ion-img {
+    width: 100px;
+  }
+
+  .info-container {
+    padding-left: 10px;
+  }
+}
+
+.titulo {
+  height: 50px;
+}
+
