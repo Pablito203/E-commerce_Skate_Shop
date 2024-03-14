@@ -6,7 +6,7 @@ namespace SkateShopAPI.Services {
     public class AsaasService {
 
         public async static Task<bool> CriarCliente(Usuario Usuario) {
-            var options = new RestClientOptions("https://sandbox.asaas.com/api/v3/customers");
+            var options = new RestClientOptions("http://api.asaas.com/v3/customers");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
@@ -26,7 +26,7 @@ namespace SkateShopAPI.Services {
         }
 
         public async static Task<DadosCobranca?> CriarCobrança(CriarCobrancaDados dados) {
-            var options = new RestClientOptions("https://sandbox.asaas.com/api/v3/payments");
+            var options = new RestClientOptions("https://api.asaas.com/v3/payments");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
@@ -72,7 +72,7 @@ namespace SkateShopAPI.Services {
         }
 
         public async static Task<AsaasRetornoPix?> GerarQRCodePix(string AsaasCobrancaID) {
-            var options = new RestClientOptions("https://sandbox.asaas.com/api/v3/payments/" + AsaasCobrancaID + "/pixQrCode");
+            var options = new RestClientOptions("https://api.asaas.com/v3/payments/" + AsaasCobrancaID + "/pixQrCode");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");

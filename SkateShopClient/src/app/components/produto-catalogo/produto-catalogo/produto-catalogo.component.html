@@ -1,0 +1,16 @@
+<ion-card>
+  <ion-row>
+    <div class="produto-container">
+      <div class="img-container">
+        <ion-icon [name]="'heart' + (favorito ? '' : '-outline')" [ngClass]="{'selected': favorito}"
+                  (click)="favorito = !favorito"></ion-icon>
+        <ion-img [src]="Produto.CaminhoImagem"></ion-img>
+      </div>
+
+      <div class="info-container">
+        <span class="titulo bold text-ellipsis-2">{{Produto.Nome}}</span><br>
+        <span class="sub-titulo bold">{{200 | currency:'BRL'}}</span><br>
+      </div>
+    </div>
+  </ion-row>
+</ion-card>

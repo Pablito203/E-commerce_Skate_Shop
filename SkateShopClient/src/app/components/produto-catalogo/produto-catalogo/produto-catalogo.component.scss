@@ -1,0 +1,34 @@
+ion-card {
+  padding: 10px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.produto-container {
+  ion-img {
+    width: 200px;
+  }
+
+  .info-container {
+    padding-left: 10px;
+  }
+}
+
+.titulo {
+  height: 50px;
+}
+
+.img-container {
+  ion-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 25px;
+
+    &.selected {
+      color: red;
+    }
+  }
+}
+

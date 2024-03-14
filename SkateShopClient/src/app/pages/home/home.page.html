@@ -8,4 +8,48 @@
 </ion-header>
 
 <ion-content>
+  <section class="section-banner">
+    <div class="banner-container">
+      <div class="banner-container-2">
+        <banner [titulo]="'Calças'" [src]="'calças.webp'" [cssTamanho]="'mid'"></banner>
+        <banner [titulo]="'Camisetas'" [src]="'camisetas.webp'" [cssTamanho]="'mid'"></banner>
+        <banner [titulo]="'Moletons'" [src]="'moletons.webp'" [cssTamanho]="'small'"></banner>
+        <banner [titulo]="'Tênis'" [src]="'tenis.webp'" [cssTamanho]="'small'"></banner>
+      </div>
+
+      <banner [titulo]="'Peças de skate'" [src]="'skate.webp'" [cssTamanho]="'big'"></banner>
+    </div>
+  </section>
+
+  <section class="section-carrosel">
+    <div>
+      <ion-list-header class="titulo bold">
+        Lançamentos
+      </ion-list-header>
+
+      <div class="carrosel">
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-carrosel">
+    <div>
+      <ion-list-header class="titulo bold">
+        Destaques
+      </ion-list-header>
+
+      <div class="carrosel">
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+        <produto-catalogo></produto-catalogo>
+      </div>
+    </div>
+  </section>
 </ion-content>

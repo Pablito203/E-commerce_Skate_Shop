@@ -1,0 +1,39 @@
+.banner {
+  background-size: cover !important;
+  border-radius: 20px;
+  display: flex;
+  align-items: end;
+
+  &.big {
+    height: 460px;
+    width: 200px;
+    background-position: -230px !important;
+  }
+
+  &.mid {
+    height: 300px;
+    width: 200px;
+  }
+
+  &.small {
+    height: 150px;
+    width: 200px;
+    background-position: 0px !important;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.titulo {
+  height: 33%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 0 0 20px 20px;
+  user-select: none;
+}

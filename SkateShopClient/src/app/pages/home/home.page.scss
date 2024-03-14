@@ -13,3 +13,43 @@ ion-toolbar {
     width: 200px;
   }
 }
+
+section {
+
+  &.section-carrosel {
+    @media only screen and (min-width: 1000px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &.section-banner {
+    @media only screen and (max-width: 640px) {
+      display: none !important;
+    }
+
+    display: flex;
+    justify-content: center;
+  }
+
+  margin-top: 50px;
+}
+
+.banner-container {
+  width: 620px;
+  display: flex;
+  grid-gap: 10px;
+
+  &-2 {
+    display: flex;
+    width: 410px;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+  }
+}
+
+.carrosel {
+  display: flex;
+  max-width: 1000px;
+  overflow-x: scroll;
+}
