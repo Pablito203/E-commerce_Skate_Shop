@@ -25,7 +25,17 @@ namespace SkateShopAPI
             var chaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaas");
             AppSettingsService.ChaveAsaas = chaveAsaas;
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy => {
+                                      policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                                  });
+            });
+
             var app = builder.Build();
+
+            app.UseCors();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

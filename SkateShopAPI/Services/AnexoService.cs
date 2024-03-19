@@ -8,7 +8,7 @@
                 Directory.CreateDirectory(Diretorio);
             }
 
-            string NomeArquivo = opcoes.Arquivo == null ? opcoes.NomeGuid + ".jpg" : opcoes.Arquivo.Name;
+            string NomeArquivo = opcoes.NomeGuid + ".jpg";
             string CaminhoArquivo = Path.Combine(Diretorio, NomeArquivo);
 
             FileStream fs = System.IO.File.Create(CaminhoArquivo);
@@ -38,6 +38,15 @@
         public static string GetCaminhoAbsoluto(string CaminhoRelativo) {
             string CaminhoAbsoluto = Path.Combine(Environment.CurrentDirectory, CaminhoRelativo);
             return CaminhoAbsoluto;
+        }
+
+        public static string BuscarArquivoBase64(string CaminhoRelativo) {
+            string CaminhoAbsoluto = Path.Combine(Environment.CurrentDirectory, CaminhoRelativo);
+
+            Byte[] bytes = System.IO.File.ReadAllBytes(CaminhoAbsoluto);
+            String file = Convert.ToBase64String(bytes);
+
+            return file;
         }
 
         public class OpcoesSalvarArquivo {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SkateShopAPI.EntityModels;
 using SkateShopAPI.ModelsAPI;
+using SkateShopAPI.Services;
 
 namespace SkateShopAPI.Controllers {
     [ApiController]
@@ -23,6 +24,14 @@ namespace SkateShopAPI.Controllers {
                 TamanhoUnico = p.TamanhoUnico,
                 CaminhoImagem = p.Anexos.Select((p) => p.CaminhoRelativo).FirstOrDefault(),
             }).ToList();
+
+            foreach (var Produto in lstProduto)
+            {
+                if (Produto.CaminhoImagem is not null)
+                {
+                    Produto.CaminhoImagem = AnexoService.BuscarArquivoBase64(Produto.CaminhoImagem);
+                }
+            }
 
             return new RespostaAPI(lstProduto);
         }
@@ -111,7 +120,7 @@ namespace SkateShopAPI.Controllers {
 
             switch (Tipo) {
                 case "lancamentos":
-                    iqProduto = iqProduto.Take(10);
+                    iqProduto = iqProduto.OrderByDescending(p => p.DataCriacao).Take(10);
                     break;
                 case "destaques":
                     iqProduto = iqProduto.Where((p) => p.Destaque);

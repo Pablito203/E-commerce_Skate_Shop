@@ -59,7 +59,7 @@ namespace SkateShopAPI.Controllers {
                 Anexo Anexo = new Anexo() {
                     Produto = ProdutoID,
                     Nome = strNome.First(),
-                    CaminhoRelativo = Path.Combine(CaminhoRelativoDiretorio, opcoes.NomeGuid)
+                    CaminhoRelativo = Path.Combine(CaminhoRelativoDiretorio, opcoes.NomeGuid + ".jpg")
                 };
 
                 Repository Repository = new Repository();
