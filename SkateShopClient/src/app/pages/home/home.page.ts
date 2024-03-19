@@ -1,3 +1,4 @@
+import { ProdutoService } from './../../services/produto/produto.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  lancamentos: any = [];
+  destaques: any = [];
+
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit() {
+    this.produtoService.GetLancamentos().subscribe((value: any) => {
+      this.lancamentos = value.result;
+    });
+
+    this.produtoService.GetDestaques().subscribe((value: any) => {
+      this.destaques = value.result;
+    });
   }
 
 }

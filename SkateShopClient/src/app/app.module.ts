@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 registerLocaleData(localePT);
 
 @NgModule({
@@ -21,7 +22,8 @@ registerLocaleData(localePT);
     AppRoutingModule,
     ComponentsModule,
     CommonModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

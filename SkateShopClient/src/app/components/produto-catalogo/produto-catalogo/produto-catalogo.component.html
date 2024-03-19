@@ -3,13 +3,13 @@
     <div class="produto-container">
       <div class="img-container">
         <ion-icon [name]="'heart' + (favorito ? '' : '-outline')" [ngClass]="{'selected': favorito}"
-                  (click)="favorito = !favorito"></ion-icon>
-        <ion-img [src]="Produto.CaminhoImagem"></ion-img>
+                  (click)="favorito = !favorito" (click)="Favorito(); $event.stopPropagation()"></ion-icon>
+        <ion-img [src]="'data:image/jpeg;base64, ' + Produto.caminhoImagem"></ion-img>
       </div>
 
       <div class="info-container">
-        <span class="titulo bold text-ellipsis-2">{{Produto.Nome}}</span><br>
-        <span class="sub-titulo bold">{{200 | currency:'BRL'}}</span><br>
+        <span class="titulo bold text-ellipsis-2">{{Produto.nome}}</span><br>
+        <span class="sub-titulo bold">{{Produto.valor | currency:'BRL'}}</span><br>
       </div>
     </div>
   </ion-row>

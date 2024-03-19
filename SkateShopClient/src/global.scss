@@ -75,3 +75,17 @@ ion-col {
 .alert-button {
   color: black !important;
 }
+
+ion-img {
+  user-select: none;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-right: 30px;
+
+  ion-img {
+    width: 200px;
+  }
+}

@@ -1,5 +1,6 @@
 ion-card {
   padding: 10px;
+  max-width: 220px;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.03);
@@ -9,6 +10,7 @@ ion-card {
 .produto-container {
   ion-img {
     width: 200px;
+    height: 200px;
   }
 
   .info-container {
