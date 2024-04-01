@@ -50,7 +50,17 @@ namespace SkateShopAPI.Controllers {
             Repository Repository = new Repository();
             Repository.Insert(Produto);
 
-            return new RespostaAPI(new { sucesso = true });
+            ProdutoRetorno ProdutoRetorno = new ProdutoRetorno()
+            {
+                ProdutoID = Produto.Produto1,
+                Nome = Produto.Nome,
+                Valor = Produto.Valor,
+                Destaque = Produto.Destaque,
+                QuantidadeEstoque = Produto.QuantidadeEstoque,
+                TamanhoUnico = Produto.TamanhoUnico
+            };
+
+            return new RespostaAPI(ProdutoRetorno);
         }
 
         [HttpPut("[Controller]")]
@@ -76,7 +86,17 @@ namespace SkateShopAPI.Controllers {
 
             Repository.Update(Produto);
 
-            return new RespostaAPI(new { sucesso = true });
+            ProdutoRetorno ProdutoRetorno = new ProdutoRetorno()
+            {
+                ProdutoID = Produto.Produto1,
+                Nome = Produto.Nome,
+                Valor = Produto.Valor,
+                Destaque = Produto.Destaque,
+                QuantidadeEstoque = Produto.QuantidadeEstoque,
+                TamanhoUnico = Produto.TamanhoUnico
+            };
+
+            return new RespostaAPI(ProdutoRetorno);
         }
 
         [HttpDelete("[Controller]/{id}")]
