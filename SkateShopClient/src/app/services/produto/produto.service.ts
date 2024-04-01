@@ -30,4 +30,8 @@ export class ProdutoService {
 
     return this.http.get(ApiService.url + 'Produto', requestOptions);
   }
+
+  PostProduto(Produto: any) {
+    return this.http.post(ApiService.url + 'Produto', Produto);
+  }
 }

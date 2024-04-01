@@ -1,0 +1,54 @@
+.anexos-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-container {
+  padding: 15px;
+}
+
+@media only screen and (max-width: 954px) {
+  .tela-grande {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 955px) {
+  ion-content {
+    --overflow: hidden;
+  }
+
+  .tela-pequena {
+    display: none;
+  }
+
+  section {
+    display: flex;
+    justify-content: center;
+
+    .produto-container {
+      .form-container {
+        flex: 1;
+      }
+
+      .imagens-container {
+        flex: 1;
+      }
+    }
+  }
+
+  .produto-container {
+    width: 100%;
+    display: flex;
+  }
+
+  .anexos-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 165px);
+  }
+
+  .form-container {
+    border-right: 1px solid rgba(0, 0, 0, 0.123);
+    height: calc(100vh - 150px);
+  }
+}

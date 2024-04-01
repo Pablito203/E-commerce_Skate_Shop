@@ -1,0 +1,11 @@
+ion-card {
+  border: 1px solid rgba(0, 0, 0);
+  cursor: pointer;
+
+  &.disabled {
+    background: linear-gradient(45deg, transparent 48%, rgba(0, 0, 0, .3) 50%, transparent 52%);
+    border: 1px solid rgba(0, 0, 0, .3);
+    color:rgba(0, 0, 0, .5);
+    cursor: auto;
+  }
+}

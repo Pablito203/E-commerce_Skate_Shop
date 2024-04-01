@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertOptions  } from '@ionic/angular';
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
 
@@ -7,7 +7,7 @@ import { AlertaService } from 'src/app/services/alerta/alerta.service';
   templateUrl: './produto-card-lista.component.html',
   styleUrls: ['./produto-card-lista.component.scss'],
 })
-export class ProdutoCardListaComponent implements OnInit {
+export class ProdutoCardListaComponent {
 
   @Input() Tipo: String = "";
   @Input() Produto: any = {};
@@ -17,8 +17,6 @@ export class ProdutoCardListaComponent implements OnInit {
   TimeoutQuantidade: any;
 
   constructor(private AlertaService: AlertaService) { }
-
-  ngOnInit() {}
 
   SubtrairClick() {
     if (!this.Produto.Quantidade || this.Produto.Quantidade <= 1) {return;}

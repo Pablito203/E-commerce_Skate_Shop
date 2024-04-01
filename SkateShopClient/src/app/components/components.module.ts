@@ -6,6 +6,8 @@ import { SacolaComponent } from "./sacola/sacola.component";
 import { ProdutoCardListaComponent } from "./produto-card-lista/produto-card-lista.component";
 import { ProdutoCatalogoComponent } from "./produto-catalogo/produto-catalogo/produto-catalogo.component";
 import { BannerComponent } from "./banner/banner/banner.component";
+import { AnexoCardComponent } from "./anexo-card/anexo-card/anexo-card.component";
+import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { BannerComponent } from "./banner/banner/banner.component";
     FavoritosComponent,
     SacolaComponent,
     ProdutoCatalogoComponent,
-    BannerComponent
+    BannerComponent,
+    AnexoCardComponent,
+    TamanhoComponent
   ],
   imports: [
     IonicModule,
@@ -24,7 +28,9 @@ import { BannerComponent } from "./banner/banner/banner.component";
     FavoritosComponent,
     SacolaComponent,
     ProdutoCatalogoComponent,
-    BannerComponent
+    BannerComponent,
+    AnexoCardComponent,
+    TamanhoComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

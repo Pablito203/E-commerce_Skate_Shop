@@ -89,3 +89,8 @@ ion-img {
     width: 200px;
   }
 }
+
+ion-input {
+  --highlight-color-focused: var(--ion-color-dark) !important;
+  --highlight-color-valid: var(--ion-color-dark) !important;
+}

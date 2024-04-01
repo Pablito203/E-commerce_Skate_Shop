@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>Novo produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ng-template #templateForm>
+  <form #form="ngForm">
+    <ion-list-header class="sub-titulo bold ion-no-padding">
+      Produto
+    </ion-list-header>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Nome" labelPlacement="floating" required [(ngModel)]="Produto.Nome" name="Nome"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input label="Valor" labelPlacement="floating" required [(ngModel)]="Produto.Valor" name="Valor"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="Produto.TamanhoUnico">
+      <ion-col>
+        <ion-item>
+          <ion-input label="Quantidade" labelPlacement="floating" required [(ngModel)]="Produto.Quantidade" name="Quantidade"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <br>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-toggle justify="space-between" [(ngModel)]="Produto.Destaque" color="dark" name="Destaque">Destaque</ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-toggle justify="space-between" [(ngModel)]="Produto.TamanhoUnico" color="dark" name="TamanhoUnico">Tamanho único</ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="!Produto.TamanhoUnico">
+      <ion-list-header class="sub-titulo bold ion-no-padding">
+        Tamanhos
+      </ion-list-header>
+
+      <div *ngIf="EditandoTamanho">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input label="Nome" labelPlacement="floating" [(ngModel)]="TamanhoEdit.Nome" name="TamanhoNome"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input label="Quantidade" labelPlacement="floating" [(ngModel)]="TamanhoEdit.Quantidade" name="TamanhoQuantidade"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col style="display: flex; justify-content: end;">
+            <ion-button fill="outline" color="dark" (click)="cancelarTamanho()">
+              Cancelar
+            </ion-button>
+            <ion-button color="dark" (click)="salvarTamanho()">
+              Salvar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngIf="!EditandoTamanho">
+        <ion-row>
+          <ion-col>
+            <ion-button color="dark" (click)="addTamanho()">
+              Adicionar Tamanho
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col style="display: flex;">
+            <tamanho *ngFor="let Tamanho of Tamanhos" [Tamanho]="Tamanho" (click)="editTamanho(Tamanho)"></tamanho>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ion-content>
+  <section>
+    <div class="produto-container">
+      <div class="form-container">
+        <ion-content class="tela-grande">
+          <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
+        </ion-content>
+
+        <div class="tela-pequena">
+          <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
+        </div>
+
+        <ion-toolbar class="tela-grande">
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" fill="outline" color="dark"(click)="anexar()">
+                Anexar
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" color="dark" (click)="salvar()">
+                Salvar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+      </div>
+
+      <div class="imagens-container">
+        <ion-list-header class="sub-titulo bold">
+          Imagens
+        </ion-list-header>
+
+        <div class="anexos-container">
+          <anexo-card *ngFor="let imagem of Imagens" [src]="imagem.CaminhoArquivo"></anexo-card>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>
+
+<ion-footer class="tela-pequena">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" fill="outline" color="dark"(click)="anexar()">
+          Anexar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="dark" (click)="salvar()">
+          Salvar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
