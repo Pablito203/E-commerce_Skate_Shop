@@ -12,6 +12,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { register } from 'swiper/element/bundle';
+
+register();
 registerLocaleData(localePT);
 
 @NgModule({

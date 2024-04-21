@@ -8,4 +8,7 @@ ion-card {
     color:rgba(0, 0, 0, .5);
     cursor: auto;
   }
+  &.selecionado {
+    background: rgba(172, 255, 47, 0.326);
+  }
 }

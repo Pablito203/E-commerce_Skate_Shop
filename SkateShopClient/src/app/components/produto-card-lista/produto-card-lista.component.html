@@ -2,17 +2,17 @@
   <ion-row>
     <div class="produto-container">
       <div class="img-container">
-        <ion-img [src]="Produto.CaminhoImagem"></ion-img>
+        <ion-img [src]="'data:image/jpeg;base64, ' + Produto.caminhoImagem"></ion-img>
       </div>
 
       <div class="info-container">
-        <span class="titulo bold text-ellipsis-2">{{Produto.Nome}}</span><br>
-        <span class="sub-titulo bold">{{200 | currency:'BRL'}}</span><br>
-        <span *ngIf="Tipo !== 'Favoritos' && Produto.TamanhoNome">Tamanho: {{Produto.TamanhoNome}}</span>
+        <span class="titulo bold text-ellipsis-2">{{Produto.nome}}</span><br>
+        <span class="sub-titulo bold">{{Produto.valor | currency:'BRL'}}</span><br>
+        <span *ngIf="Tipo !== 'Favoritos' && Produto.tamanhoNome">Tamanho: {{Produto.tamanhoNome}}</span>
       </div>
     </div>
   </ion-row>
-  <ion-row>
+  <ion-row (click)="$event.stopPropagation();$event.preventDefault();">
     <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
       <ion-button fill="none" (click)="SubtrairClick()" [disabled]="this.Produto.Quantidade <= 1">
         -
@@ -24,13 +24,13 @@
       </ion-button>
     </ion-col>
     <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
-      <ion-button fill="none" (click)="AdicionarClick()">
+      <ion-button fill="none" (click)="$event.stopPropagation;$event.preventDefault();AdicionarClick()">
         +
       </ion-button>
     </ion-col>
     <ion-col></ion-col>
     <ion-col size="auto" style="display: flex; justify-content: end;">
-      <ion-button fill="none" (click)="ExcluirClick()">
+      <ion-button fill="none" (click)="$event.stopPropagation;$event.preventDefault();ExcluirClick()">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
     </ion-col>

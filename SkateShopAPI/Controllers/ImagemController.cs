@@ -20,7 +20,10 @@ namespace SkateShopAPI.Controllers {
             }).ToList();
 
             foreach (var Imagem in lstImagens) {
-                Imagem.CaminhoImagem = AnexoService.GetCaminhoAbsoluto(Imagem.CaminhoImagem);
+                if (Imagem.CaminhoImagem is not null)
+                {
+                    Imagem.CaminhoImagem = AnexoService.BuscarArquivoBase64(Imagem.CaminhoImagem);
+                }
             }
 
             return new RespostaAPI(lstImagens);

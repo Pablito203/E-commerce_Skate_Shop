@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IonicSlides } from '@ionic/angular';
 
 @Component({
   selector: 'anexo-card',
@@ -6,9 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./anexo-card.component.scss'],
 })
 export class AnexoCardComponent {
-
-  @Input() src: string = "";
+  @Input() Anexos: any[] = [];
+  swiperModules = [IonicSlides]
 
   constructor() { }
-
 }

@@ -9,13 +9,16 @@ export class ModalService {
 
   constructor(private ModalController: ModalController) { }
 
-  CriarModal(Component: any) {
+  CriarModal(component: any, componentProps?: any, cssClass?: string) {
     if (ModalService.ModalAberto) {
       this.ModalController.dismiss();
     }
 
     this.ModalController.create({
-      component: Component
+      component,
+      componentProps,
+      cssClass,
+      backdropDismiss: false,
     }).then((Modal: HTMLIonModalElement) => {
       Modal.present();
       ModalService.ModalAberto = Modal;

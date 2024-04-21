@@ -13,6 +13,6 @@
 
 <ion-content>
   <div *ngFor="let Produto of Sacola; let index = index">
-    <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()"></produto-card-lista>
+    <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()" (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
   </div>
 </ion-content>

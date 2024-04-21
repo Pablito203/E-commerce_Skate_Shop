@@ -12,4 +12,8 @@ export class TamanhoService {
   PostTamanho(tamanho: any) {
     return this.http.post(ApiService.url + 'Tamanho', tamanho);
   }
+
+  GetTamanho(ProdutoID: number) {
+    return this.http.get(ApiService.url + 'Tamanho/' + ProdutoID);
+  }
 }

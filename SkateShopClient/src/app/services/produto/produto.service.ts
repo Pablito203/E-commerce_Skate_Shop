@@ -16,6 +16,13 @@ export class ProdutoService {
     return this.GetRequisicao(headers);
   }
 
+  GetByID(ProdutoID : number) {
+    let headers = new HttpHeaders();
+    headers = headers.set('ListaID', ProdutoID.toString());
+
+    return this.GetRequisicao(headers);
+  }
+
   GetDestaques() {
     let headers = new HttpHeaders();
     headers = headers.set('tipo', 'destaques');

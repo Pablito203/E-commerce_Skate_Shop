@@ -25,6 +25,7 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+
 html, body {
   color: black;
 }
@@ -93,4 +94,20 @@ ion-img {
 ion-input {
   --highlight-color-focused: var(--ion-color-dark) !important;
   --highlight-color-valid: var(--ion-color-dark) !important;
+}
+
+@media only screen and (min-width: 768px) {
+  ion-modal.big {
+    --width: 768px;
+    --height: 615px;
+  }
+}
+
+ion-toast {
+  --background: rgb(95, 155, 6);
+
+  &.web {
+    top: 50px;
+    font-size: 20px;
+  }
 }

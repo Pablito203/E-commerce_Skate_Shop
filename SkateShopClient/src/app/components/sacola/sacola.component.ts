@@ -1,6 +1,8 @@
+import { SacolaService } from './../../services/sacola/sacola.service';
 import { Storage } from '@ionic/storage-angular';
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { ProdutoDetalheComponent } from '../produto-detalhe/produto-detalhe/produto-detalhe.component';
 
 @Component({
   selector: 'sacola',
@@ -10,10 +12,12 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 export class SacolaComponent implements OnInit {
   Sacola = [];
 
-  constructor(private Storage: Storage) {}
+  constructor(private Storage: Storage,
+              private sacolaService: SacolaService,
+              private modalService: ModalService) {}
 
   ngOnInit(): void {
-    this.Storage.get('sacola').then((data) => {
+    this.sacolaService.getSacola().then((data) => {
       this.Sacola = data;
     })
   }
@@ -30,5 +34,9 @@ export class SacolaComponent implements OnInit {
 
   Salvar(): void {
     this.Storage.set('sacola', this.Sacola);
+  }
+
+  AbrirModalProdutoDetalhe(produto: any) {
+    this.modalService.CriarModal(ProdutoDetalheComponent, { ProdutoID: produto.produtoID }, "big");
   }
 }

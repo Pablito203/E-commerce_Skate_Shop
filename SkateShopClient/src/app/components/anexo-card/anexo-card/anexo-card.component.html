@@ -1,3 +1,8 @@
-<ion-card>
-  <ion-img [src]="src"></ion-img>
-</ion-card>
+<div>
+  <swiper-container [modulues]="swiperModules" [initialSlide]="1" [centeredSlides]="true" [autoplay]="true"
+    [pagination]="{clickable: true, dynamicBullets: true}">
+    <swiper-slide *ngFor="let anexo of Anexos">
+      <img [src]="anexo.imagemID ? 'data:image/jpeg;base64, ' + anexo.caminhoImagem : anexo.caminhoImagem"/>
+    </swiper-slide>
+  </swiper-container>
+</div>

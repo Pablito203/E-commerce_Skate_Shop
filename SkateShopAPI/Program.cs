@@ -22,15 +22,13 @@ namespace SkateShopAPI
                 Options.UseSqlServer(ConnectionString);
             });
 
-            var chaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaas");
-            AppSettingsService.ChaveAsaas = chaveAsaas;
-
+            AppSettingsService.ChaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaas");
 
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy => {
-                                      policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                                  });
+                    policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
             });
 
             var app = builder.Build();

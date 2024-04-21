@@ -1,14 +1,38 @@
-ion-card {
-  width: 200px;
-  height: 200px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@media only screen and (min-width: 768px) {
+  div {
+    width: 400px;
+    min-height: 480px;
+    max-height: 480px;
+  }
 }
 
-ion-img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
+@media only screen and (max-width: 767px) {
+  div {
+    width: 100vw;
+    // min-height: 480px;
+    // max-height: 480px;
+  }
+}
+
+div {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+swiper-slide {
+  width: 100%;
+  align-self: center;
+  // max-height: 480px;
+}
+
+img {
+  width: 100%;
+  // max-height: 480px;
+}
+
+swiper-container {
+  --swiper-pagination-color: black;
+  min-height: 480px;
+  max-height: 500px;
+  display: flex;
+  align-items: center;
 }

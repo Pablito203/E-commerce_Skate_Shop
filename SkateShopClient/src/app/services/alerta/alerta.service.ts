@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AlertController, AlertOptions  } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
+import { AlertController, AlertOptions } from '@ionic/angular';
+import { ToastController, ToastOptions } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,8 @@ import { AlertController, AlertOptions  } from '@ionic/angular';
 export class AlertaService {
   static AlertaAberto: HTMLIonAlertElement | undefined = undefined;
 
-  constructor(private AlertController: AlertController) { }
+  constructor(private AlertController: AlertController,
+              private toastController: ToastController) { }
 
   CriarAlerta(options: AlertOptions) {
     if (AlertaService.AlertaAberto) {
@@ -24,5 +27,15 @@ export class AlertaService {
     if (!AlertaService.AlertaAberto) { return; }
     AlertaService.AlertaAberto.dismiss();
     AlertaService.AlertaAberto = undefined;
+  }
+
+  CriarToast(options: ToastOptions) {
+    if (Capacitor.getPlatform() === 'web') {
+      options.cssClass = 'web';
+      options.position = 'top';
+    }
+    options.duration = 1000;
+
+    this.toastController.create(options).then(toast => toast.present());
   }
 }

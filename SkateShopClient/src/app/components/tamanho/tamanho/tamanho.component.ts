@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TamanhoComponent {
   @Input() Tamanho: any = {}
   @Input() Disabled: boolean = false;
+  @Input() Selecionado: boolean = false;
 
   constructor() { }
 

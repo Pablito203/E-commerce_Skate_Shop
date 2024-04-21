@@ -17,4 +17,8 @@ export class ImagemService {
 
     return this.http.post(ApiService.url + 'Imagem', formData);
   }
+
+  Getimagens(ProdutoID: number) {
+    return this.http.get(ApiService.url + 'imagem/' + ProdutoID);
+  }
 }

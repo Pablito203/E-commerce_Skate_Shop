@@ -1,4 +1,5 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe/produto-detalhe.component';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { CommonModule } from '@angular/common';
 import { FavoritosComponent } from "./favoritos/favoritos.component";
@@ -8,7 +9,6 @@ import { ProdutoCatalogoComponent } from "./produto-catalogo/produto-catalogo/pr
 import { BannerComponent } from "./banner/banner/banner.component";
 import { AnexoCardComponent } from "./anexo-card/anexo-card/anexo-card.component";
 import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
-
 @NgModule({
   declarations: [
     ProdutoCardListaComponent,
@@ -17,7 +17,8 @@ import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
     ProdutoCatalogoComponent,
     BannerComponent,
     AnexoCardComponent,
-    TamanhoComponent
+    TamanhoComponent,
+    ProdutoDetalheComponent
   ],
   imports: [
     IonicModule,
@@ -30,10 +31,12 @@ import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
     ProdutoCatalogoComponent,
     BannerComponent,
     AnexoCardComponent,
-    TamanhoComponent
+    TamanhoComponent,
+    ProdutoDetalheComponent
   ],
   schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
   ],
   providers: [
 

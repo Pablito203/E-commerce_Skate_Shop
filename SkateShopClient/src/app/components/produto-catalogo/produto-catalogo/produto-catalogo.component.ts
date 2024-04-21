@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProdutoDetalheComponent } from '../../produto-detalhe/produto-detalhe/produto-detalhe.component';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
   selector: 'produto-catalogo',
@@ -16,15 +18,17 @@ export class ProdutoCatalogoComponent {
   @Output() FavoritoClick: EventEmitter<void> = new EventEmitter<void>
 
   favorito = false;
-  constructor() { }
+  constructor(private modalService: ModalService) { }
 
   Favorito() {
     this.FavoritoClick.emit();
-    console.log('favorito')
   }
 
   Card() {
     this.FavoritoClick.emit();
-    console.log('card')
+  }
+
+  AbrirModalProdutoDetalhe() {
+    this.modalService.CriarModal(ProdutoDetalheComponent, { ProdutoID: this.Produto.produtoID }, "big");
   }
 }

@@ -63,7 +63,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input label="Nome" labelPlacement="floating" [(ngModel)]="TamanhoEdit.Nome" name="TamanhoNome"></ion-input>
+              <ion-input label="Nome" labelPlacement="floating" [(ngModel)]="TamanhoEdit.nome" name="TamanhoNome"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -71,7 +71,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input label="Quantidade" labelPlacement="floating" [(ngModel)]="TamanhoEdit.Quantidade" name="TamanhoQuantidade"></ion-input>
+              <ion-input label="Quantidade" labelPlacement="floating" [(ngModel)]="TamanhoEdit.quantidade" name="TamanhoQuantidade"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -141,7 +141,7 @@
         </ion-list-header>
 
         <div class="anexos-container">
-          <anexo-card *ngFor="let imagem of Imagens" [src]="imagem.CaminhoArquivo"></anexo-card>
+          <anexo-card [Anexos]="Imagens"></anexo-card>
         </div>
       </div>
     </div>

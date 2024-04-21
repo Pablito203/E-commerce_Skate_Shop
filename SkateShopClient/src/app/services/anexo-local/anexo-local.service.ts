@@ -26,7 +26,7 @@ export class AnexoLocalService {
           return {
             Nome: file.name,
             Arquivo: blobComprimido,
-            CaminhoArquivo: URL.createObjectURL(blobComprimido)
+            caminhoImagem: URL.createObjectURL(blobComprimido)
           }
         }))
       })

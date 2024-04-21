@@ -28,7 +28,7 @@
       </ion-list-header>
 
       <div class="carrosel">
-        <produto-catalogo *ngFor="let produto of lancamentos" [Produto]="produto" routerLink="/produto/{{produto.produtoID}}"></produto-catalogo>
+        <produto-catalogo *ngFor="let produto of lancamentos" [Produto]="produto"></produto-catalogo>
       </div>
     </div>
   </section>
@@ -40,7 +40,7 @@
       </ion-list-header>
 
       <div class="carrosel">
-        <produto-catalogo *ngFor="let produto of destaques" [Produto]="produto" routerLink="/produto/{{produto.produtoID}}"></produto-catalogo>
+        <produto-catalogo *ngFor="let produto of destaques" [Produto]="produto"></produto-catalogo>
       </div>
     </div>
   </section>

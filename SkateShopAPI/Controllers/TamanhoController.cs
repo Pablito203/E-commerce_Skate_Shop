@@ -23,13 +23,13 @@ namespace SkateShopAPI.Controllers {
         }
 
         [HttpPost]
-        public RespostaAPI PostEndereco(TamanhoBody TamanhoBody) {
-            if (!TamanhoBody.ProdutoID.HasValue) {
+        public RespostaAPI PostTamanho(TamanhoBody TamanhoBody) {
+            if (TamanhoBody.ProdutoID <= 0) {
                 return new RespostaAPI("Registro relacionado não encontrado");
             }
 
             Tamanho Tamanho = new Tamanho() {
-                Produto = TamanhoBody.TamanhoID.Value,
+                Produto = TamanhoBody.ProdutoID,
                 Nome = TamanhoBody.Nome,
                 Quantidade = TamanhoBody.Quantidade
             };
@@ -47,7 +47,7 @@ namespace SkateShopAPI.Controllers {
         }
         
         [HttpPut]
-        public RespostaAPI PutEndereco(TamanhoBody TamanhoBody) {
+        public RespostaAPI PutTamanho(TamanhoBody TamanhoBody) {
             if (!TamanhoBody.TamanhoID.HasValue) {
                 return new RespostaAPI("Registro não encontrado");
             }

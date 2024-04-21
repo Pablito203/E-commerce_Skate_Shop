@@ -22,5 +22,4 @@ export class HomePage implements OnInit {
       this.destaques = value.result;
     });
   }
-
 }

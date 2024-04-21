@@ -76,7 +76,6 @@ export class AddProdutoPage {
 
       if (promises.length > 0) {
         Promise.all(promises).then((values) => {
-          console.log(values)
           this.navController.navigateBack('/');
         })
       } else {

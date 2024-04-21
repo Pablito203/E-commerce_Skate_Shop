@@ -7,10 +7,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'produto/:id',
-    loadChildren: () => import('./pages/produto/produto.module').then( m => m.ProdutoPageModule)
-  },  {
     path: 'add-produto',
+    loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule)
+  },
+  {
+    path: 'add-produto/:id',
     loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule)
   }
 

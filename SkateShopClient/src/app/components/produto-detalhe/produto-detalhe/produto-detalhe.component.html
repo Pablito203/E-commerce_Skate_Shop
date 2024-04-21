@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="end">
+      <ion-button (click)="FecharModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="anexos-container">
+      <anexo-card [Anexos]="Imagens"></anexo-card>
+    </div>
+
+    <div class="form-container">
+      <ion-row>
+        <ion-col>
+          <h1 class="horizontal-padding">{{Produto.nome}}</h1>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h3 class="horizontal-padding">{{Produto.valor | currency:'BRL'}}</h3>
+        </ion-col>
+      </ion-row>
+
+      <div *ngIf="Tamanhos.length > 0">
+        <ion-row>
+          <ion-col>
+            <h3 class="horizontal-padding">Tamanhos</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="tamanho-container">
+            <tamanho *ngFor="let Tamanho of Tamanhos" [Tamanho]="Tamanho" [Selecionado]="TamanhoSelecionadoID == Tamanho.tamanhoID" (click)="setTamanhoSelecionado(Tamanho)"></tamanho>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </section>
+</ion-content>
+
+<ion-footer class="tela-pequena">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" fill="outline" color="dark">
+          Editar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="dark" (click)="addSacola()">
+          Adicionar na sacola
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
