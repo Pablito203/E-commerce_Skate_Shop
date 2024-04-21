@@ -10,7 +10,11 @@ import { Storage } from "@ionic/storage-angular";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private modalService: ModalService) {}
+  constructor(private modalService: ModalService,
+              private storage: Storage)
+  {
+    this.storage.create();
+  }
 
   AbrirModalFavoritos() {
     this.modalService.CriarModal(FavoritosComponent);
