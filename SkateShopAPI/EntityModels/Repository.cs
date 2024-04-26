@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 namespace SkateShopAPI.EntityModels {
-    public class Repository {
+    public class Repository: IDisposable {
         public SkateShopContext? Context = null;
 
         public void GenerateContext() {
@@ -78,6 +78,14 @@ namespace SkateShopAPI.EntityModels {
             }
 
             return Context.Set<T>().AsNoTracking().Where(filter);
+        }
+
+        public void Dispose()
+        {
+            if (this.Context != null) {
+                this.Context.Dispose();
+                this.Context = null;
+            }
         }
     }
 }

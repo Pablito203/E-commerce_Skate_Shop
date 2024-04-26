@@ -19,6 +19,7 @@ namespace SkateShopAPI.Controllers {
                 PossuiPedido = p.PedidoProdutos.Any()
             }).ToList();
 
+            Repository.Dispose();
             return new RespostaAPI(lstTamanho);
         }
 
@@ -43,6 +44,8 @@ namespace SkateShopAPI.Controllers {
             }
             catch {
                 return new RespostaAPI("Registro relacionado não encontrado");
+            } finally { 
+                Repository.Dispose();
             }
         }
         
@@ -77,6 +80,8 @@ namespace SkateShopAPI.Controllers {
             }
             catch {
                 return new RespostaAPI("Registro relacionado não encontrado");
+            } finally {
+                Repository.Dispose();
             }
         }
 
@@ -98,6 +103,8 @@ namespace SkateShopAPI.Controllers {
             }
 
             Repository.Delete(TamanhoDados.Tamanho);
+
+            Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
         }

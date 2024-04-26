@@ -21,6 +21,7 @@ namespace SkateShopAPI.Controllers {
                 Complemento = p.Complemento
             }).ToList();
 
+            Repository.Dispose();
             return new RespostaAPI(lstEndereco);
         }
 
@@ -48,7 +49,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI(new { sucesso = true });
             } catch {
                 return new RespostaAPI("Registro relacionado não encontrado");
-            }
+            } finally { Repository.Dispose(); }
         }
         
         [HttpPut]
@@ -82,7 +83,7 @@ namespace SkateShopAPI.Controllers {
             Endereco.Complemento = EnderecoBody.Complemento;
 
             Repository.Update(Endereco);
-
+            Repository.Dispose();
             return new RespostaAPI(new { sucesso = true });
         }
 
@@ -104,7 +105,7 @@ namespace SkateShopAPI.Controllers {
             }
 
             Repository.Delete(EnderecoDados.Endereco);
-
+            Repository.Dispose();
             return new RespostaAPI(new { sucesso = true });
         }
     }

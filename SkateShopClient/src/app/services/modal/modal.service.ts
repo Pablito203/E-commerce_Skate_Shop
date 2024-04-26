@@ -17,9 +17,11 @@ export class ModalService {
     this.ModalController.create({
       component,
       componentProps,
-      cssClass,
-      backdropDismiss: false,
+      cssClass
     }).then((Modal: HTMLIonModalElement) => {
+      Modal.onDidDismiss().then(() => {
+        ModalService.ModalAberto = undefined;
+      })
       Modal.present();
       ModalService.ModalAberto = Modal;
     });

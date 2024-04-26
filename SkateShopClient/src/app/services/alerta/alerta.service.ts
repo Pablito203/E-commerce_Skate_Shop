@@ -18,6 +18,10 @@ export class AlertaService {
     }
 
     this.AlertController.create(options).then((Alerta: HTMLIonAlertElement) => {
+      Alerta.onDidDismiss().then(() => {
+        AlertaService.AlertaAberto = undefined;
+      });
+
       Alerta.present();
       AlertaService.AlertaAberto = Alerta;
     });

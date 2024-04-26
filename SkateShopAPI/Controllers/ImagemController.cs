@@ -19,6 +19,7 @@ namespace SkateShopAPI.Controllers {
                 CaminhoImagem = p.CaminhoRelativo
             }).ToList();
 
+            repository.Dispose();
             foreach (var Imagem in lstImagens) {
                 if (Imagem.CaminhoImagem is not null)
                 {
@@ -67,6 +68,7 @@ namespace SkateShopAPI.Controllers {
 
                 Repository Repository = new Repository();
                 Repository.Insert(Anexo);
+                Repository.Dispose();
 
                 return new RespostaAPI(new { sucesso = true });
             }
@@ -92,6 +94,7 @@ namespace SkateShopAPI.Controllers {
             }
 
             Repository.Delete(Imagem);
+            Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
         }

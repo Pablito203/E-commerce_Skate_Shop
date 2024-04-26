@@ -36,6 +36,7 @@ namespace SkateShopAPI.Controllers {
                 CodigoPagamentoPix = p.CodigoPagamentoPix,
                 ImagemPagamentoPix = p.CaminhoRelativoImagemPix
             }).ToList();
+            Repository.Dispose();
 
             foreach (var Produto in lstProduto) {
                 Produto.ImagemPagamentoPix = AnexoService.GetCaminhoAbsoluto(Produto.ImagemPagamentoPix);
@@ -62,6 +63,7 @@ namespace SkateShopAPI.Controllers {
                 TamanhoNome = p.TamanhoNavigation.Nome,
                 CaminhoImagem = p.ProdutoNavigation.Anexos.First().CaminhoRelativo
             }).ToList();
+            Repository.Dispose();
 
             foreach (var Produto in lstProduto)
             {
@@ -109,6 +111,7 @@ namespace SkateShopAPI.Controllers {
 
             Repository.Insert(ListaProdutoSalvar);
 
+            Repository.Dispose();
             PedidoRetorno PedidoRetorno = new PedidoRetorno() {
                 PedidoID = Pedido.Pedido1,
                 Valor = Pedido.Valor,

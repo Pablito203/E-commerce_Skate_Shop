@@ -24,6 +24,7 @@ namespace SkateShopAPI.Controllers {
                 TamanhoUnico = p.TamanhoUnico,
                 CaminhoImagem = p.Anexos.Select((p) => p.CaminhoRelativo).FirstOrDefault(),
             }).ToList();
+            Repository.Dispose();
 
             foreach (var Produto in lstProduto)
             {
@@ -49,6 +50,7 @@ namespace SkateShopAPI.Controllers {
 
             Repository Repository = new Repository();
             Repository.Insert(Produto);
+            Repository.Dispose();
 
             ProdutoRetorno ProdutoRetorno = new ProdutoRetorno()
             {
@@ -84,6 +86,7 @@ namespace SkateShopAPI.Controllers {
             Produto.QuantidadeEstoque = ProdutoBody.QuantidadeEstoque;
             Produto.TamanhoUnico = ProdutoBody.TamanhoUnico;
 
+            Repository.Dispose();
             Repository.Update(Produto);
 
             ProdutoRetorno ProdutoRetorno = new ProdutoRetorno()
@@ -122,6 +125,7 @@ namespace SkateShopAPI.Controllers {
             Repository.Delete(ProdutoDados.Produto);
             Repository.Delete(lstTamanhoProduto);
             Repository.Delete(lstAnexo);
+            Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
         }
@@ -130,7 +134,7 @@ namespace SkateShopAPI.Controllers {
         public RespostaAPI GetProdutoID() {
             Repository Repository = new Repository();
             var lstProdutoID = Repository.FilterQuery<Produto>((p) => true).Select((p) => p.Produto1).ToList();
-
+            Repository.Dispose();
             return new RespostaAPI(lstProdutoID);
         }
 

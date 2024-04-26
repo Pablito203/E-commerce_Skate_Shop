@@ -13,6 +13,7 @@ namespace SkateShopAPI.Controllers {
                 UsuarioID = p.Usuario1,
                 Nome = p.Nome
             }).FirstOrDefault();
+            Repository.Dispose();
 
             if (Usuario == null) {
                 return new RespostaAPI("Login ou senha incorretos");

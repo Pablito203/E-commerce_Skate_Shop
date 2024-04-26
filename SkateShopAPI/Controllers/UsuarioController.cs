@@ -17,6 +17,7 @@ namespace SkateShopAPI.Controllers {
                 CpfCnpj = p.CpfCnpj,
                 Email = p.Email
             }).FirstOrDefault();
+            Repository.Dispose();
 
             if (Usuario is null) {
                 return new RespostaAPI("Registro não encontrado");
@@ -42,6 +43,7 @@ namespace SkateShopAPI.Controllers {
 
             Repository Repository = new Repository();
             Repository.Insert(Usuario);
+            Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
         }
@@ -69,6 +71,7 @@ namespace SkateShopAPI.Controllers {
             Usuario.CpfCnpj = UsuarioBody.CpfCnpj;
 
             Repository.Update(Usuario);
+            Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
         }
