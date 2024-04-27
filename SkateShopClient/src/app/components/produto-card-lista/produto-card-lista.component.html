@@ -24,13 +24,13 @@
       </ion-button>
     </ion-col>
     <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
-      <ion-button fill="none" (click)="$event.stopPropagation;$event.preventDefault();AdicionarClick()">
+      <ion-button fill="none" (click)="AdicionarClick()">
         +
       </ion-button>
     </ion-col>
     <ion-col></ion-col>
     <ion-col size="auto" style="display: flex; justify-content: end;">
-      <ion-button fill="none" (click)="$event.stopPropagation;$event.preventDefault();ExcluirClick()">
+      <ion-button fill="none" (click)="ExcluirClick()">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
     </ion-col>

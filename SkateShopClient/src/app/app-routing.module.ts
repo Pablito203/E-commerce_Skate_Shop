@@ -13,9 +13,11 @@ const routes: Routes = [
   {
     path: 'add-produto/:id',
     loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule)
+  },
+  {
+    path: 'finalizar-pedido',
+    loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule)
   }
-
-
 ];
 @NgModule({
   imports: [

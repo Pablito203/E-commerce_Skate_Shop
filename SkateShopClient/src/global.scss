@@ -91,7 +91,7 @@ ion-img {
   }
 }
 
-ion-input {
+ion-input, ion-select {
   --highlight-color-focused: var(--ion-color-dark) !important;
   --highlight-color-valid: var(--ion-color-dark) !important;
 }
@@ -109,5 +109,9 @@ ion-toast {
   &.web {
     top: 50px;
     font-size: 20px;
+  }
+
+  &.erro {
+    --background: rgb(155, 6, 6);
   }
 }

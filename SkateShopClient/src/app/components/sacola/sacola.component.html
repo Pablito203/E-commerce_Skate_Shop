@@ -16,3 +16,11 @@
     <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()" (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="dark" (click)="FecharPedido()">Finalizar Pedido</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

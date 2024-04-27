@@ -33,13 +33,22 @@ export class AlertaService {
     AlertaService.AlertaAberto = undefined;
   }
 
-  CriarToast(options: ToastOptions) {
+  CriarToast(options: ToastOptions, erro: boolean = false) {
+    options.cssClass = [];
+    if (erro) {
+      options.cssClass.push('erro');
+    }
+
     if (Capacitor.getPlatform() === 'web') {
-      options.cssClass = 'web';
+      options.cssClass.push('web');
       options.position = 'top';
     }
     options.duration = 1000;
 
     this.toastController.create(options).then(toast => toast.present());
+  }
+
+  CriarToastMensagem(message: string, erro: boolean = false) {
+    this.CriarToast({message}, erro);
   }
 }

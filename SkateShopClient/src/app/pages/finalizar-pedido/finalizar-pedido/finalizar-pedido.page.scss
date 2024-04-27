@@ -1,0 +1,52 @@
+section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+div.pedido {
+  div.finalizar {
+    min-width: 350px;
+
+    ion-card-content {
+      height: 200px;
+    }
+
+    ion-content {
+      height: 130px;
+    }
+
+    ion-footer {
+      box-shadow: none;
+    }
+  }
+
+  .valor {
+    float: right;
+    text-align: right;
+  }
+
+  ion-row {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  div.pedido {
+    max-width: 1000px !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    div.produto-container {
+      max-width: 750px;
+      width: 100%;
+    }
+  }
+}
+
+.nenhum-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

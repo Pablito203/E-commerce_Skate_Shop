@@ -37,7 +37,7 @@ export class ProdutoCardListaComponent {
 
     this.TimeoutQuantidade = setTimeout(() => {
       this.Alterado.emit();
-    }, 1000);
+    }, 400);
   }
 
   ExcluirClick() {

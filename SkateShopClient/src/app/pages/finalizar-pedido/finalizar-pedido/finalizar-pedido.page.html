@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>Finalizar pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="pedido">
+      <div class="produto-container">
+        <ion-card>
+          <ion-card-content>
+            <ng-container *ngIf="Sacola && Sacola.length; else noItems">
+              <div *ngFor="let Produto of Sacola; let index = index" >
+                <produto-card-lista [Tipo]="'Sacola'"
+                  [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="SalvarSacola()"
+                  (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
+              </div>
+            </ng-container>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <div class="finalizar">
+        <ion-card>
+          <ion-card-content>
+            <ion-content>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-select label="Endereço" label-placement="floating" [value]="enderecoSelecionadoID" (ionChange)="setEnderecoSelecionado($event)">
+                      <ion-select-option *ngFor="let Endereco of Enderecos" [value]="Endereco.enderecoID">{{GetNomeEndereco(Endereco)}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6">
+                  <h2>Total</h2>
+                </ion-col>
+                <ion-col size="6" class="valor">
+                  <h2>{{Total | currency:'BRL'}}</h2>
+                </ion-col>
+              </ion-row>
+            </ion-content>
+            <ion-footer>
+              <ion-row>
+                <ion-col>
+                  <ion-button color="dark" expand="full" (click)="FinalizarPedido()">
+                    Finalizar Pedido
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-footer>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </section>
+</ion-content>
+
+<ng-template #noItems>
+  <div class="nenhum-item">
+    <span>Nenhum item encontrado!</span>
+  </div>
+</ng-template>

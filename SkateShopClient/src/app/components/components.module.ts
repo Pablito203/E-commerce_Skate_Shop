@@ -9,6 +9,7 @@ import { ProdutoCatalogoComponent } from "./produto-catalogo/produto-catalogo/pr
 import { BannerComponent } from "./banner/banner/banner.component";
 import { AnexoCardComponent } from "./anexo-card/anexo-card/anexo-card.component";
 import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
+
 @NgModule({
   declarations: [
     ProdutoCardListaComponent,
