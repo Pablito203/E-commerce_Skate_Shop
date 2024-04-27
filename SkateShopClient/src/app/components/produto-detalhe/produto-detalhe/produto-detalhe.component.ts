@@ -27,7 +27,7 @@ export class ProdutoDetalheComponent  implements OnInit {
 
   ngOnInit() {
     this.sacolaService.getSacola().then((data) => {
-      this.Sacola = data;
+      this.Sacola = data || [];
     });
     this.getProduto();
     this.getImagens();
