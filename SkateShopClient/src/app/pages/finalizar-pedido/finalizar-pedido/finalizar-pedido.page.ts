@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../../services/usuario/usuario.service';
 import { NavController } from '@ionic/angular';
 import { PedidoService } from './../../../services/pedido/pedido.service';
 import { AlertaService } from './../../../services/alerta/alerta.service';
@@ -26,7 +27,12 @@ export class FinalizarPedidoPage implements OnInit {
               private navController: NavController) { }
 
   ngOnInit() {
-    this.enderecoService.GetEnderecosUsuario(3).subscribe((data: any) => {
+    this.enderecoService.GetEnderecosUsuario(UsuarioService.usuarioLogado?.usuarioID).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
       this.Enderecos = data.result;
       this.enderecoSelecionadoID = this.Enderecos[0].enderecoID || 0;
     });
@@ -77,12 +83,16 @@ export class FinalizarPedidoPage implements OnInit {
     }
 
     let pedido = {
-      usuarioID: 3,
+      usuarioID: UsuarioService.usuarioLogado?.usuarioID,
       enderecoID: this.enderecoSelecionadoID,
       listaProduto: this.Sacola
     }
 
     this.pedidoService.CriarPedido(pedido).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
       this.alertaService.CriarToastMensagem("Pedido Realizado com sucesso, aguardando pagamento")
       this.sacolaService.salvarSacola([]);
       this.navController.navigateBack('/')

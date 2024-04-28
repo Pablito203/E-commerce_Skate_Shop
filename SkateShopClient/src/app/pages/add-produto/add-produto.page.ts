@@ -1,3 +1,4 @@
+import { AlertaService } from './../../services/alerta/alerta.service';
 import { TamanhoService } from './../../services/tamanho/tamanho.service';
 import { ImagemService } from './../../services/imagem/imagem.service';
 import { AnexoLocalService } from './../../services/anexo-local/anexo-local.service';
@@ -29,7 +30,8 @@ export class AddProdutoPage {
               private navController: NavController,
               private anexoLocalService: AnexoLocalService,
               private imagemService: ImagemService,
-              private tamanhoService: TamanhoService) { }
+              private tamanhoService: TamanhoService,
+              private alertaService: AlertaService) { }
 
   anexar() {
     this.anexoLocalService.Carregar().then((values: any[]) => {
@@ -58,18 +60,23 @@ export class AddProdutoPage {
   }
 
   salvar() {
-    this.produtoService.PostProduto(this.Produto).subscribe((value: any) => {
+    this.produtoService.PostProduto(this.Produto).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
       let promises: any = [];
       if (this.Imagens.length > 0) {
         this.Imagens.forEach(imagem => {
-          imagem.ProdutoID = value.result.produtoID;
+          imagem.ProdutoID = data.result.produtoID;
           promises.push(lastValueFrom(this.imagemService.PostImagem(imagem)))
         })
       }
 
       if (!this.Produto.TamanhoUnico && this.Tamanhos.length > 0) {
         this.Tamanhos.forEach(tamanho => {
-          tamanho.ProdutoID = value.result.produtoID;
+          tamanho.ProdutoID = data.result.produtoID;
           promises.push(lastValueFrom(this.tamanhoService.PostTamanho(tamanho)))
         })
       }

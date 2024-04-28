@@ -9,6 +9,11 @@ namespace SkateShopAPI.Controllers {
 
         [HttpGet("{id}")]
         public RespostaAPI GetEndereco(int id) {
+            if (id == 0)
+            {
+                return new RespostaAPI("Usuário inválido");
+            }
+
             Repository Repository = new();
 
             var lstEndereco = Repository.FilterQuery<Endereco>((p) => p.Usuario == id).Select((p) => new EnderecoRetorno {

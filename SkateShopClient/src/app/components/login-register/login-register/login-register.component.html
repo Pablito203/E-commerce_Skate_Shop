@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title color="light">Login</ion-title>
+    <ion-title color="light">{{cadastrar ? 'Cadastre-se' : 'Login'}}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="FecharModal()">
@@ -12,42 +12,52 @@
 
 
 <ion-content>
-  <form #form="ngForm">
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input labelPlacement="floating" label="login" name="login" [(ngModel)]="login.email"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+  <ng-container *ngIf="!cadastrar; else formRegistrar">
+    <form #form="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input labelPlacement="floating" label="email" name="email" [(ngModel)]="login.email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input labelPlacement="floating" label="senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </form>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input labelPlacement="floating" label="senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ng-container>
 </ion-content>
 
 <ion-footer>
-  <ion-row>
+  <ion-row *ngIf="!cadastrar">
     <ion-col>
-      <ion-button expand="block" color="dark" fill="outline">Cadastrar-se</ion-button>
+      <ion-button expand="block" color="dark" fill="outline" (click)="toggleCadastrar()">Cadastrar-se</ion-button>
     </ion-col>
     <ion-col>
       <ion-button expand="block" color="dark" (click)="Acessar()">Acessar</ion-button>
     </ion-col>
   </ion-row>
+  <ion-row *ngIf="cadastrar">
+    <ion-col>
+      <ion-button expand="block" color="dark" fill="outline" (click)="toggleCadastrar()">Login</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" color="dark" (click)="Cadastrar()">Cadastrar</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-footer>
 
-<ng-template #registrar>
+<ng-template #formRegistrar>
   <form #form="ngForm">
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="login" name="login" [(ngModel)]="login.email"></ion-input>
+          <ion-input labelPlacement="floating" label="nome" name="nome" [(ngModel)]="cadastro.nome"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -55,7 +65,23 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
+          <ion-input labelPlacement="floating" label="cpf" name="cpf" [(ngModel)]="cadastro.cpf"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="email" name="email" [(ngModel)]="cadastro.email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="senha" name="senha" type="password" [(ngModel)]="cadastro.senha"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

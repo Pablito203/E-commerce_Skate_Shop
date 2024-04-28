@@ -23,7 +23,7 @@ export class ProdutoDetalheComponent  implements OnInit {
               private produtoService: ProdutoService,
               private tamanhoService: TamanhoService,
               private sacolaService: SacolaService,
-              private AlertaService: AlertaService) { }
+              private alertaService: AlertaService) { }
 
   ngOnInit() {
     this.sacolaService.getSacola().then((data) => {
@@ -35,20 +35,35 @@ export class ProdutoDetalheComponent  implements OnInit {
   }
 
   getProduto () {
-    return this.produtoService.GetByID(this.ProdutoID).subscribe((value: any) => {
-      this.Produto = value.result[0];
+    return this.produtoService.GetByID(this.ProdutoID).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
+      this.Produto = data.result[0];
     })
   }
 
   getImagens() {
-    return this.imagemService.Getimagens(this.ProdutoID).subscribe((value: any) => {
-      this.Imagens = value.result;
+    return this.imagemService.Getimagens(this.ProdutoID).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
+      this.Imagens = data.result;
     })
   }
 
   getTamanhos() {
-    return this.tamanhoService.GetTamanho(this.ProdutoID).subscribe((value: any) => {
-      this.Tamanhos = value.result;
+    return this.tamanhoService.GetTamanho(this.ProdutoID).subscribe((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
+      this.Tamanhos = data.result;
       if (this.Tamanhos.length) {
         this.setTamanhoSelecionado(this.Tamanhos[0]);
       }
@@ -77,7 +92,7 @@ export class ProdutoDetalheComponent  implements OnInit {
     if (ProdutoSacola) {
       ProdutoSacola.Quantidade++;
       this.sacolaService.salvarSacola(this.Sacola);
-      this.mostrarToast('Produto adicionado na sacola');
+      this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
       return;
     }
 
@@ -97,10 +112,6 @@ export class ProdutoDetalheComponent  implements OnInit {
 
     this.Sacola.push(Produto);
     this.sacolaService.salvarSacola(this.Sacola);
-    this.mostrarToast('Produto adicionado na sacola');
-  }
-
-  mostrarToast(message: string) {
-    this.AlertaService.CriarToast({message});
+    this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
   }
 }

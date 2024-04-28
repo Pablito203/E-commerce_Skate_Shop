@@ -9,7 +9,7 @@ export class EnderecoService {
 
   constructor(private http: HttpClient) { }
 
-  GetEnderecosUsuario(usuarioID: number) {
+  GetEnderecosUsuario(usuarioID: number | undefined) {
     return this.http.get(ApiService.url + 'Endereco/' + usuarioID);
   }
 
