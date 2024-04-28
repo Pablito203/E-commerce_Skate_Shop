@@ -8,6 +8,7 @@
     public class PedidoProdutoBody {
         public int ProdutoID { get; set; }
         public int? TamanhoID { get; set;}
+        public int Quantidade { get; set;}
         public decimal Valor { get; set;}
     }
 }

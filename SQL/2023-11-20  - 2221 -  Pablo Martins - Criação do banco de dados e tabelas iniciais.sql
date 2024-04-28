@@ -10,7 +10,7 @@ CREATE TABLE usuario (
 	  nome VARCHAR(200) NOT NULL,
 	  email VARCHAR(200) NOT NULL,
 	  senha VARCHAR(50) NOT NULL,
-	  cpf_cnpj VARCHAR(18) NOT NULL,
+	  cpf VARCHAR(14) NOT NULL,
 	  id_asaas VARCHAR(100),
 	  PRIMARY KEY CLUSTERED (usuario)
 );
@@ -99,6 +99,7 @@ CREATE TABLE pedido_produto (
 	  pedido INT NOT NULL,
 	  produto INT NOT NULL,
 	  tamanho INT,
+	  quantidade INT NOT NULL,
 	  valor DECIMAL(10, 2) NOT NULL,
 	  PRIMARY KEY CLUSTERED (pedido_produto),
 	  CONSTRAINT FK_pedidoProduto_pedido FOREIGN KEY (pedido) REFERENCES pedido (pedido),

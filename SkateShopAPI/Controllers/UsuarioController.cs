@@ -10,11 +10,11 @@ namespace SkateShopAPI.Controllers {
         [HttpGet("{id}")]
         public RespostaAPI GetUsuario(int id) {
             var Headers = Request.Headers;
-            Repository Repository = new Repository();
+            Repository Repository = new();
             var Usuario = Repository.FilterQuery<Usuario>(u => u.Usuario1 == id).Select((p) => new UsuarioRetorno {
                 UsuarioID = p.Usuario1,
                 Nome = p.Nome,
-                CpfCnpj = p.CpfCnpj,
+                Cpf = p.Cpf,
                 Email = p.Email
             }).FirstOrDefault();
             Repository.Dispose();
@@ -28,11 +28,11 @@ namespace SkateShopAPI.Controllers {
 
         [HttpPost]
         public async Task<RespostaAPI> PostUsuarioAsync(UsuarioBody UsuarioBody) {
-            Usuario Usuario = new Usuario() {
+            Usuario Usuario = new() {
                 Nome = UsuarioBody.Nome,
                 Email = UsuarioBody.Email,
                 Senha = UsuarioBody.Senha,
-                CpfCnpj = UsuarioBody.CpfCnpj
+                Cpf = UsuarioBody.Cpf
             };
 
             bool ClienteAsaasCriado = await AsaasService.CriarCliente(Usuario);
@@ -41,7 +41,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI("Erro integração asaas");
             }
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
             Repository.Insert(Usuario);
             Repository.Dispose();
 
@@ -54,7 +54,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI("Registro não encontrado");
             }
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var Usuario = Repository.FilterQuery<Usuario>((p) => p.Usuario1 == UsuarioBody.UsuarioID).FirstOrDefault();
 
@@ -68,7 +68,7 @@ namespace SkateShopAPI.Controllers {
 
             Usuario.Nome = UsuarioBody.Nome;
             Usuario.Email = UsuarioBody.Email;
-            Usuario.CpfCnpj = UsuarioBody.CpfCnpj;
+            Usuario.Cpf = UsuarioBody.Cpf;
 
             Repository.Update(Usuario);
             Repository.Dispose();

@@ -11,7 +11,7 @@ namespace SkateShopAPI.Services {
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
             request.AddHeader("access_token", AppSettingsService.ChaveAsaas);
-            request.AddJsonBody(new { name = Usuario.Nome, cpfCnpj = Usuario.CpfCnpj, email = Usuario.Email });
+            request.AddJsonBody(new { name = Usuario.Nome, cpfCnpj = Usuario.Cpf, email = Usuario.Email });
 
             try {
                 var response = await client.PostAsync(request);
@@ -50,7 +50,7 @@ namespace SkateShopAPI.Services {
                 var RetornoAsaasPix = await GerarQRCodePix(RetornoAsaasCobranca.id);
                 if (RetornoAsaasPix == null) { return null; }
 
-                AnexoService.OpcoesSalvarArquivo opcoesSalvarArquivo = new AnexoService.OpcoesSalvarArquivo {
+                AnexoService.OpcoesSalvarArquivo opcoesSalvarArquivo = new() {
                     NomeGuid = Guid.NewGuid().ToString(),
                     CaminhoRelativo = AnexoService.CriarCaminhoRelativoDiretorioPix(),
                     ArquivoBase64 = RetornoAsaasPix.encodedImage

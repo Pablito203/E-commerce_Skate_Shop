@@ -11,7 +11,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpGet("{id}")]
         public RespostaAPI GetImagem(int id) {
-            Repository repository = new Repository();
+            Repository repository = new();
 
             var lstImagens = repository.FilterQuery<Anexo>((p) => p.Produto == id).Select((p) => new ImagemRetorno {
                 ImagemID = p.Anexo1,
@@ -66,7 +66,7 @@ namespace SkateShopAPI.Controllers {
                     CaminhoRelativo = Path.Combine(CaminhoRelativoDiretorio, opcoes.NomeGuid + ".jpg")
                 };
 
-                Repository Repository = new Repository();
+                Repository Repository = new();
                 Repository.Insert(Anexo);
                 Repository.Dispose();
 
@@ -79,7 +79,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpDelete("{id}")]
         public RespostaAPI DeleteImagem(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var Imagem = Repository.FilterQuery<Anexo>((p) => p.Anexo1 == id).FirstOrDefault();
 

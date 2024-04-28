@@ -10,7 +10,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpGet("{id}")]
         public RespostaAPI GetTamanho(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var lstTamanho = Repository.FilterQuery<Tamanho>((p) => p.Produto == id).Select((p) => new TamanhoRetorno {
                 TamanhoID = p.Tamanho1,
@@ -35,7 +35,7 @@ namespace SkateShopAPI.Controllers {
                 Quantidade = TamanhoBody.Quantidade
             };
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             try {
                 Repository.Insert(Tamanho);
@@ -54,7 +54,7 @@ namespace SkateShopAPI.Controllers {
             if (!TamanhoBody.TamanhoID.HasValue) {
                 return new RespostaAPI("Registro não encontrado");
             }
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var Tamanho = Repository.FilterQuery<Tamanho>((p) => p.Tamanho1 == TamanhoBody.TamanhoID).FirstOrDefault();
 
@@ -87,7 +87,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpDelete("{id}")]
         public RespostaAPI DeleteTamanho(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var TamanhoDados = Repository.FilterQuery<Tamanho>((p) => p.Tamanho1 == id).Select((p) => new {
                 Tamanho = p,

@@ -15,7 +15,7 @@ public partial class Usuario
 
     public string Senha { get; set; } = null!;
 
-    public string CpfCnpj { get; set; } = null!;
+    public string Cpf { get; set; } = null!;
 
     public string? IdAsaas { get; set; }
 

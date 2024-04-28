@@ -10,7 +10,7 @@ namespace SkateShopAPI.Controllers {
         
         [HttpGet("[Controller]")]
         public RespostaAPI GetProduto() {
-            Repository Repository = new Repository();
+            Repository Repository = new();
             var iqProduto = Repository.FilterQuery<Produto>((p) => true);
             SetIQueryableProduto(ref iqProduto);
 
@@ -48,7 +48,7 @@ namespace SkateShopAPI.Controllers {
                 DataCriacao = DateTime.Now
             };
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
             Repository.Insert(Produto);
             Repository.Dispose();
 
@@ -72,7 +72,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI("Registro não encontrado");
             }
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
             var Produto = Repository.FilterQuery<Produto>((p) => p.Produto1 == ProdutoBody.ProdutoID).FirstOrDefault();
 
             if (Produto is null) {
@@ -104,7 +104,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpDelete("[Controller]/{id}")]
         public RespostaAPI DeleteProduto(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
             var ProdutoDados = Repository.FilterQuery<Produto>((p) => p.Produto1 == id).Select((p) => new {
                 Produto = p,
                 PossuiPedido = p.PedidoProdutos.Any(),
@@ -132,7 +132,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpGet("[Controller]ID")]
         public RespostaAPI GetProdutoID() {
-            Repository Repository = new Repository();
+            Repository Repository = new();
             var lstProdutoID = Repository.FilterQuery<Produto>((p) => true).Select((p) => p.Produto1).ToList();
             Repository.Dispose();
             return new RespostaAPI(lstProdutoID);

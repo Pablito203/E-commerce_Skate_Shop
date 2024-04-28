@@ -9,7 +9,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpGet("{id}")]
         public RespostaAPI GetEndereco(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var lstEndereco = Repository.FilterQuery<Endereco>((p) => p.Usuario == id).Select((p) => new EnderecoRetorno {
                 EnderecoID = p.Endereco1,
@@ -31,7 +31,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI("Registro relacionado não encontrado");
             }
 
-            Endereco Endereco = new Endereco() {
+            Endereco Endereco = new() {
                 Uf = EnderecoBody.UF,
                 Cidade = EnderecoBody.Cidade,
                 Bairro = EnderecoBody.Bairro,
@@ -41,7 +41,7 @@ namespace SkateShopAPI.Controllers {
                 Usuario = EnderecoBody.UsuarioID.Value
             };
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             try {
                 Repository.Insert(Endereco);
@@ -58,7 +58,7 @@ namespace SkateShopAPI.Controllers {
                 return new RespostaAPI("Registro não encontrado");
             }
 
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var EnderecoDados = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == EnderecoBody.EnderecoID).Select((p) => new {
                 Endereco = p,
@@ -89,7 +89,7 @@ namespace SkateShopAPI.Controllers {
 
         [HttpDelete("{id}")]
         public RespostaAPI DeleteEndereco(int id) {
-            Repository Repository = new Repository();
+            Repository Repository = new();
 
             var EnderecoDados = Repository.FilterQuery<Endereco>((p) => p.Endereco1 == id).Select((p) => new {
                 Endereco = p,
