@@ -9,6 +9,9 @@ import { ProdutoCatalogoComponent } from "./produto-catalogo/produto-catalogo/pr
 import { BannerComponent } from "./banner/banner/banner.component";
 import { AnexoCardComponent } from "./anexo-card/anexo-card/anexo-card.component";
 import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
+import { NoItensComponent } from './no-itens/no-itens/no-itens.component';
+import { LoginRegisterComponent } from './login-register/login-register/login-register.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,11 +22,14 @@ import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
     BannerComponent,
     AnexoCardComponent,
     TamanhoComponent,
-    ProdutoDetalheComponent
+    ProdutoDetalheComponent,
+    NoItensComponent,
+    LoginRegisterComponent
   ],
   imports: [
     IonicModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     ProdutoCardListaComponent,
@@ -33,7 +39,9 @@ import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
     BannerComponent,
     AnexoCardComponent,
     TamanhoComponent,
-    ProdutoDetalheComponent
+    ProdutoDetalheComponent,
+    NoItensComponent,
+    LoginRegisterComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

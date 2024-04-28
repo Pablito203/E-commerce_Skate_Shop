@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title color="light">Login</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="FecharModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form #form="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="login" name="login" [(ngModel)]="login.email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="dark" fill="outline">Cadastrar-se</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" color="dark" (click)="Acessar()">Acessar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+
+<ng-template #registrar>
+  <form #form="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="login" name="login" [(ngModel)]="login.email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input labelPlacement="floating" label="senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+</ng-template>

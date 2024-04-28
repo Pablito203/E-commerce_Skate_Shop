@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { PedidoService } from './../../../services/pedido/pedido.service';
 import { AlertaService } from './../../../services/alerta/alerta.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,7 +22,8 @@ export class FinalizarPedidoPage implements OnInit {
               private modalService: ModalService,
               private enderecoService: EnderecoService,
               private alertaService: AlertaService,
-              private pedidoService: PedidoService) { }
+              private pedidoService: PedidoService,
+              private navController: NavController) { }
 
   ngOnInit() {
     this.enderecoService.GetEnderecosUsuario(3).subscribe((data: any) => {
@@ -66,10 +68,12 @@ export class FinalizarPedidoPage implements OnInit {
   FinalizarPedido() {
     if (!this.Total) {
       this.alertaService.CriarToastMensagem("Nenhum item na sacola", true);
+      return;
     }
 
     if (!this.enderecoSelecionadoID) {
       this.alertaService.CriarToastMensagem("Nenhum endereço selecionado no pedido", true);
+      return;
     }
 
     let pedido = {
@@ -80,6 +84,8 @@ export class FinalizarPedidoPage implements OnInit {
 
     this.pedidoService.CriarPedido(pedido).subscribe((data: any) => {
       this.alertaService.CriarToastMensagem("Pedido Realizado com sucesso, aguardando pagamento")
+      this.sacolaService.salvarSacola([]);
+      this.navController.navigateBack('/')
     });
   }
 }
