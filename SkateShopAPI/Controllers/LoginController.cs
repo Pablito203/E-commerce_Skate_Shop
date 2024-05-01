@@ -12,7 +12,9 @@ namespace SkateShopAPI.Controllers {
             var Usuario = Repository.FilterQuery<Usuario>((p) => p.Email == LoginBody.Email && p.Senha == LoginBody.Senha).Select((p) => new LoginRetorno() {
                 UsuarioID = p.Usuario1,
                 Nome = p.Nome,
-                Administrador = p.Administrador  
+                Administrador = p.Administrador,
+                Cpf = p.Cpf,
+                Email = p.Email
             }).FirstOrDefault();
             Repository.Dispose();
 

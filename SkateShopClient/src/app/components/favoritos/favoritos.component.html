@@ -1,15 +1,21 @@
-<ion-header>
-  <ion-toolbar color="dark">
-    <ion-title color="light">Favoritos</ion-title>
+<ng-container *ngIf="usuarioLogado; else loginRegisterTemplate;">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title color="light">Favoritos</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="FecharModal()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button >
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+      <ion-buttons slot="end">
+        <ion-button (click)="FecharModal()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button >
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <produto-card-lista [Tipo]="'Favoritos'"></produto-card-lista>
-</ion-content>
+  <ion-content>
+    <produto-card-lista [Tipo]="'Favoritos'"></produto-card-lista>
+  </ion-content>
+</ng-container>
+
+<ng-template #loginRegisterTemplate>
+  <login-register></login-register>
+</ng-template>

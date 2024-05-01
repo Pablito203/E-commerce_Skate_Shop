@@ -64,6 +64,13 @@ export class LoginRegisterComponent  implements OnInit {
       }
 
       this.alertaService.CriarToastMensagem("Cadastro realizado com sucesso");
+      this.cadastro = {
+        usuarioID: undefined,
+        nome: '',
+        cpf: '',
+        email: '',
+        senha: ''
+      };
       this.toggleCadastrar();
     });
   }

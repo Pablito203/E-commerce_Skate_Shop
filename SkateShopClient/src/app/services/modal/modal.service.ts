@@ -21,7 +21,8 @@ export class ModalService {
     }).then((Modal: HTMLIonModalElement) => {
       Modal.onDidDismiss().then(() => {
         ModalService.ModalAberto = undefined;
-      })
+      });
+
       Modal.present();
       ModalService.ModalAberto = Modal;
     });

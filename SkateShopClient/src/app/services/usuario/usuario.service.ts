@@ -19,20 +19,30 @@ export class UsuarioService {
     return this.http.post(ApiService.url + 'Login', login);
   }
 
-  setUsuarioLogado(usuario: usuario) {
+  setUsuarioLogado(usuario: usuario | null) {
     this.storage.set('usuario', usuario);
     UsuarioService.usuarioLogado = usuario;
+
+    setTimeout(() => {
+      globalThis.window.location.reload();
+    }, 100);
   }
 
   AdicionarUsuario(cadastro: cadastro) {
     return this.http.post(ApiService.url + 'Usuario', cadastro);
+  }
+
+  EditarUsuario(cadastro: cadastro) {
+    return this.http.put(ApiService.url + 'Usuario', cadastro);
   }
 }
 
 export interface usuario {
   usuarioID: number,
   nome: string,
-  adiministrador: boolean
+  administrador: boolean
+  cpf: string,
+  email: string
 }
 
 export interface login {

@@ -67,7 +67,6 @@ namespace SkateShopAPI.Controllers {
             }
 
             Usuario.Nome = UsuarioBody.Nome;
-            Usuario.Email = UsuarioBody.Email;
             Usuario.Cpf = UsuarioBody.Cpf;
 
             Repository.Update(Usuario);

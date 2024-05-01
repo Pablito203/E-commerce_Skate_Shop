@@ -1,0 +1,21 @@
+section {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+
+  form {
+    width: 100%;
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  section {
+    display: flex;
+    align-items: center;
+
+    form {
+      max-width: 500px;
+    }
+  }
+}

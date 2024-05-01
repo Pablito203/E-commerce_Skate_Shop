@@ -1,0 +1,61 @@
+<ng-container *ngIf="usuarioLogado; else loginRegisterTemplate;">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title color="light">Meus dados</ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button (click)="FecharModal()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button >
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <form #form="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="usuarioEdicao.nome"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input labelPlacement="floating" label="CPF" name="cpf" [(ngModel)]="usuarioEdicao.cpf"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input [disabled]="true" labelPlacement="floating" label="Email" name="email" [(ngModel)]="usuarioEdicao.email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input label="Confirmar senha" labelPlacement="floating" name="senha" type="password" [(ngModel)]="usuarioEdicao.senha"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-content>
+
+  <ion-footer>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="dark" (click)="Salvar()">Salvar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ng-container>
+
+<ng-template #loginRegisterTemplate>
+  <login-register></login-register>
+</ng-template>

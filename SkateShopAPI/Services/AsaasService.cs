@@ -11,7 +11,7 @@ namespace SkateShopAPI.Services {
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
             request.AddHeader("access_token", AppSettingsService.ChaveAsaas);
-            request.AddJsonBody(new { name = Usuario.Nome, cpfCnpj = Usuario.Cpf, email = Usuario.Email });
+            request.AddJsonBody(new { name = Usuario.Nome, cpfCnpj = Usuario.Cpf });
 
             try {
                 var response = await client.PostAsync(request);

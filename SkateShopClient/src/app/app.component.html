@@ -13,7 +13,7 @@
         </ion-item>
       </div>
 
-      <ion-item lines="none" [button]="true" routerLink="/add-produto">
+      <ion-item *ngIf="usuarioLogado && usuarioLogado.administrador" lines="none" [button]="true" routerLink="/add-produto">
         <ion-label>Novo produto</ion-label>
       </ion-item>
       <br>
@@ -43,13 +43,31 @@
         </ion-accordion-group>
       </div>
     </ion-content>
+
+    <ion-footer *ngIf="usuarioLogado">
+      <ion-row>
+        <ion-col>
+          Bem vindo
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          {{usuarioLogado.nome}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button fill="none" (click)="Desconectar()">Desconectar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-footer>
   </ion-menu>
 
   <ion-content>
     <ion-router-outlet id="content"></ion-router-outlet>
   </ion-content>
 
-  <ion-footer>
+  <ion-footer *ngIf="!usuarioLogado || !usuarioLogado.administrador">
     <ion-toolbar>
       <ion-row>
         <ion-col>

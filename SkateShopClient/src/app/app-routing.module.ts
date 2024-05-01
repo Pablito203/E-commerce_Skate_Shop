@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CanActivateUsuarioLogado, CanActivateUsuarioAdminLogado } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -8,15 +9,18 @@ const routes: Routes = [
   },
   {
     path: 'add-produto',
-    loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule)
+    loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule),
+    canActivate: [CanActivateUsuarioAdminLogado]
   },
   {
     path: 'add-produto/:id',
-    loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule)
+    loadChildren: () => import('./pages/add-produto/add-produto.module').then( m => m.AddProdutoPageModule),
+    canActivate: [CanActivateUsuarioAdminLogado]
   },
   {
     path: 'finalizar-pedido',
-    loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule)
+    loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule),
+    canActivate: [CanActivateUsuarioLogado]
   }
 ];
 @NgModule({

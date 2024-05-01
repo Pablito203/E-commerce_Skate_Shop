@@ -21,3 +21,17 @@ ion-content {
     margin-bottom: 20px
   }
 }
+
+ion-menu {
+  ion-footer {
+    box-shadow: none !important;
+  }
+
+  ion-col {
+    text-align: center;
+  }
+
+  ion-button {
+    text-transform: none !important;
+  }
+}

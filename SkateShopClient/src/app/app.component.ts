@@ -3,8 +3,8 @@ import { ModalService } from './services/modal/modal.service';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { SacolaComponent } from './components/sacola/sacola.component';
 import { Storage } from "@ionic/storage-angular";
-import { LoginRegisterComponent } from './components/login-register/login-register/login-register.component';
 import { UsuarioService, usuario } from './services/usuario/usuario.service';
+import { DadosUsuarioComponent } from './components/dados-usuario/dados-usuario/dados-usuario.component';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,16 @@ import { UsuarioService, usuario } from './services/usuario/usuario.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  usuarioLogado: usuario | null = null;
+
   constructor(private modalService: ModalService,
-              private storage: Storage)
+              private storage: Storage,
+              private usuarioService: UsuarioService)
   {
     this.storage.create();
     this.storage.get('usuario').then((value: usuario | null) => {
       UsuarioService.usuarioLogado = value;
+      this.usuarioLogado = UsuarioService.usuarioLogado;
     });
   }
 
@@ -30,6 +34,10 @@ export class AppComponent {
   }
 
   AbrirModalConta() {
-    this.modalService.CriarModal(LoginRegisterComponent);
+    this.modalService.CriarModal(DadosUsuarioComponent);
+  }
+
+  Desconectar() {
+    this.usuarioService.setUsuarioLogado(null);
   }
 }

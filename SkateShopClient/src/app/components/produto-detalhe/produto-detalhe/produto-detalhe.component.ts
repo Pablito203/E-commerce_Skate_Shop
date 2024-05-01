@@ -5,6 +5,7 @@ import { ImagemService } from 'src/app/services/imagem/imagem.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProdutoService } from 'src/app/services/produto/produto.service';
 import { TamanhoService } from 'src/app/services/tamanho/tamanho.service';
+import { UsuarioService, usuario } from 'src/app/services/usuario/usuario.service';
 
 @Component({
   selector: 'produto-detalhe',
@@ -18,6 +19,7 @@ export class ProdutoDetalheComponent  implements OnInit {
   @Input() ProdutoID: number = 0;
   TamanhoSelecionadoID: number = 0;
   Sacola: any[] = [];
+  usuarioLogado: usuario | null = null;
 
   constructor(private imagemService: ImagemService,
               private produtoService: ProdutoService,
@@ -26,6 +28,7 @@ export class ProdutoDetalheComponent  implements OnInit {
               private alertaService: AlertaService) { }
 
   ngOnInit() {
+    this.usuarioLogado = UsuarioService.usuarioLogado;
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data || [];
     });

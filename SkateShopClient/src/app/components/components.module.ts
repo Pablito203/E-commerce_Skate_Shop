@@ -1,3 +1,4 @@
+import { DadosUsuarioComponent } from './dados-usuario/dados-usuario/dados-usuario.component';
 import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe/produto-detalhe.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     TamanhoComponent,
     ProdutoDetalheComponent,
     NoItensComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    DadosUsuarioComponent
   ],
   imports: [
     IonicModule,
@@ -41,7 +43,8 @@ import { FormsModule } from '@angular/forms';
     TamanhoComponent,
     ProdutoDetalheComponent,
     NoItensComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    DadosUsuarioComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

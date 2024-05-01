@@ -25,7 +25,6 @@ export class SacolaComponent implements OnInit {
   }
 
   FecharModal(): void {
-    this.Storage.set('sacola', this.Sacola);
     ModalService.FecharModal();
   }
 

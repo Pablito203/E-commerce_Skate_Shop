@@ -47,12 +47,12 @@
 <ion-footer class="tela-pequena">
   <ion-toolbar>
     <ion-row>
-      <ion-col>
+      <ion-col *ngIf="usuarioLogado && usuarioLogado.administrador">
         <ion-button expand="block" fill="outline" color="dark">
           Editar
         </ion-button>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="!usuarioLogado || !usuarioLogado.administrador">
         <ion-button expand="block" color="dark" (click)="addSacola()">
           Adicionar na sacola
         </ion-button>
