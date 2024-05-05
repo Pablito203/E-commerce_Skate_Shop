@@ -25,6 +25,11 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+@import "swiper/scss/zoom";
+
 
 html, body {
   color: black;
@@ -77,7 +82,7 @@ ion-col {
   color: black !important;
 }
 
-ion-img {
+ion-img, img {
   user-select: none;
 }
 

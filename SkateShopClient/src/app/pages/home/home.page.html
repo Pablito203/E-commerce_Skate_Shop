@@ -21,27 +21,41 @@
     </div>
   </section>
 
-  <section class="section-carrosel">
+  <section class="section-carrosel" *ngIf="lancamentos && lancamentos.length">
     <div>
       <ion-list-header class="titulo bold">
         Lançamentos
       </ion-list-header>
 
-      <div class="carrosel">
-        <produto-catalogo *ngFor="let produto of lancamentos" [Produto]="produto"></produto-catalogo>
-      </div>
+      <swiper [navigation]="true"
+      [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
+       [initialSlide]="0">
+        <ng-template swiperSlide *ngFor="let produto of lancamentos">
+          <div style="display: flex;justify-content: center;">
+            <produto-catalogo [Produto]="produto"></produto-catalogo>
+          </div>
+        </ng-template>
+      </swiper>
+
     </div>
   </section>
 
-  <section class="section-carrosel">
+  <section class="section-carrosel" *ngIf="destaques && destaques.length">
     <div>
       <ion-list-header class="titulo bold">
         Destaques
       </ion-list-header>
 
-      <div class="carrosel">
-        <produto-catalogo *ngFor="let produto of destaques" [Produto]="produto"></produto-catalogo>
-      </div>
+      <swiper [navigation]="true"
+      [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
+       [initialSlide]="0">
+        <ng-template swiperSlide *ngFor="let produto of destaques">
+          <div style="display: flex;justify-content: center;">
+            <produto-catalogo [Produto]="produto"></produto-catalogo>
+          </div>
+        </ng-template>
+      </swiper>
+
     </div>
   </section>
 </ion-content>

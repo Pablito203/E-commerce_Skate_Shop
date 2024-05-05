@@ -1,38 +1,58 @@
 @media only screen and (min-width: 768px) {
-  div {
+  swiper {
     width: 400px;
-    min-height: 480px;
-    max-height: 480px;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  div {
+  swiper {
     width: 100vw;
-    // min-height: 480px;
-    // max-height: 480px;
   }
 }
 
-div {
-  background-color: rgba(0, 0, 0, 0.1);
+ion-toolbar {
+  --background: transparent;
+  display: block;
+  position: absolute;
+  width: 400px;
+  padding-right: 10px;
 }
 
-swiper-slide {
-  width: 100%;
-  align-self: center;
-  // max-height: 480px;
+swiper {
+  background-color: rgb(0, 0, 0);
+  --swiper-pagination-color: white;
+  --swiper-pagination-bullet-inactive-color: white;
+  --swiper-navigation-color: white;
+  min-height: 480px;
+  max-height: 480px;
+  display: flex;
+  align-items: center;
+
+  div {
+    height: 480px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 img {
-  width: 100%;
-  // max-height: 480px;
+  max-height: 480px;
+  max-width: 100%;
+  width: fit-content;
+  object-fit: cover;
 }
 
-swiper-container {
-  --swiper-pagination-color: black;
-  min-height: 480px;
-  max-height: 500px;
+// swiper-container {
+//   --swiper-pagination-color: black;
+//   min-height: 480px;
+//   max-height: 500px;
+//   display: flex;
+//   align-items: center;
+// }
+
+.flex {
   display: flex;
-  align-items: center;
+  justify-content: center;
 }

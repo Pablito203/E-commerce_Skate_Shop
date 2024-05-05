@@ -9,6 +9,10 @@ export class ImagemService {
 
   constructor(private http: HttpClient) { }
 
+  GetImagens(produtoID: number) {
+    return this.http.get(ApiService.url + 'imagem/' + produtoID);
+  }
+
   PostImagem(Imagem: any) {
     let formData = new FormData();
     formData.append('arquivo', Imagem.Arquivo, Imagem.nome);
@@ -18,7 +22,7 @@ export class ImagemService {
     return this.http.post(ApiService.url + 'Imagem', formData);
   }
 
-  Getimagens(ProdutoID: number) {
-    return this.http.get(ApiService.url + 'imagem/' + ProdutoID);
+  DeleteImagem(produtoID: number) {
+    return this.http.delete(ApiService.url + 'imagem/' + produtoID);
   }
 }

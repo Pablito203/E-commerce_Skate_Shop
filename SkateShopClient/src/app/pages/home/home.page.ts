@@ -11,11 +11,14 @@ export class HomePage implements OnInit {
 
   lancamentos: any = [];
   destaques: any = [];
+  documentElement: any;
+  math = Math;
 
   constructor(private produtoService: ProdutoService,
               private alertaService: AlertaService) { }
 
   ngOnInit() {
+    this.documentElement = document.documentElement;
     this.produtoService.GetLancamentos().subscribe((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);

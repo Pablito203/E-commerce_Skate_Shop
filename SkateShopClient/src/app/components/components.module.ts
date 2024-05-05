@@ -13,6 +13,7 @@ import { TamanhoComponent } from "./tamanho/tamanho/tamanho.component";
 import { NoItensComponent } from './no-itens/no-itens/no-itens.component';
 import { LoginRegisterComponent } from './login-register/login-register/login-register.component';
 import { FormsModule } from '@angular/forms';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     IonicModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    SwiperModule
   ],
   exports: [
     ProdutoCardListaComponent,

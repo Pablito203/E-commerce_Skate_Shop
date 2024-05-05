@@ -9,11 +9,19 @@ export class TamanhoService {
 
   constructor(private http: HttpClient) { }
 
+  GetTamanho(ProdutoID: number) {
+    return this.http.get(ApiService.url + 'Tamanho/' + ProdutoID);
+  }
+
   PostTamanho(tamanho: any) {
     return this.http.post(ApiService.url + 'Tamanho', tamanho);
   }
 
-  GetTamanho(ProdutoID: number) {
-    return this.http.get(ApiService.url + 'Tamanho/' + ProdutoID);
+  PutTamanho(tamanho: any) {
+    return this.http.put(ApiService.url + 'Tamanho', tamanho);
+  }
+
+  DeleteTamanho(tamanhoID: number) {
+    return this.http.delete(ApiService.url + 'Tamanho/' + tamanhoID);
   }
 }

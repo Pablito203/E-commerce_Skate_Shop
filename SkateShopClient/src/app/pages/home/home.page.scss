@@ -5,14 +5,6 @@ ion-toolbar {
 }
 
 section {
-
-  &.section-carrosel {
-    @media only screen and (min-width: 1000px) {
-      display: flex;
-      justify-content: center;
-    }
-  }
-
   &.section-banner {
     @media only screen and (max-width: 640px) {
       display: none !important;
@@ -20,6 +12,13 @@ section {
 
     display: flex;
     justify-content: center;
+  }
+
+  &.section-carrosel {
+    @media only screen and (min-width: 1000px) {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   margin-top: 50px;
@@ -38,8 +37,17 @@ section {
   }
 }
 
-.carrosel {
-  display: flex;
+swiper {
   max-width: 1000px;
-  overflow-x: scroll;
+  width: 100vw;
+  --swiper-navigation-color: black;
+}
+
+produto-catalogo {
+  width: fit-content;
+  display: block;
+
+  ion-card {
+    margin: 10px 0;
+  }
 }

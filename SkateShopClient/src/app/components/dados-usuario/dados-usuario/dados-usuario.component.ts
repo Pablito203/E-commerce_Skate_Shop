@@ -25,8 +25,6 @@ export class DadosUsuarioComponent implements OnInit {
   ngOnInit() {
     this.usuarioLogado = UsuarioService.usuarioLogado;
     Object.assign(this.usuarioEdicao, this.usuarioLogado);
-    console.log(this.usuarioEdicao)
-    console.log(this.usuarioLogado)
   }
 
   FecharModal(): void {

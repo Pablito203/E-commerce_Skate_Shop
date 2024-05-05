@@ -15,7 +15,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Nome" labelPlacement="floating" required [(ngModel)]="Produto.Nome" name="Nome"></ion-input>
+          <ion-input label="Nome" labelPlacement="floating" required [(ngModel)]="Produto.nome" name="Nome"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -23,15 +23,15 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Valor" labelPlacement="floating" required [(ngModel)]="Produto.Valor" name="Valor"></ion-input>
+          <ion-input label="Valor" labelPlacement="floating" required [(ngModel)]="Produto.valor" name="Valor"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="Produto.TamanhoUnico">
+    <ion-row *ngIf="Produto.tamanhoUnico">
       <ion-col>
         <ion-item>
-          <ion-input label="Quantidade" labelPlacement="floating" required [(ngModel)]="Produto.Quantidade" name="Quantidade"></ion-input>
+          <ion-input label="Quantidade" labelPlacement="floating" required [(ngModel)]="Produto.quantidadeEstoque" name="Quantidade"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -41,7 +41,7 @@
     <ion-row>
       <ion-col>
         <ion-item lines="none">
-          <ion-toggle justify="space-between" [(ngModel)]="Produto.Destaque" color="dark" name="Destaque">Destaque</ion-toggle>
+          <ion-toggle justify="space-between" [(ngModel)]="Produto.destaque" color="dark" name="Destaque">Destaque</ion-toggle>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -49,12 +49,12 @@
     <ion-row>
       <ion-col>
         <ion-item lines="none">
-          <ion-toggle justify="space-between" [(ngModel)]="Produto.TamanhoUnico" color="dark" name="TamanhoUnico">Tamanho único</ion-toggle>
+          <ion-toggle justify="space-between" [(ngModel)]="Produto.tamanhoUnico" color="dark" name="TamanhoUnico">Tamanho único</ion-toggle>
         </ion-item>
       </ion-col>
     </ion-row>
 
-    <div *ngIf="!Produto.TamanhoUnico">
+    <div *ngIf="!Produto.tamanhoUnico">
       <ion-list-header class="sub-titulo bold ion-no-padding">
         Tamanhos
       </ion-list-header>
@@ -81,6 +81,9 @@
             <ion-button fill="outline" color="dark" (click)="cancelarTamanho()">
               Cancelar
             </ion-button>
+            <ion-button *ngIf="TamanhoEdit.tamanhoID || TamanhoEdit.salvo" color="danger" (click)="excluirTamanho()">
+              Excluir
+            </ion-button>
             <ion-button color="dark" (click)="salvarTamanho()">
               Salvar
             </ion-button>
@@ -99,7 +102,9 @@
 
         <ion-row>
           <ion-col style="display: flex;">
-            <tamanho *ngFor="let Tamanho of Tamanhos" [Tamanho]="Tamanho" (click)="editTamanho(Tamanho)"></tamanho>
+            <ng-container *ngFor="let tamanho of Tamanhos">
+              <tamanho *ngIf="!tamanho.excluido" [Tamanho]="tamanho" (click)="editTamanho(tamanho)"></tamanho>
+            </ng-container>
           </ion-col>
         </ion-row>
       </div>
@@ -121,12 +126,17 @@
 
         <ion-toolbar class="tela-grande">
           <ion-row>
-            <ion-col>
+            <ion-col size="auto">
               <ion-button expand="block" fill="outline" color="dark"(click)="anexar()">
                 Anexar
               </ion-button>
             </ion-col>
-            <ion-col>
+            <ion-col size="auto">
+              <ion-button expand="block" color="danger" [disabled]="!Produto.produtoID" (click)="excluir()">
+                Excluir
+              </ion-button>
+            </ion-col>
+            <ion-col size="auto">
               <ion-button expand="block" color="dark" (click)="salvar()">
                 Salvar
               </ion-button>
@@ -141,7 +151,7 @@
         </ion-list-header>
 
         <div class="anexos-container">
-          <anexo-card [Anexos]="Imagens"></anexo-card>
+          <anexo-card [Anexos]="Imagens" [editavel]="true" (excluir)="excluirImagem($event)"></anexo-card>
         </div>
       </div>
     </div>
@@ -156,6 +166,13 @@
           Anexar
         </ion-button>
       </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="danger" [disabled]="!Produto.produtoID" (click)="excluir()">
+          Excluir
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col>
         <ion-button expand="block" color="dark" (click)="salvar()">
           Salvar

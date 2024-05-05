@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { AlertaService } from './../../../services/alerta/alerta.service';
 import { SacolaService } from './../../../services/sacola/sacola.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { UsuarioService, usuario } from 'src/app/services/usuario/usuario.servic
   templateUrl: './produto-detalhe.component.html',
   styleUrls: ['./produto-detalhe.component.scss'],
 })
-export class ProdutoDetalheComponent  implements OnInit {
+export class ProdutoDetalheComponent implements OnInit {
   Produto: any = {};
   Imagens: any[] = [];
   Tamanhos: any[] = [];
@@ -25,7 +26,8 @@ export class ProdutoDetalheComponent  implements OnInit {
               private produtoService: ProdutoService,
               private tamanhoService: TamanhoService,
               private sacolaService: SacolaService,
-              private alertaService: AlertaService) { }
+              private alertaService: AlertaService,
+              private navController: NavController) { }
 
   ngOnInit() {
     this.usuarioLogado = UsuarioService.usuarioLogado;
@@ -49,7 +51,7 @@ export class ProdutoDetalheComponent  implements OnInit {
   }
 
   getImagens() {
-    return this.imagemService.Getimagens(this.ProdutoID).subscribe((data: any) => {
+    return this.imagemService.GetImagens(this.ProdutoID).subscribe((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -68,12 +70,18 @@ export class ProdutoDetalheComponent  implements OnInit {
 
       this.Tamanhos = data.result;
       if (this.Tamanhos.length) {
-        this.setTamanhoSelecionado(this.Tamanhos[0]);
+        let primeiroTamanhoComEstoque = this.Tamanhos.findIndex((tamanho) => tamanho.quantidade > 0);
+        if (primeiroTamanhoComEstoque != -1) {
+          this.setTamanhoSelecionado(this.Tamanhos[primeiroTamanhoComEstoque]);
+        }
       }
     })
   }
 
   setTamanhoSelecionado(tamanho: any) {
+    if (tamanho.quantidade == 0) {
+      return;
+    }
     this.TamanhoSelecionadoID = tamanho.tamanhoID;
   }
 
@@ -116,5 +124,10 @@ export class ProdutoDetalheComponent  implements OnInit {
     this.Sacola.push(Produto);
     this.sacolaService.salvarSacola(this.Sacola);
     this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
+  }
+
+  EditarProduto() {
+    this.navController.navigateForward('/add-produto/' + this.ProdutoID);
+    this.FecharModal();
   }
 }

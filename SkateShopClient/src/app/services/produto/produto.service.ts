@@ -41,4 +41,12 @@ export class ProdutoService {
   PostProduto(Produto: any) {
     return this.http.post(ApiService.url + 'Produto', Produto);
   }
+
+  PutProduto(Produto: any) {
+    return this.http.put(ApiService.url + 'Produto', Produto);
+  }
+
+  DeleteProduto(produtoID: number) {
+    return this.http.delete(ApiService.url + 'Produto/' + produtoID);
+  }
 }

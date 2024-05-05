@@ -7,13 +7,13 @@
   padding: 15px;
 }
 
-@media only screen and (max-width: 954px) {
+@media only screen and (max-width: 767px) {
   .tela-grande {
     display: none;
   }
 }
 
-@media only screen and (min-width: 955px) {
+@media only screen and (min-width: 768px) {
   ion-content {
     --overflow: hidden;
   }
@@ -25,10 +25,12 @@
   section {
     display: flex;
     justify-content: center;
+    height: 100%;
 
     .produto-container {
       .form-container {
         flex: 1;
+        height: calc(100% - 40px);
       }
 
       .imagens-container {
@@ -59,4 +61,11 @@
     border-right: 1px solid rgba(0, 0, 0, 0.123);
     height: calc(100vh - 150px);
   }
+
+  ion-toolbar {
+    ion-row {
+      justify-content: end;
+    }
+  }
 }
+

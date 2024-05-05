@@ -1,8 +1,19 @@
-<div>
-  <swiper-container [modulues]="swiperModules" [initialSlide]="1" [centeredSlides]="true" [autoplay]="true"
-    [pagination]="{clickable: true, dynamicBullets: true}">
-    <swiper-slide *ngFor="let anexo of Anexos">
+
+<ion-toolbar *ngIf="Anexos.length && editavel">
+  <ion-button color="light" slot="end" fill="none" (click)="excluirClick()">
+    <ion-icon name="trash" color="light"></ion-icon>
+  </ion-button>
+</ion-toolbar>
+
+<swiper (swiper)="onSwiper($event)" [pagination]="{type: 'bullets', enabled: true, dynamicBullets: true, clickable: true}"
+  [scrollbar]="true" [centeredSlides]="true"
+  [zoom]="{toggle: true, minRatio: 1, maxRatio: 2}"
+  [navigation]="true"
+  (zoomChange)="zoomChange($event)">
+  <ng-template swiperSlide *ngFor="let anexo of Anexos">
+    <div class="swiper-zoom-container" *ngIf="!anexo.excluido">
       <img [src]="anexo.imagemID ? 'data:image/jpeg;base64, ' + anexo.caminhoImagem : anexo.caminhoImagem"/>
-    </swiper-slide>
-  </swiper-container>
-</div>
+    </div>
+  </ng-template>
+</swiper>
+

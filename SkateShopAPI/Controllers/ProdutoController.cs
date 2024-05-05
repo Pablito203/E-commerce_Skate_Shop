@@ -122,9 +122,9 @@ namespace SkateShopAPI.Controllers {
             var lstTamanhoProduto = Repository.FilterQuery<Tamanho>((p) => p.Produto == id).ToList();
             var lstAnexo = Repository.FilterQuery<Anexo>((p) => p.Produto == id).ToList();
 
-            Repository.Delete(ProdutoDados.Produto);
             Repository.Delete(lstTamanhoProduto);
             Repository.Delete(lstAnexo);
+            Repository.Delete(ProdutoDados.Produto);
             Repository.Dispose();
 
             return new RespostaAPI(new { sucesso = true });
