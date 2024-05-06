@@ -43,7 +43,10 @@ export class AlertaService {
       options.cssClass.push('web');
       options.position = 'top';
     }
-    options.duration = 1000;
+
+    if (!options.duration) {
+      options.duration = 1000;
+    }
 
     this.toastController.create(options).then(toast => toast.present());
   }

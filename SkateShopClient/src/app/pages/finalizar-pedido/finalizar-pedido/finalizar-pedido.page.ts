@@ -1,12 +1,13 @@
+import { lastValueFrom } from 'rxjs';
+import { TamanhoService } from 'src/app/services/tamanho/tamanho.service';
 import { UsuarioService } from './../../../services/usuario/usuario.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastOptions } from '@ionic/angular';
 import { PedidoService } from './../../../services/pedido/pedido.service';
 import { AlertaService } from './../../../services/alerta/alerta.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from 'src/app/services/modal/modal.service';
 import { SacolaService } from 'src/app/services/sacola/sacola.service';
-import { ProdutoDetalheComponent } from 'src/app/components/produto-detalhe/produto-detalhe/produto-detalhe.component';
 import { EnderecoService } from 'src/app/services/endeco/endereco.service';
+import { ProdutoService } from 'src/app/services/produto/produto.service';
 
 @Component({
   selector: 'finalizar-pedido',
@@ -18,13 +19,15 @@ export class FinalizarPedidoPage implements OnInit {
   Enderecos: any[] = [];
   Total: number = 0;
   enderecoSelecionadoID: number = 0;
+  mostrarAvisoItensAJustados = false;
 
   constructor(private sacolaService: SacolaService,
-              private modalService: ModalService,
               private enderecoService: EnderecoService,
               private alertaService: AlertaService,
               private pedidoService: PedidoService,
-              private navController: NavController) { }
+              private navController: NavController,
+              private tamanhoService: TamanhoService,
+              private produtoService: ProdutoService) { }
 
   ngOnInit() {
     this.enderecoService.GetEnderecosUsuario(UsuarioService.usuarioLogado?.usuarioID).subscribe((data: any) => {
@@ -34,18 +37,61 @@ export class FinalizarPedidoPage implements OnInit {
       }
 
       this.Enderecos = data.result;
-      this.enderecoSelecionadoID = this.Enderecos[0].enderecoID || 0;
+      if (this.Enderecos.length) {
+        this.enderecoSelecionadoID = this.Enderecos[0].enderecoID;
+      }
     });
 
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data || [];
       this.CalcularTotal();
+
+      if (this.Sacola.length > 0) {
+        let lstProdutoIDComTamanho: any[] = [];
+        let lstProdutoIDSemTamanho: any[] = [];
+
+        this.Sacola.forEach((produto: any) =>  {
+          if (produto.tamanhoID) {
+            if (!lstProdutoIDComTamanho.includes(produto.produtoID)) {
+              lstProdutoIDComTamanho.push(produto.produtoID)
+            }
+          } else {
+            if (!lstProdutoIDSemTamanho.includes(produto.produtoID)) {
+              lstProdutoIDSemTamanho.push(produto.produtoID)
+            }
+          }
+        });
+
+        let promises: Promise<any>[] = [];
+
+        if (lstProdutoIDComTamanho.length) {
+          promises.push(this.ajustarQuantidadeProdutoComTamanho(lstProdutoIDComTamanho));
+        }
+
+        if (lstProdutoIDSemTamanho.length) {
+          promises.push(this.ajustarQuantidadeProdutoSemTamanho(lstProdutoIDSemTamanho));
+        }
+
+        Promise.all(promises).then(() => {
+          let sacolaNova = this.Sacola.filter((produto: any) => !produto.excluir);
+          this.sacolaService.salvarSacola(sacolaNova);
+          this.Sacola = sacolaNova;
+
+          if (this.mostrarAvisoItensAJustados) {
+            let options: ToastOptions = {
+              message: "Os itens podem ter sido excluídos ou ajustados, devido a quantidade em nosso estoque",
+              duration: 5000
+            }
+            this.alertaService.CriarToast(options, true);
+          }
+        });
+      }
     });
 
   }
 
   CalcularTotal() {
-    this.Total = this.Sacola.reduce((acumulado, produto) => acumulado + produto.valor * produto.Quantidade, 0);
+    this.Total = this.Sacola.reduce((acumulado, produto) => acumulado + produto.valor * produto.quantidade, 0);
   }
 
   setEnderecoSelecionado(event: any) {
@@ -61,10 +107,6 @@ export class FinalizarPedidoPage implements OnInit {
   SalvarSacola(): void {
     this.sacolaService.salvarSacola(this.Sacola);
     this.CalcularTotal();
-  }
-
-  AbrirModalProdutoDetalhe(produto: any) {
-    this.modalService.CriarModal(ProdutoDetalheComponent, { ProdutoID: produto.produtoID }, "big");
   }
 
   GetNomeEndereco(endereco: any) {
@@ -97,5 +139,55 @@ export class FinalizarPedidoPage implements OnInit {
       this.sacolaService.salvarSacola([]);
       this.navController.navigateBack('/')
     });
+  }
+
+  ajustarQuantidadeProdutoSemTamanho(lstProdutoIDSemTamanho: number[]) {
+    return lastValueFrom(this.produtoService.GetByListaID(lstProdutoIDSemTamanho)).then((data: any) => {
+      data.result.forEach((produtoRetorno: any) => {
+        let produto = this.Sacola.find((produto) => produto.produtoID == produtoRetorno.produtoID);
+
+        if (produtoRetorno.quantidadeEstoque < produto.quantidade) {
+          this.mostrarAvisoItensAJustados = true;
+
+          if (produtoRetorno.quantidadeEstoque == 0) {
+            produto.excluir = true;
+          } else {
+            produto.quantidade = produtoRetorno.quantidadeEstoque;
+          }
+        }
+
+        produto.quantidadeMaxima = produtoRetorno.quantidadeEstoque;
+      });
+    });
+  }
+
+  ajustarQuantidadeProdutoComTamanho(lstProdutoIDComTamanho: number[]) {
+    let promises: Promise<any>[] = [];
+
+    lstProdutoIDComTamanho.forEach((produtoID) => {
+      promises.push(lastValueFrom(this.tamanhoService.GetTamanho(produtoID)).then((data: any) => {
+        let lstProduto = this.Sacola.filter((produto) => produto.produtoID == produtoID);
+
+        data.result.forEach((tamanho: any) => {
+          lstProduto.forEach((produto) => {
+            if (produto.tamanhoID == tamanho.tamanhoID) {
+              if (tamanho.quantidade < produto.quantidade) {
+                this.mostrarAvisoItensAJustados = true;
+
+                if (tamanho.quantidade == 0) {
+                  produto.excluir = true;
+                } else {
+                  produto.quantidade = tamanho.quantidade;
+                }
+              }
+
+              produto.quantidadeMaxima = tamanho.quantidade;
+            }
+          });
+        });
+      }));
+    });
+
+    return Promise.all(promises)
   }
 }

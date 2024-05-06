@@ -21,7 +21,7 @@ export class SacolaComponent implements OnInit {
   ngOnInit(): void {
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data;
-    })
+    });
   }
 
   FecharModal(): void {

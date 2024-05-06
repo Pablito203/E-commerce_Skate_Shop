@@ -23,8 +23,10 @@ export class ModalService {
         ModalService.ModalAberto = undefined;
       });
 
-      Modal.present();
-      ModalService.ModalAberto = Modal;
+      Modal.canDismiss = true;
+      Modal.present().then(() => {
+        ModalService.ModalAberto = Modal;
+      });;
     });
   }
 

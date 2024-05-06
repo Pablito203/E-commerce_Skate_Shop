@@ -14,8 +14,7 @@
             <ng-container *ngIf="Sacola && Sacola.length; else noItems">
               <div *ngFor="let Produto of Sacola; let index = index" >
                 <produto-card-lista [Tipo]="'Sacola'"
-                  [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="SalvarSacola()"
-                  (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
+                  [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="SalvarSacola()"></produto-card-lista>
               </div>
             </ng-container>
           </ion-card-content>
@@ -28,8 +27,11 @@
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-select label="Endereço" label-placement="floating" [value]="enderecoSelecionadoID" (ionChange)="setEnderecoSelecionado($event)">
-                      <ion-select-option *ngFor="let Endereco of Enderecos" [value]="Endereco.enderecoID">{{GetNomeEndereco(Endereco)}}</ion-select-option>
+                    <ion-select label="Endereço" label-placement="floating" [value]="enderecoSelecionadoID"
+                      (ionChange)="setEnderecoSelecionado($event)">
+                      <ion-select-option *ngFor="let Endereco of Enderecos" [value]="Endereco.enderecoID">
+                        {{GetNomeEndereco(Endereco)}}
+                      </ion-select-option>
                     </ion-select>
                   </ion-item>
                 </ion-col>

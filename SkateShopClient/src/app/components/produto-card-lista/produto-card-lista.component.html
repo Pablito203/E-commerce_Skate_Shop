@@ -14,17 +14,17 @@
   </ion-row>
   <ion-row (click)="$event.stopPropagation();$event.preventDefault();">
     <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
-      <ion-button fill="none" (click)="SubtrairClick()" [disabled]="this.Produto.Quantidade <= 1">
+      <ion-button fill="none" (click)="SubtrairClick()" [disabled]="Produto.quantidade <= 1">
         -
       </ion-button>
     </ion-col>
     <ion-col *ngIf="Tipo === 'Sacola'" size="2" style="display: flex; justify-content: center;">
       <ion-button fill="none" [disabled]="true" style="opacity: 1;">
-        {{Produto.Quantidade}}
+        {{Produto.quantidade}}
       </ion-button>
     </ion-col>
     <ion-col *ngIf="Tipo === 'Sacola'" size="auto">
-      <ion-button fill="none" (click)="AdicionarClick()">
+      <ion-button fill="none" (click)="AdicionarClick()" [disabled]="Produto.quantidade + 1 > Produto.quantidadeMaxima">
         +
       </ion-button>
     </ion-col>

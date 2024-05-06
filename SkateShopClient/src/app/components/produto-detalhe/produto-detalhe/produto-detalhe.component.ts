@@ -101,9 +101,20 @@ export class ProdutoDetalheComponent implements OnInit {
     }
 
     if (ProdutoSacola) {
-      ProdutoSacola.Quantidade++;
+      if (this.TamanhoSelecionadoID) {
+        let tamanho = this.Tamanhos.find((value: any) => value.tamanhoID === this.TamanhoSelecionadoID);
+        ProdutoSacola.quantidadeMaxima = tamanho.quantidade;
+      } else {
+        ProdutoSacola.quantidadeMaxima = this.Produto.quantidadeEstoque;
+      }
+
+      if (ProdutoSacola.quantidade + 1 > ProdutoSacola.quantidadeMaxima) {
+        this.alertaService.CriarToastMensagem('Quantidade de estoque insuficiente', true);
+      } else {
+        ProdutoSacola.quantidade++;
+        this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
+      }
       this.sacolaService.salvarSacola(this.Sacola);
-      this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
       return;
     }
 
@@ -112,13 +123,16 @@ export class ProdutoDetalheComponent implements OnInit {
       nome: this.Produto.nome,
       valor: this.Produto.valor,
       caminhoImagem: this.Produto.caminhoImagem,
-      Quantidade: 1
+      quantidade: 1
     };
 
     if (this.TamanhoSelecionadoID) {
       let tamanho = this.Tamanhos.find((value: any) => value.tamanhoID === this.TamanhoSelecionadoID);
       Produto.tamanhoNome = tamanho.nome;
-      Produto.tamanhoID = this.TamanhoSelecionadoID
+      Produto.tamanhoID = this.TamanhoSelecionadoID;
+      Produto.quantidadeMaxima = tamanho.quantidade;
+    } else {
+      Produto.quantidadeMaxima = this.Produto.quantidadeEstoque;
     }
 
     this.Sacola.push(Produto);

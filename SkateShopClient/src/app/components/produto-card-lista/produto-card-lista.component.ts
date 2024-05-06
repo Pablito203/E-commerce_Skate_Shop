@@ -19,14 +19,14 @@ export class ProdutoCardListaComponent {
   constructor(private AlertaService: AlertaService) { }
 
   SubtrairClick() {
-    if (!this.Produto.Quantidade || this.Produto.Quantidade <= 1) {return;}
-    this.Produto.Quantidade -= 1;
+    if (!this.Produto.quantidade || this.Produto.quantidade <= 1) {return;}
+    this.Produto.quantidade -= 1;
     this.EmitirAlterado();
   }
 
   AdicionarClick() {
-    if (!this.Produto.Quantidade) {return;}
-    this.Produto.Quantidade += 1;
+    if (!this.Produto.quantidade) {return;}
+    this.Produto.quantidade += 1;
     this.EmitirAlterado();
   }
 
