@@ -1,0 +1,16 @@
+<ion-card (click)="AbrirModalProdutoDetalhe()">
+  <ion-row>
+    <div class="produto-container">
+      <div class="img-container">
+        <ion-icon [name]="'heart' + (produto.favorito ? '' : '-outline')" [ngClass]="{'selected': produto.favorito}"
+                  (click)="Favorito(); $event.stopPropagation()"></ion-icon>
+        <ion-img [src]="'data:image/jpeg;base64, ' + produto.caminhoImagem"></ion-img>
+      </div>
+
+      <div class="info-container">
+        <span class="titulo bold text-ellipsis-2">{{produto.nome}}</span><br>
+        <span class="sub-titulo bold">{{produto.valor | currency:'BRL'}}</span><br>
+      </div>
+    </div>
+  </ion-row>
+</ion-card>

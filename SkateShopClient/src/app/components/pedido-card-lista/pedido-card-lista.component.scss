@@ -1,0 +1,28 @@
+ion-badge {
+  text-wrap: wrap;
+}
+
+@media only screen and (max-width: 499px) {
+  .tela-grande {
+    display: none;
+  }
+
+  .valor {
+    text-align: right;
+  }
+
+  ion-col {
+    margin: 10px 0;
+  }
+}
+
+
+@media only screen and (min-width: 499.1px) {
+  .tela-pequena {
+    display: none;
+  }
+
+  ion-col {
+    text-align: center;
+  }
+}

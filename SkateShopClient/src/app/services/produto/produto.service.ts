@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class ProdutoService {
   }
 
   GetRequisicao(headers: HttpHeaders) {
+    if (UsuarioService.usuarioLogado) {
+      headers = headers.set('UsuarioID', UsuarioService.usuarioLogado.usuarioID.toString());
+    }
+
     const requestOptions = {
       headers: headers
     };

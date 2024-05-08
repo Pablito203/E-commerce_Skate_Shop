@@ -13,7 +13,7 @@ public partial class Produto
 
     public DateTime DataCriacao { get; set; }
 
-    public bool? Ativo { get; set; }
+    public bool Ativo { get; set; }
 
     public bool Destaque { get; set; }
 

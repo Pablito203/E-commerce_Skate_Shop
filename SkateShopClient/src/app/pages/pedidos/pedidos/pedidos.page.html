@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section>
+    <div class="pedidos-container">
+      <ng-container *ngIf="pedidos && pedidos.length; else noItens">
+        <div *ngFor="let pedido of pedidos; let index = index">
+          <pedido-card-lista [pedido]="pedido"></pedido-card-lista>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #noItens>
+  <no-itens></no-itens>
+</ng-template>

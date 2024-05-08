@@ -4,7 +4,7 @@ import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { SacolaComponent } from './components/sacola/sacola.component';
 import { Storage } from "@ionic/storage-angular";
 import { UsuarioService, usuario } from './services/usuario/usuario.service';
-import { DadosUsuarioComponent } from './components/dados-usuario/dados-usuario/dados-usuario.component';
+import { DadosUsuarioComponent } from './components/dados-usuario/dados-usuario.component';
 
 @Component({
   selector: 'app-root',

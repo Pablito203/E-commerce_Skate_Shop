@@ -1,6 +1,8 @@
+import { FavoritosService } from './../../services/favoritos/favoritos.service';
+import { EventsService } from './../../services/events/events.service';
+import { AlertaService } from 'src/app/services/alerta/alerta.service';
+import { SacolaService } from 'src/app/services/sacola/sacola.service';
 import { NavController } from '@ionic/angular';
-import { AlertaService } from './../../../services/alerta/alerta.service';
-import { SacolaService } from './../../../services/sacola/sacola.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ImagemService } from 'src/app/services/imagem/imagem.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -14,10 +16,11 @@ import { UsuarioService, usuario } from 'src/app/services/usuario/usuario.servic
   styleUrls: ['./produto-detalhe.component.scss'],
 })
 export class ProdutoDetalheComponent implements OnInit {
+  @Input() ProdutoID: number = 0;
+
   Produto: any = {};
   Imagens: any[] = [];
   Tamanhos: any[] = [];
-  @Input() ProdutoID: number = 0;
   TamanhoSelecionadoID: number = 0;
   Sacola: any[] = [];
   usuarioLogado: usuario | null = null;
@@ -27,7 +30,9 @@ export class ProdutoDetalheComponent implements OnInit {
               private tamanhoService: TamanhoService,
               private sacolaService: SacolaService,
               private alertaService: AlertaService,
-              private navController: NavController) { }
+              private navController: NavController,
+              private events: EventsService,
+              private favoritosService: FavoritosService) { }
 
   ngOnInit() {
     this.usuarioLogado = UsuarioService.usuarioLogado;
@@ -87,6 +92,28 @@ export class ProdutoDetalheComponent implements OnInit {
 
   FecharModal(): void {
     ModalService.FecharModal();
+  }
+
+  addFavoritos() {
+    if (!UsuarioService.usuarioLogado) {
+      this.alertaService.CriarToastMensagem('Acesse sua conta para adicionar aos favoritos', true);
+      return;
+    }
+
+    if (this.Produto.favorito) {
+      this.favoritosService.RemoverFavorito(this.Produto.produtoID).subscribe((data: any) => {
+        this.events.publish('RemoveFavorito' + this.Produto.produtoID);
+        this.favoritosService.ExecutarEventos(this.Produto.produtoID, true);
+        this.Produto.favorito = false;
+        this.alertaService.CriarToastMensagem('Produto removido dos favoritos');
+      });
+    } else {
+      this.favoritosService.AdicionarFavorito(this.Produto.produtoID).subscribe((data: any) => {
+        this.favoritosService.ExecutarEventos(this.Produto.produtoID, false);
+        this.Produto.favorito = true;
+        this.alertaService.CriarToastMensagem('Produto adicionado aos favoritos');
+      });
+    }
   }
 
   addSacola() {

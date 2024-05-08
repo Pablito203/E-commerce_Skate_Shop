@@ -86,7 +86,7 @@ namespace SkateShopAPI.Controllers {
 
             AsaasService.CriarCobrancaDados DadosCriarCobranca = new() {
                 UsuarioAsaasID = Usuario.IdAsaas,
-                Valor = PedidoBody.ListaProduto.Sum(p => p.Valor)
+                Valor = PedidoBody.ListaProduto.Sum(p => p.Valor * p.Quantidade)
             };
 
             AsaasService.DadosCobranca DadosCobranca = await AsaasService.CriarCobrança(DadosCriarCobranca);
@@ -113,6 +113,33 @@ namespace SkateShopAPI.Controllers {
             }).ToList();
 
             Repository.Insert(ListaProdutoSalvar);
+
+            List<int> lstProdutoID = ListaProdutoSalvar.Where((p) => !p.Tamanho.HasValue).Select((p) => p.Produto).ToList();
+            List<int> lstTamanhoID = ListaProdutoSalvar.Where((p) => p.Tamanho.HasValue).Select((p) => p.Tamanho.Value).ToList();
+
+            List<Produto> lstProdutoUpdate = new List<Produto>();
+            List<Tamanho> lstTamanhoUpdate = new List<Tamanho>();
+
+            if (lstProdutoID.Any()) {
+                lstProdutoUpdate = Repository.FilterQuery<Produto>((p) => lstProdutoID.Contains(p.Produto1)).ToList();
+            }
+
+            if (lstTamanhoID.Any()) { 
+                lstTamanhoUpdate = Repository.FilterQuery<Tamanho>((p) => lstTamanhoID.Contains(p.Tamanho1)).ToList();
+            }
+
+            foreach (Produto produto in lstProdutoUpdate) {
+                int quantidade = ListaProdutoSalvar.Where(p => p.Produto == produto.Produto1).Select(p => p.Quantidade).FirstOrDefault();
+                produto.QuantidadeEstoque -= quantidade;
+            }
+            
+            foreach (Tamanho tamanho in lstTamanhoUpdate) {
+                int quantidade = ListaProdutoSalvar.Where(p => p.Tamanho == tamanho.Tamanho1).Select(p => p.Quantidade).FirstOrDefault();
+                tamanho.Quantidade -= quantidade;
+            }
+
+            Repository.Update(lstProdutoUpdate);
+            Repository.Update(lstTamanhoUpdate);
 
             Repository.Dispose();
             PedidoRetorno PedidoRetorno = new() {

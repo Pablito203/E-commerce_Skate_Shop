@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { UsuarioService, cadastro, usuario } from 'src/app/services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,8 @@ export class DadosUsuarioComponent implements OnInit {
   };
 
   constructor(private usuarioService: UsuarioService,
-              private alertaService: AlertaService) { }
+              private alertaService: AlertaService,
+              private navController: NavController) { }
 
   ngOnInit() {
     this.usuarioLogado = UsuarioService.usuarioLogado;
@@ -46,5 +48,10 @@ export class DadosUsuarioComponent implements OnInit {
       this.alertaService.CriarToastMensagem("Dados alterados com sucesso");
       this.usuarioService.setUsuarioLogado(this.usuarioLogado);
     });
+  }
+
+  AbrirPedidos() {
+    this.navController.navigateForward('/pedidos');
+    this.FecharModal();
   }
 }

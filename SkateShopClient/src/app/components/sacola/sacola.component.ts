@@ -1,9 +1,11 @@
+import { LoginRegisterComponent } from './../login-register/login-register.component';
 import { NavController } from '@ionic/angular';
 import { SacolaService } from './../../services/sacola/sacola.service';
 import { Storage } from '@ionic/storage-angular';
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { ProdutoDetalheComponent } from '../produto-detalhe/produto-detalhe/produto-detalhe.component';
+import { ProdutoDetalheComponent } from '../produto-detalhe/produto-detalhe.component';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
   selector: 'sacola',
@@ -42,7 +44,11 @@ export class SacolaComponent implements OnInit {
   }
 
   FecharPedido() {
-    this.navController.navigateForward('/finalizar-pedido');
-    ModalService.FecharModal();
+    if (UsuarioService.usuarioLogado) {
+      this.navController.navigateForward('/finalizar-pedido');
+      ModalService.FecharModal();
+    } else {
+      this.modalService.CriarModal(LoginRegisterComponent);
+    }
   }
 }

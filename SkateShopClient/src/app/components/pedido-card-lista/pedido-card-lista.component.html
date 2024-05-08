@@ -1,0 +1,80 @@
+<ion-card>
+  <ion-card-content>
+    <div class="tela-grande">
+      <ng-container [ngTemplateOutlet]="telaGrande"></ng-container>
+    </div>
+    <div class="tela-pequena">
+      <ng-container [ngTemplateOutlet]="telaPequena"></ng-container>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #telaGrande>
+  <ion-row class="bold">
+    <ion-col size="3">
+      Nº Pedido
+    </ion-col>
+    <ion-col size="3">
+      Data
+    </ion-col>
+    <ion-col size="3">
+      Situação
+    </ion-col>
+    <ion-col size="3">
+      Valor
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3">
+      {{('0000000' + pedido.pedidoID).slice(-7)}}
+    </ion-col>
+    <ion-col size="3">
+      {{pedido.dataCriacao | date: 'short'}}
+    </ion-col>
+    <ion-col size="3">
+      <ion-badge color="{{pedido.pagamentoRealizado ? 'success' : 'danger'}}">
+        {{pedido.pagamentoRealizado ? 'Pagamento recebido' : 'Aguardando pagamento'}}
+      </ion-badge>
+    </ion-col>
+    <ion-col size="3">
+      {{pedido.valor | currency: 'BRL'}}
+    </ion-col>
+  </ion-row>
+</ng-template>
+
+<ng-template #telaPequena>
+  <ion-row>
+    <ion-col size="6">
+      Nº Pedido
+    </ion-col>
+    <ion-col size="6" class="valor">
+      {{('0000000' + pedido.pedidoID).slice(-7)}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      Data
+    </ion-col>
+    <ion-col size="6" class="valor">
+      {{pedido.dataCriacao | date: 'short'}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      Situação
+    </ion-col>
+    <ion-col size="6" class="valor">
+      <ion-badge color="{{pedido.pagamentoRealizado ? 'success' : 'danger'}}">
+        {{pedido.pagamentoRealizado ? 'Pagamento recebido' : 'Aguardando pagamento'}}
+      </ion-badge>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      Valor
+    </ion-col>
+    <ion-col size="6" class="valor">
+      {{pedido.valor | currency: 'BRL'}}
+    </ion-col>
+  </ion-row>
+</ng-template>

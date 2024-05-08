@@ -1,4 +1,4 @@
-import { AlertaService } from './../../../services/alerta/alerta.service';
+import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertOptions, IonicSlides } from '@ionic/angular';
 import SwiperCore, { Navigation, Pagination, Scrollbar, Manipulation, Zoom, Swiper} from 'swiper';

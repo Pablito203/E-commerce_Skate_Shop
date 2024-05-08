@@ -21,7 +21,13 @@ const routes: Routes = [
     path: 'finalizar-pedido',
     loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule),
     canActivate: [CanActivateUsuarioLogado]
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./pages/pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
+    canActivate: [CanActivateUsuarioLogado]
   }
+
 ];
 @NgModule({
   imports: [

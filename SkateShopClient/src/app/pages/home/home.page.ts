@@ -19,22 +19,24 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.documentElement = document.documentElement;
-    this.produtoService.GetLancamentos().subscribe((data: any) => {
-      if (data.mensagemErro) {
-        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
-        return;
-      }
+    setTimeout(() => {
+      this.produtoService.GetLancamentos().subscribe((data: any) => {
+        if (data.mensagemErro) {
+          this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+          return;
+        }
 
-      this.lancamentos = data.result;
-    });
+        this.lancamentos = data.result;
+      });
 
-    this.produtoService.GetDestaques().subscribe((data: any) => {
-      if (data.mensagemErro) {
-        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
-        return;
-      }
+      this.produtoService.GetDestaques().subscribe((data: any) => {
+        if (data.mensagemErro) {
+          this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+          return;
+        }
 
-      this.destaques = data.result;
-    });
+        this.destaques = data.result;
+      });
+    }, 100);
   }
 }

@@ -24,13 +24,23 @@ namespace SkateShopAPI.Controllers {
                 TamanhoUnico = p.TamanhoUnico,
                 CaminhoImagem = p.Anexos.Select((p) => p.CaminhoRelativo).FirstOrDefault(),
             }).ToList();
+
+            List<int> lstProdutoFavoritoID = null;
+
+            if (Request.Headers.TryGetValue("UsuarioID", out var strUsuarioID)) {
+                int UsuarioID = int.Parse(strUsuarioID);
+                lstProdutoFavoritoID = Repository.FilterQuery<Favorito>((p) => p.Usuario == UsuarioID).Select(p => p.Produto).ToList();
+            }
+
             Repository.Dispose();
 
-            foreach (var Produto in lstProduto)
-            {
-                if (Produto.CaminhoImagem is not null)
-                {
+            foreach (var Produto in lstProduto) {
+                if (Produto.CaminhoImagem is not null) {
                     Produto.CaminhoImagem = AnexoService.BuscarArquivoBase64(Produto.CaminhoImagem);
+                }
+
+                if (lstProdutoFavoritoID is not null) {
+                    Produto.Favorito = lstProdutoFavoritoID.Contains(Produto.ProdutoID);
                 }
             }
 

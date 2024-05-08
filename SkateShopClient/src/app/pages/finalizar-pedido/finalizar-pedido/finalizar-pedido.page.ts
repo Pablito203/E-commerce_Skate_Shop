@@ -30,6 +30,12 @@ export class FinalizarPedidoPage implements OnInit {
               private produtoService: ProdutoService) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.getDados();
+    }, 100);
+  }
+
+  getDados() {
     this.enderecoService.GetEnderecosUsuario(UsuarioService.usuarioLogado?.usuarioID).subscribe((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
@@ -87,7 +93,6 @@ export class FinalizarPedidoPage implements OnInit {
         });
       }
     });
-
   }
 
   CalcularTotal() {
@@ -146,10 +151,10 @@ export class FinalizarPedidoPage implements OnInit {
       data.result.forEach((produtoRetorno: any) => {
         let produto = this.Sacola.find((produto) => produto.produtoID == produtoRetorno.produtoID);
 
-        if (produtoRetorno.quantidadeEstoque < produto.quantidade) {
+        if (produtoRetorno.quantidadeEstoque < produto.quantidade || !produtoRetorno.ativo) {
           this.mostrarAvisoItensAJustados = true;
 
-          if (produtoRetorno.quantidadeEstoque == 0) {
+          if (produtoRetorno.quantidadeEstoque == 0 || !produtoRetorno.ativo) {
             produto.excluir = true;
           } else {
             produto.quantidade = produtoRetorno.quantidadeEstoque;

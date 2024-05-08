@@ -53,8 +53,14 @@
         </ion-button>
       </ion-col>
       <ion-col *ngIf="!usuarioLogado || !usuarioLogado.administrador">
+        <ion-button expand="block" color="dark" fill="outline" (click)="addFavoritos()"
+        [disabled]="!Produto.ativo">
+          {{Produto.favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}}
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="!usuarioLogado || !usuarioLogado.administrador">
         <ion-button expand="block" color="dark" (click)="addSacola()"
-        [disabled]="(Produto.tamanhoUnico && Produto.quantidadeEstoque == 0) || (!Produto.tamanhoUnico && TamanhoSelecionadoID == 0)">
+        [disabled]="(Produto.tamanhoUnico && Produto.quantidadeEstoque == 0) || (!Produto.tamanhoUnico && TamanhoSelecionadoID == 0) || !Produto.ativo">
           Adicionar na sacola
         </ion-button>
       </ion-col>

@@ -1,7 +1,6 @@
+import { UsuarioService, login, cadastro } from 'src/app/services/usuario/usuario.service';
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
-import { UsuarioService, login, cadastro } from './../../../services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({

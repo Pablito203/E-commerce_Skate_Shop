@@ -32,11 +32,10 @@
        [initialSlide]="0">
         <ng-template swiperSlide *ngFor="let produto of lancamentos">
           <div style="display: flex;justify-content: center;">
-            <produto-catalogo [Produto]="produto"></produto-catalogo>
+            <produto-catalogo [produto]="produto" [tipo]="'Lancamento'"></produto-catalogo>
           </div>
         </ng-template>
       </swiper>
-
     </div>
   </section>
 
@@ -51,11 +50,10 @@
        [initialSlide]="0">
         <ng-template swiperSlide *ngFor="let produto of destaques">
           <div style="display: flex;justify-content: center;">
-            <produto-catalogo [Produto]="produto"></produto-catalogo>
+            <produto-catalogo [produto]="produto" [tipo]="'Destaque'"></produto-catalogo>
           </div>
         </ng-template>
       </swiper>
-
     </div>
   </section>
 </ion-content>
