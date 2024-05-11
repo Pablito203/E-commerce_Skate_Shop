@@ -19,7 +19,7 @@ public partial class Produto
 
     public int QuantidadeEstoque { get; set; }
 
-    public bool? TamanhoUnico { get; set; }
+    public bool TamanhoUnico { get; set; }
 
     public int Tipo { get; set; }
 

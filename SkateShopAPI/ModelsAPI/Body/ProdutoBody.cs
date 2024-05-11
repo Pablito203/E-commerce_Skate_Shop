@@ -5,7 +5,7 @@
         public decimal Valor { get; set; }
         public bool Destaque { get; set; }
         public int QuantidadeEstoque { get; set; }
-        public bool? TamanhoUnico { get; set; }
+        public bool TamanhoUnico { get; set; }
         public int Tipo { get; set; }
     }
 }
