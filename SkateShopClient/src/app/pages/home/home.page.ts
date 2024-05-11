@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { AlertaService } from './../../services/alerta/alerta.service';
 import { ProdutoService } from './../../services/produto/produto.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,8 @@ export class HomePage implements OnInit {
   math = Math;
 
   constructor(private produtoService: ProdutoService,
-              private alertaService: AlertaService) { }
+              private alertaService: AlertaService,
+              private navController: NavController) { }
 
   ngOnInit() {
     this.documentElement = document.documentElement;
@@ -38,5 +40,9 @@ export class HomePage implements OnInit {
         this.destaques = data.result;
       });
     }, 100);
+  }
+
+  navigate(url: string) {
+    this.navController.navigateForward(url);
   }
 }

@@ -41,8 +41,8 @@ export class AlertaService {
 
     if (Capacitor.getPlatform() === 'web') {
       options.cssClass.push('web');
-      options.position = 'top';
     }
+    options.position = 'top';
 
     if (!options.duration) {
       options.duration = 1000;

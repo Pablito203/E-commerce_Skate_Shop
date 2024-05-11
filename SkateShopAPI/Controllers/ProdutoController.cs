@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkateShopAPI.EntityModels;
 using SkateShopAPI.ModelsAPI;
 using SkateShopAPI.Services;
@@ -23,6 +24,7 @@ namespace SkateShopAPI.Controllers {
                 QuantidadeEstoque = p.QuantidadeEstoque,
                 TamanhoUnico = p.TamanhoUnico,
                 CaminhoImagem = p.Anexos.Select((p) => p.CaminhoRelativo).FirstOrDefault(),
+                Tipo = p.Tipo
             }).ToList();
 
             List<int> lstProdutoFavoritoID = null;
@@ -55,6 +57,7 @@ namespace SkateShopAPI.Controllers {
                 Destaque = ProdutoBody.Destaque,
                 QuantidadeEstoque = ProdutoBody.QuantidadeEstoque,
                 TamanhoUnico = ProdutoBody.TamanhoUnico,
+                Tipo = ProdutoBody.Tipo,
                 DataCriacao = DateTime.Now
             };
 
@@ -69,7 +72,8 @@ namespace SkateShopAPI.Controllers {
                 Valor = Produto.Valor,
                 Destaque = Produto.Destaque,
                 QuantidadeEstoque = Produto.QuantidadeEstoque,
-                TamanhoUnico = Produto.TamanhoUnico
+                TamanhoUnico = Produto.TamanhoUnico,
+                Tipo = Produto.Tipo
             };
 
             return new RespostaAPI(ProdutoRetorno);
@@ -95,6 +99,7 @@ namespace SkateShopAPI.Controllers {
             Produto.Destaque = ProdutoBody.Destaque;
             Produto.QuantidadeEstoque = ProdutoBody.QuantidadeEstoque;
             Produto.TamanhoUnico = ProdutoBody.TamanhoUnico;
+            Produto.Tipo = ProdutoBody.Tipo;
 
             Repository.Dispose();
             Repository.Update(Produto);
@@ -106,7 +111,8 @@ namespace SkateShopAPI.Controllers {
                 Valor = Produto.Valor,
                 Destaque = Produto.Destaque,
                 QuantidadeEstoque = Produto.QuantidadeEstoque,
-                TamanhoUnico = Produto.TamanhoUnico
+                TamanhoUnico = Produto.TamanhoUnico,
+                Tipo = Produto.Tipo
             };
 
             return new RespostaAPI(ProdutoRetorno);
@@ -143,11 +149,13 @@ namespace SkateShopAPI.Controllers {
         [HttpGet("[Controller]ID")]
         public RespostaAPI GetProdutoID() {
             Repository Repository = new();
-            var lstProdutoID = Repository.FilterQuery<Produto>((p) => true).Select((p) => p.Produto1).ToList();
+            var iqProduto = Repository.FilterQuery<Produto>((p) => true);
+            SetIQueryableProduto(ref iqProduto);
+
+            var lstProdutoID = iqProduto.Select((p)  => p.Produto1).ToList();
             Repository.Dispose();
             return new RespostaAPI(lstProdutoID);
         }
-
 
         private void SetIQueryableProduto(ref IQueryable<Produto> iqProduto) {
             Request.Headers.TryGetValue("tipo", out var Tipo);
@@ -158,6 +166,29 @@ namespace SkateShopAPI.Controllers {
                     break;
                 case "destaques":
                     iqProduto = iqProduto.Where((p) => p.Destaque);
+                    break;
+                case "roupas":
+                    if(Request.Headers.TryGetValue("tipoID", out var tipoRoupaID)) {
+                        iqProduto = iqProduto.Where(p => p.Tipo == int.Parse(tipoRoupaID));
+                        break;
+                    }
+
+                    var lstTipoProdutoRoupa = Enum.GetValues(typeof(tipoProdutoRoupa)).Cast<int>().ToList();
+                    iqProduto = iqProduto.Where(p => lstTipoProdutoRoupa.Contains(p.Tipo));
+                    break;
+                case "skate":
+                    if (Request.Headers.TryGetValue("tipoID", out var tipoSkateID)) {
+                        iqProduto = iqProduto.Where(p => p.Tipo == int.Parse(tipoSkateID));
+                        break;
+                    }
+
+                    var lstTipoProdutoSkate = Enum.GetValues(typeof(tipoProdutoSkate)).Cast<int>().ToList();
+                    iqProduto = iqProduto.Where(p => lstTipoProdutoSkate.Contains(p.Tipo));
+                    break;
+                case "search":
+                    Request.Headers.TryGetValue("pesquisa", out var pesquisa);
+
+                    iqProduto = iqProduto.Where(p => EF.Functions.Like(p.Nome, $"%{pesquisa}%"));
                     break;
                 default:
                     if (!Request.Headers.TryGetValue("ListaID", out var ListaID)) {
@@ -174,6 +205,22 @@ namespace SkateShopAPI.Controllers {
                     iqProduto = iqProduto.Where((p) => lstProdutoID.Contains(p.Produto1));
                     break;
             }
+        }
+
+        public enum tipoProdutoRoupa {
+            CAMISETAS = 1,
+            CALCAS = 2,
+            MOLETONS = 3,
+            ACESSORIOS = 4,
+            BERMUDAS = 9,
+            TENIS = 10
+        }
+
+        public enum tipoProdutoSkate {
+            SHAPES = 5,
+            TRUCKS = 6,
+            RODAS = 7,
+            OUTROS = 8
         }
     }
 }

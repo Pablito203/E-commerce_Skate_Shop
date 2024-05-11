@@ -41,7 +41,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Anexo>(entity =>
         {
-            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739EE0A61154");
+            entity.HasKey(e => e.Anexo1).HasName("PK__anexo__BE9E739E537038D6");
 
             entity.ToTable("anexo");
 
@@ -64,7 +64,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Endereco>(entity =>
         {
-            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D40756E3BD45");
+            entity.HasKey(e => e.Endereco1).HasName("PK__endereco__9456D4078E1CB174");
 
             entity.ToTable("endereco");
 
@@ -103,7 +103,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Favorito>(entity =>
         {
-            entity.HasKey(e => e.Favorito1).HasName("PK__favorito__F88B004D0308AD5C");
+            entity.HasKey(e => e.Favorito1).HasName("PK__favorito__F88B004D70F59DD3");
 
             entity.ToTable("favorito");
 
@@ -124,7 +124,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Pedido>(entity =>
         {
-            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC3646EDE516");
+            entity.HasKey(e => e.Pedido1).HasName("PK__pedido__D213FC36FEA0D625");
 
             entity.ToTable("pedido");
 
@@ -167,7 +167,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<PedidoProduto>(entity =>
         {
-            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__67031675B56D04B4");
+            entity.HasKey(e => e.PedidoProduto1).HasName("PK__pedido_p__670316750DBD623C");
 
             entity.ToTable("pedido_produto");
 
@@ -197,7 +197,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Produto>(entity =>
         {
-            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D396B375DB5");
+            entity.HasKey(e => e.Produto1).HasName("PK__produto__582A8D39049795F7");
 
             entity.ToTable("produto");
 
@@ -219,6 +219,7 @@ public partial class SkateShopContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("tamanho_unico");
+            entity.Property(e => e.Tipo).HasColumnName("tipo");
             entity.Property(e => e.Valor)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("valor");
@@ -226,7 +227,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Tamanho>(entity =>
         {
-            entity.HasKey(e => e.Tamanho1).HasName("PK__tamanho__08D913FE629F7AEA");
+            entity.HasKey(e => e.Tamanho1).HasName("PK__tamanho__08D913FE7EAF689A");
 
             entity.ToTable("tamanho");
 
@@ -246,7 +247,7 @@ public partial class SkateShopContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC7A1A50A4B");
+            entity.HasKey(e => e.Usuario1).HasName("PK__usuario__9AFF8FC757477C23");
 
             entity.ToTable("usuario");
 

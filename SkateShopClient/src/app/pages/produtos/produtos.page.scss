@@ -1,0 +1,12 @@
+section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .produtos-container {
+    width: var(--width-container);
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

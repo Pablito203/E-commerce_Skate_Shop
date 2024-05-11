@@ -28,6 +28,17 @@
       </ion-col>
     </ion-row>
 
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-select label="Tipo" label-placement="floating" name="tipo" [(ngModel)]="Produto.tipo">
+            <ion-select-option *ngFor="let tipo of TiposRoupa" [value]="tipo.id">Roupa - {{tipo.nome}}</ion-select-option>
+            <ion-select-option *ngFor="let tipo of TiposSkate" [value]="tipo.id">Skate - {{tipo.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
     <ion-row *ngIf="Produto.tamanhoUnico">
       <ion-col>
         <ion-item>

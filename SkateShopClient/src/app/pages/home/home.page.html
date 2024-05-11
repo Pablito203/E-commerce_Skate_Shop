@@ -11,13 +11,13 @@
   <section class="section-banner">
     <div class="banner-container">
       <div class="banner-container-2">
-        <banner [titulo]="'Calças'" [src]="'calças.webp'" [cssTamanho]="'mid'"></banner>
-        <banner [titulo]="'Camisetas'" [src]="'camisetas.webp'" [cssTamanho]="'mid'"></banner>
-        <banner [titulo]="'Moletons'" [src]="'moletons.webp'" [cssTamanho]="'small'"></banner>
-        <banner [titulo]="'Tênis'" [src]="'tenis.webp'" [cssTamanho]="'small'"></banner>
+        <banner [titulo]="'Calças'" [src]="'calças.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/calças')"></banner>
+        <banner [titulo]="'Camisetas'" [src]="'camisetas.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/camisetas')"></banner>
+        <banner [titulo]="'Moletons'" [src]="'moletons.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/moletons')"></banner>
+        <banner [titulo]="'Tênis'" [src]="'tenis.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/tênis')"></banner>
       </div>
 
-      <banner [titulo]="'Peças de skate'" [src]="'skate.webp'" [cssTamanho]="'big'"></banner>
+      <banner [titulo]="'Peças de skate'" [src]="'skate.webp'" [cssTamanho]="'big'" (click)="navigate('/produtos/skate')"></banner>
     </div>
   </section>
 

@@ -11,18 +11,7 @@ ion-menu {
     width: 65%;
     padding: 20px 0;
   }
-}
 
-ion-content {
-  --padding-start: 10px;
-  --padding-end: 10px;
-
-  .pesquisa-container {
-    margin-bottom: 20px
-  }
-}
-
-ion-menu {
   ion-footer {
     box-shadow: none !important;
   }
@@ -33,5 +22,20 @@ ion-menu {
 
   ion-button {
     text-transform: none !important;
+  }
+
+  ion-item[slot="content"] {
+    ion-label {
+      padding-left: 20px;
+    }
+  }
+}
+
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+
+  .pesquisa-container {
+    margin-bottom: 20px
   }
 }

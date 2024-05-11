@@ -28,7 +28,8 @@ CREATE TABLE produto (
 	  ativo BIT NOT NULL DEFAULT 1,
 	  destaque BIT NOT NULL DEFAULT 0,
 	  quantidade_estoque INT NOT NULL DEFAULT 0,
-	  tamanho_unico BIT NOT NULL DEFAULT 1
+	  tamanho_unico BIT NOT NULL DEFAULT 1,
+	  tipo INT NOT NULL DEFAULT 0,
 	  PRIMARY KEY CLUSTERED (produto)
 );
 GO

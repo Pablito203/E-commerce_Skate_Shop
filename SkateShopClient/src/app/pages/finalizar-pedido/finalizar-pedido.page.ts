@@ -1,13 +1,13 @@
 import { lastValueFrom } from 'rxjs';
 import { TamanhoService } from 'src/app/services/tamanho/tamanho.service';
-import { UsuarioService } from './../../../services/usuario/usuario.service';
 import { NavController, ToastOptions } from '@ionic/angular';
-import { PedidoService } from './../../../services/pedido/pedido.service';
-import { AlertaService } from './../../../services/alerta/alerta.service';
 import { Component, OnInit } from '@angular/core';
 import { SacolaService } from 'src/app/services/sacola/sacola.service';
 import { EnderecoService } from 'src/app/services/endeco/endereco.service';
 import { ProdutoService } from 'src/app/services/produto/produto.service';
+import { AlertaService } from 'src/app/services/alerta/alerta.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
   selector: 'finalizar-pedido',

@@ -7,13 +7,15 @@
     </ion-header>
     <ion-content>
       <div class="pesquisa-container">
-        <ion-item>
-          <ion-icon name="search"></ion-icon>
-          <ion-input type="search" placeholder="Buscar produtos"/>
-        </ion-item>
+        <form #form="ngForm">
+          <ion-item>
+            <ion-icon name="search"></ion-icon>
+            <ion-input type="search" placeholder="Buscar produtos" (keypress)="keyPress($event.keyCode)"
+              [(ngModel)]="busca" name="busca"/>
+          </ion-item>
+        </form>
       </div>
-
-      <ion-item *ngIf="usuarioLogado && usuarioLogado.administrador" lines="none" [button]="true" routerLink="/add-produto">
+      <ion-item *ngIf="usuarioLogado && usuarioLogado.administrador" lines="none" [button]="true" button (click)="navigate('/add-produto')">
         <ion-label>Novo produto</ion-label>
       </ion-item>
       <br>
@@ -24,21 +26,44 @@
             <ion-item slot="header">
               <ion-label>Roupas</ion-label>
             </ion-item>
-            <div class="ion-padding" slot="content">Todos</div>
-            <div class="ion-padding" slot="content">Camisas</div>
-            <div class="ion-padding" slot="content">Calças</div>
-            <div class="ion-padding" slot="content">Moletons</div>
-            <div class="ion-padding" slot="content">Acessórios</div>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas')">
+              <ion-label>Todos</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas/camisetas')">
+              <ion-label>Camisetas</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas/calças')">
+              <ion-label>Calças</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas/bermudas')">
+              <ion-label>Bermudas</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas/moletons')">
+              <ion-label>Moletons</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/roupas/acessorios')">
+              <ion-label>Acessórios</ion-label>
+            </ion-item>
           </ion-accordion>
           <ion-accordion value="second">
             <ion-item slot="header">
               <ion-label>Skate</ion-label>
             </ion-item>
-            <div class="ion-padding" slot="content">Todos</div>
-            <div class="ion-padding" slot="content">Shapes</div>
-            <div class="ion-padding" slot="content">Trucks</div>
-            <div class="ion-padding" slot="content">Rodas</div>
-            <div class="ion-padding" slot="content">Outros</div>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/skate/')">
+              <ion-label>Todos</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/skate/shapes')">
+              <ion-label>Shapes</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/skate/trucks')">
+              <ion-label>Trucks</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/skate/rodas')">
+              <ion-label>Rodas</ion-label>
+            </ion-item>
+            <ion-item lines="none" slot="content" button (click)="navigate('/produtos/skate/outros')">
+              <ion-label>Outros</ion-label>
+            </ion-item>
           </ion-accordion>
         </ion-accordion-group>
       </div>

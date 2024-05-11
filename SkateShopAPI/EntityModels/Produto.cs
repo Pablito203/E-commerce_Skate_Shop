@@ -21,6 +21,8 @@ public partial class Produto
 
     public bool? TamanhoUnico { get; set; }
 
+    public int Tipo { get; set; }
+
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();
 
     public virtual ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();

@@ -19,14 +19,27 @@ const routes: Routes = [
   },
   {
     path: 'finalizar-pedido',
-    loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule),
+    loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule),
     canActivate: [CanActivateUsuarioLogado]
   },
   {
     path: 'pedidos',
-    loadChildren: () => import('./pages/pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
+    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule),
     canActivate: [CanActivateUsuarioLogado]
+  },
+  {
+    path: 'produtos/:tipo',
+    loadChildren: () => import('./pages/produtos/produtos.module').then( m => m.ProdutosPageModule)
+  },
+  {
+    path: 'produtos/:tipo/:subTipo',
+    loadChildren: () => import('./pages/produtos/produtos.module').then( m => m.ProdutosPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: '',
   }
+
 
 ];
 @NgModule({

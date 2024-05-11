@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { FinalizarPedidoPageRoutingModule } from './finalizar-pedido-routing.module';
 
 import { FinalizarPedidoPage } from './finalizar-pedido.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
-import { ComponentsModule } from './../../../components/components.module';
 
 @NgModule({
   imports: [

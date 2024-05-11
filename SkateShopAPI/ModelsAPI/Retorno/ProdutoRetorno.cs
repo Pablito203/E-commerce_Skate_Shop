@@ -9,5 +9,6 @@
         public bool? TamanhoUnico { get; set; }
         public string? CaminhoImagem { get; set; }
         public bool Favorito { get; set; }
+        public int Tipo { get; set; }
     }
 }

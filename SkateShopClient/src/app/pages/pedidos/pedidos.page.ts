@@ -1,5 +1,6 @@
-import { PedidoService } from './../../../services/pedido/pedido.service';
+
 import { Component, OnInit } from '@angular/core';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({
   selector: 'pedidos',
@@ -17,15 +18,15 @@ export class PedidosPage implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.pedidoService.GetPedidosID().subscribe((value: any) => {
-        let lstPedidosID = value.result;
+      this.pedidoService.GetPedidosID().subscribe((data: any) => {
+        let lstPedidosID = data.result;
         this.quantidadeChunks = Math.ceil(lstPedidosID.length / this.pedidosPorChunck) - 1;
         for (var i = 0; i <= this.quantidadeChunks; i++) {
           this.lstChuncks.push(lstPedidosID.splice(0, this.pedidosPorChunck));
         }
 
-        this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual]).subscribe((value: any) => {
-          this.pedidos = value.result;
+        this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual]).subscribe((data: any) => {
+          this.pedidos = data.result;
         });
       })
     }, 100);
@@ -39,8 +40,8 @@ export class PedidosPage implements OnInit {
     }
 
     setTimeout(() => {
-      this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual + 1]).subscribe((value: any) => {
-        this.pedidos = this.pedidos.concat(value.result);
+      this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual + 1]).subscribe((data: any) => {
+        this.pedidos = this.pedidos.concat(data.result);
         this.chunckAtual += 1;
 
         if (this.chunckAtual >= this.quantidadeChunks) {

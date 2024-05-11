@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>{{tipo == 'search' ? title : title | titlecase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="produtos && produtos.length; else noItens">
+    <section section #section>
+      <div class="produtos-container"
+        style="--width-container: {{math.floor((section.clientWidth > 1000 ? 1000 : section.clientWidth) / 240) * 240}}px">
+        <div *ngFor="let produto of produtos; let index = index" style="margin-bottom: 40px;">
+          <produto-catalogo [produto]="produto"></produto-catalogo>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #noItens>
+  <no-itens></no-itens>
+</ng-template>

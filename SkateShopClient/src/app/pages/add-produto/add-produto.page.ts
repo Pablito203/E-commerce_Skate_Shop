@@ -16,6 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AddProdutoPage implements OnInit {
   @Input() ProdutoID: number = 0;
 
+  TiposRoupa = ProdutoService.TiposRoupa;
+  TiposSkate = ProdutoService.TiposSkate;
+
   Produto: any = {
     tamanhoUnico: true
   }
@@ -170,7 +173,7 @@ export class AddProdutoPage implements OnInit {
       return false;
     }
 
-    if (this.Produto.tamanhoUnico && !this.Produto.quantidadeEstoque) {
+    if (this.Produto.tamanhoUnico && !this.Produto.quantidadeEstoque && this.Produto.quantidadeEstoque !== 0) {
       this.alertaService.CriarToastMensagem("Informe a quantidade do produto", true);
       return false;
     }
