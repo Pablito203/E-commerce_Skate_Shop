@@ -14,6 +14,10 @@ export class EnderecoService {
   }
 
   GetNomeEndereco(endereco: any) {
-    return `${endereco.rua}, ${endereco.numero} - ${endereco.complemento} - ${endereco.bairro}, ${endereco.cidade} ${endereco.uf}`;
+    return `${endereco.rua}, ${endereco.numero} ${endereco.complemento ? '- ' + endereco.complemento : ''} - ${endereco.bairro}, ${endereco.cidade} ${endereco.uf}`;
+  }
+
+  salvarEndereco(endereco: any) {
+    return this.http.post(ApiService.url + 'Endereco', endereco);
   }
 }

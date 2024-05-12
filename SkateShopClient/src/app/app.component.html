@@ -89,7 +89,7 @@
   </ion-menu>
 
   <ion-content>
-    <ion-router-outlet id="content"></ion-router-outlet>
+    <ion-router-outlet id="content" [swipeGesture]="false"></ion-router-outlet>
   </ion-content>
 
   <ion-footer *ngIf="!usuarioLogado || !usuarioLogado.administrador">

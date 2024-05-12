@@ -15,6 +15,7 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
 import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { PedidoCardListaComponent } from './pedido-card-lista/pedido-card-lista.component';
+import { EnderecoCadastroComponent } from './endereco-cadastro/endereco-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PedidoCardListaComponent } from './pedido-card-lista/pedido-card-lista.
     NoItensComponent,
     LoginRegisterComponent,
     DadosUsuarioComponent,
-    PedidoCardListaComponent
+    PedidoCardListaComponent,
+    EnderecoCadastroComponent
   ],
   imports: [
     IonicModule,
@@ -49,7 +51,8 @@ import { PedidoCardListaComponent } from './pedido-card-lista/pedido-card-lista.
     NoItensComponent,
     LoginRegisterComponent,
     DadosUsuarioComponent,
-    PedidoCardListaComponent
+    PedidoCardListaComponent,
+    EnderecoCadastroComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

@@ -1,3 +1,4 @@
+import { ModalService } from './../../services/modal/modal.service';
 import { lastValueFrom } from 'rxjs';
 import { TamanhoService } from 'src/app/services/tamanho/tamanho.service';
 import { NavController, ToastOptions } from '@ionic/angular';
@@ -8,6 +9,7 @@ import { ProdutoService } from 'src/app/services/produto/produto.service';
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { EnderecoCadastroComponent } from 'src/app/components/endereco-cadastro/endereco-cadastro.component';
 
 @Component({
   selector: 'finalizar-pedido',
@@ -27,7 +29,8 @@ export class FinalizarPedidoPage implements OnInit {
               private pedidoService: PedidoService,
               private navController: NavController,
               private tamanhoService: TamanhoService,
-              private produtoService: ProdutoService) { }
+              private produtoService: ProdutoService,
+              private ModalService: ModalService) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -194,5 +197,9 @@ export class FinalizarPedidoPage implements OnInit {
     });
 
     return Promise.all(promises)
+  }
+
+  novoEndereco() {
+    this.ModalService.CriarModal(EnderecoCadastroComponent);
   }
 }

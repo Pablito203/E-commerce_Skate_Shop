@@ -1,3 +1,74 @@
-<p>
-  endereco-cadastro works!
-</p>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title color="light">Novo Endereço</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="FecharModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <section>
+      <form #form="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input required labelPlacement="floating" label="UF *" name="uf" [(ngModel)]="endereco.uf" maxlength="2"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input required labelPlacement="floating" label="Cidade *" name="cidade" [(ngModel)]="endereco.cidade"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input required labelPlacement="floating" label="Bairro *" name="bairro" [(ngModel)]="endereco.bairro"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input required labelPlacement="floating" label="Rua *" name="rua" [(ngModel)]="endereco.rua"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input required labelPlacement="floating" label="Número *" name="numero" [(ngModel)]="endereco.numero"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="Complemento" name="complemento" [(ngModel)]="endereco.complemento"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </form>
+  </section>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="dark" (click)="Salvar()" [disabled]="form.invalid">Salvar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
