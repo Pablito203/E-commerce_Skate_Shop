@@ -8,5 +8,6 @@
         public DateTime DataVencimento { get; set; }
         public string? CodigoPagamentoPix { get; set; }
         public string? ImagemPagamentoPix { get; set; }
+        public string ClienteNome { get; set; } = string.Empty;
     }
 }

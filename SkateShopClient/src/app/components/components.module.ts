@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { PedidoCardListaComponent } from './pedido-card-lista/pedido-card-lista.component';
 import { EnderecoCadastroComponent } from './endereco-cadastro/endereco-cadastro.component';
+import { PedidoDetalheComponent } from './pedido-detalhe/pedido-detalhe.component';
+import { PagamentoPixComponent } from './pagamento-pix/pagamento-pix.component';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -31,13 +34,16 @@ import { EnderecoCadastroComponent } from './endereco-cadastro/endereco-cadastro
     LoginRegisterComponent,
     DadosUsuarioComponent,
     PedidoCardListaComponent,
-    EnderecoCadastroComponent
+    EnderecoCadastroComponent,
+    PedidoDetalheComponent,
+    PagamentoPixComponent
   ],
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    SwiperModule
+    SwiperModule,
+    DirectivesModule
   ],
   exports: [
     ProdutoCardListaComponent,
@@ -52,7 +58,9 @@ import { EnderecoCadastroComponent } from './endereco-cadastro/endereco-cadastro
     LoginRegisterComponent,
     DadosUsuarioComponent,
     PedidoCardListaComponent,
-    EnderecoCadastroComponent
+    EnderecoCadastroComponent,
+    PedidoDetalheComponent,
+    PagamentoPixComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

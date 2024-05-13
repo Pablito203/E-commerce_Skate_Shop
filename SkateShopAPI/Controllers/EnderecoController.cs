@@ -51,7 +51,17 @@ namespace SkateShopAPI.Controllers {
             try {
                 Repository.Insert(Endereco);
 
-                return new RespostaAPI(new { sucesso = true });
+                EnderecoRetorno enderecoRetorno = new EnderecoRetorno {
+                    EnderecoID = Endereco.Endereco1,
+                    UF = Endereco.Uf,
+                    Cidade = Endereco.Cidade,
+                    Bairro = Endereco.Bairro,
+                    Rua = Endereco.Rua,
+                    Numero = Endereco.Numero,
+                    Complemento = Endereco.Complemento
+                };
+
+                return new RespostaAPI(enderecoRetorno);
             } catch {
                 return new RespostaAPI("Registro relacionado não encontrado");
             } finally { Repository.Dispose(); }

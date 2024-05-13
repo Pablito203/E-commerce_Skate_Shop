@@ -29,7 +29,7 @@
       </ion-button>
     </ion-col>
     <ion-col></ion-col>
-    <ion-col size="auto" style="display: flex; justify-content: end;">
+    <ion-col size="auto" style="display: flex; justify-content: end;" *ngIf="Tipo !== 'Pedido'">
       <ion-button fill="none" (click)="ExcluirClick()">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>

@@ -60,7 +60,7 @@ namespace SkateShopAPI.Services {
 
                 return new DadosCobranca() { 
                     CobrancaAsaasID = RetornoAsaasCobranca.id,
-                    CaminhoRelativoImagem = Path.Combine(opcoesSalvarArquivo.CaminhoRelativo, opcoesSalvarArquivo.NomeGuid),
+                    CaminhoRelativoImagem = Path.Combine(opcoesSalvarArquivo.CaminhoRelativo, opcoesSalvarArquivo.NomeGuid + ".jpg"),
                     CodigoPagamentoPix = RetornoAsaasPix.payload,
                     DataVencimentoCobranca = dataVencimentoCobranca.Date,
                     DataVencimentoPix = dataVencimentoQRCode.Date

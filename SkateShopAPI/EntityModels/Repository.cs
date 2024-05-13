@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace SkateShopAPI.EntityModels {

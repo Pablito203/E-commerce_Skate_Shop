@@ -19,6 +19,10 @@
         <ion-label>Novo produto</ion-label>
       </ion-item>
       <br>
+      <ion-item *ngIf="usuarioLogado && usuarioLogado.administrador" lines="none" [button]="true" button (click)="navigate('/pedidos')">
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
+      <br>
 
       <div class="filtros-container">
         <ion-accordion-group>

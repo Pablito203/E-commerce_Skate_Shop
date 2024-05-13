@@ -34,13 +34,14 @@ namespace SkateShopAPI.Controllers {
                 DataCriacao = p.DataCriacao,
                 DataVencimento = p.DataVencimento,
                 CodigoPagamentoPix = p.CodigoPagamentoPix,
-                ImagemPagamentoPix = p.CaminhoRelativoImagemPix
+                ImagemPagamentoPix = p.CaminhoRelativoImagemPix,
+                ClienteNome = p.UsuarioNavigation.Nome
             }).ToList();
 
             Repository.Dispose();
 
             foreach (var Pedido in lstPedido) {
-                Pedido.ImagemPagamentoPix = AnexoService.GetCaminhoAbsoluto(Pedido.ImagemPagamentoPix);
+                Pedido.ImagemPagamentoPix = AnexoService.BuscarArquivoBase64(Pedido.ImagemPagamentoPix);
             }
 
             return new RespostaAPI(lstPedido);
@@ -49,7 +50,15 @@ namespace SkateShopAPI.Controllers {
         [HttpGet("[Controller]ID/{id}")]
         public RespostaAPI GetPedidoID(int id) {
             Repository Repository = new();
-            var lstPedidoID = Repository.FilterQuery<Pedido>((p) => p.Usuario == id).Select((p) => p.Pedido1).ToList();
+            var iqPedido = Repository.FilterQuery<Pedido>((p) => true);
+
+            if (Request.Headers.TryGetValue("admin", out var admin)) {
+                iqPedido = iqPedido.Where((p) => p.PagamentoRealizado);
+            } else {
+                iqPedido = iqPedido.Where((p) => p.Usuario == id);
+            }
+
+            var lstPedidoID = iqPedido.Select((p) => p.Pedido1).ToList();
 
             return new RespostaAPI(lstPedidoID);
         }
@@ -69,7 +78,9 @@ namespace SkateShopAPI.Controllers {
 
             foreach (var Produto in lstProduto)
             {
-                Produto.CaminhoImagem = AnexoService.GetCaminhoAbsoluto(Produto.CaminhoImagem);
+                if (Produto.CaminhoImagem is not null) {
+                    Produto.CaminhoImagem = AnexoService.BuscarArquivoBase64(Produto.CaminhoImagem);
+                }
             }
             return new RespostaAPI(lstProduto);
         }

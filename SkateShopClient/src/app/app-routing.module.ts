@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { CanActivateUsuarioLogado, CanActivateUsuarioAdminLogado } from './auth.guard';
+import { CanActivateUsuarioLogadoNaoAdmin, CanActivateUsuarioAdminLogado, CanActivateUsuarioLogado} from './auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'finalizar-pedido',
     loadChildren: () => import('./pages/finalizar-pedido/finalizar-pedido.module').then( m => m.FinalizarPedidoPageModule),
-    canActivate: [CanActivateUsuarioLogado]
+    canActivate: [CanActivateUsuarioLogadoNaoAdmin]
   },
   {
     path: 'pedidos',

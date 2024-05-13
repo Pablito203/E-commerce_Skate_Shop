@@ -9,17 +9,20 @@ export class PedidoCardListaComponent  implements OnInit {
   @Input() pedido: any = {};
 
   vencido = false;
+  situacao = '';
   constructor() { }
 
   ngOnInit() {
     this.vencido = new Date(this.pedido.dataVencimento) <= new Date();
+    this.setSituacao();
   }
 
-  GetSituacao() {
+  setSituacao() {
     if (!this.pedido.pagamentoRealizado && this.vencido) {
-      return 'Cancelado'
+      this.situacao = 'Cancelado';
+      return;
     }
 
-    return this.pedido.pagamentoRealizado ? 'Pagamento recebido' : 'Aguardando pagamento'
+    this.situacao = this.pedido.pagamentoRealizado ? 'Pagamento recebido' : 'Aguardando pagamento'
   }
 }

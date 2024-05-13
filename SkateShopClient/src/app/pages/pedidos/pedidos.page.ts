@@ -1,6 +1,8 @@
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { PedidoDetalheComponent } from 'src/app/components/pedido-detalhe/pedido-detalhe.component';
 
 @Component({
   selector: 'pedidos',
@@ -14,7 +16,8 @@ export class PedidosPage implements OnInit {
   chunckAtual = 0;
   lstChuncks: number[][]= [];
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService,
+              private modalService: ModalService) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -50,5 +53,9 @@ export class PedidosPage implements OnInit {
         e.target.complete();
       });
     }, 100);
+  }
+
+  AbrirPedidoDetalhe(pedido: any) {
+    this.modalService.CriarModal(PedidoDetalheComponent, { pedido: pedido });
   }
 }

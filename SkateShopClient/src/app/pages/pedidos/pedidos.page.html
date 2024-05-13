@@ -10,7 +10,7 @@
     <div class="pedidos-container">
       <ng-container *ngIf="pedidos && pedidos.length; else noItens">
         <div *ngFor="let pedido of pedidos; let index = index">
-          <pedido-card-lista [pedido]="pedido"></pedido-card-lista>
+          <pedido-card-lista [pedido]="pedido" (click)="AbrirPedidoDetalhe(pedido)"></pedido-card-lista>
         </div>
       </ng-container>
     </div>

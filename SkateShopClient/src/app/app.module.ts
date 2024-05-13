@@ -13,6 +13,7 @@ import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from './directives/directives.module';
 registerLocaleData(localePT);
 
 @NgModule({
@@ -25,7 +26,8 @@ registerLocaleData(localePT);
     CommonModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    DirectivesModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

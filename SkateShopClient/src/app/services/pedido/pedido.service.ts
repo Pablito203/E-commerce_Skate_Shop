@@ -22,10 +22,23 @@ export class PedidoService {
   }
 
   GetPedidosID() {
-    return this.http.get(ApiService.url + 'PedidoID/' + UsuarioService.usuarioLogado?.usuarioID);
+    let headers = new HttpHeaders();
+    if (UsuarioService.usuarioLogado?.administrador) {
+      headers = headers.set('admin', 'true');
+    }
+
+    const requestOptions = {
+      headers: headers
+    };
+
+    return this.http.get(ApiService.url + 'PedidoID/' + UsuarioService.usuarioLogado?.usuarioID, requestOptions);
   }
 
   CriarPedido(pedido: any) {
     return this.http.post(ApiService.url + 'Pedido', pedido);
+  }
+
+  GetProdutosPedido(pedidoID: number) {
+    return this.http.get(ApiService.url + 'PedidoProduto/' + pedidoID);
   }
 }

@@ -35,6 +35,11 @@ html, body {
   color: black;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: black white;
+}
+
 ion-title, ion-card {
   --color: black;
 }
