@@ -13,6 +13,7 @@ import { EventsService } from 'src/app/services/events/events.service';
 export class FavoritosComponent implements OnInit {
   usuarioLogado: usuario | null = null;
   favoritos: any[] = [];
+  carregado = false;
 
   constructor(private favoritosService: FavoritosService,
               private modalService: ModalService,
@@ -24,6 +25,7 @@ export class FavoritosComponent implements OnInit {
 
     this.favoritosService.GetFavoritos().subscribe((data: any) => {
       this.favoritos = data.result;
+      this.setCarregado();
     });
   }
 
@@ -40,5 +42,9 @@ export class FavoritosComponent implements OnInit {
       this.favoritos.splice(index, 1);
       this.favoritosService.ExecutarEventos(produto.produtoID, true);
     });
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

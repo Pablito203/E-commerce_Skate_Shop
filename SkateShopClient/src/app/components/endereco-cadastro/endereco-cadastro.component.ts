@@ -1,6 +1,6 @@
 import { AlertaService } from './../../services/alerta/alerta.service';
 import { EnderecoService } from 'src/app/services/endeco/endereco.service';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
@@ -9,15 +9,15 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
   templateUrl: './endereco-cadastro.component.html',
   styleUrls: ['./endereco-cadastro.component.scss'],
 })
-export class EnderecoCadastroComponent  implements OnInit {
+export class EnderecoCadastroComponent {
+  @Input() callback: (endereco: any) => void = () => {};
+
   endereco: any = {
     usuarioID: UsuarioService.usuarioLogado?.usuarioID
   };
 
   constructor(private enderecoService: EnderecoService,
               private alertaService: AlertaService) { }
-
-  ngOnInit() {}
 
   FecharModal(): void {
     ModalService.FecharModal();
@@ -30,6 +30,7 @@ export class EnderecoCadastroComponent  implements OnInit {
         return;
       }
 
+      this.callback(data.result);
       this.alertaService.CriarToastMensagem("Endereço cadastrado com sucesso");
       this.FecharModal();
     })

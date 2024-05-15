@@ -14,6 +14,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 })
 export class SacolaComponent implements OnInit {
   Sacola = [];
+  carregado = false;
 
   constructor(private Storage: Storage,
               private sacolaService: SacolaService,
@@ -23,6 +24,7 @@ export class SacolaComponent implements OnInit {
   ngOnInit(): void {
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data;
+      this.setCarregado();
     });
   }
 
@@ -50,5 +52,9 @@ export class SacolaComponent implements OnInit {
     } else {
       this.modalService.CriarModal(LoginRegisterComponent);
     }
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

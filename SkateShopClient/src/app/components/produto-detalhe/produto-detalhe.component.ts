@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import { FavoritosService } from './../../services/favoritos/favoritos.service';
 import { EventsService } from './../../services/events/events.service';
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
@@ -24,6 +25,7 @@ export class ProdutoDetalheComponent implements OnInit {
   TamanhoSelecionadoID: number = 0;
   Sacola: any[] = [];
   usuarioLogado: usuario | null = null;
+  carregado = false;
 
   constructor(private imagemService: ImagemService,
               private produtoService: ProdutoService,
@@ -38,14 +40,18 @@ export class ProdutoDetalheComponent implements OnInit {
     this.usuarioLogado = UsuarioService.usuarioLogado;
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data || [];
+
+      let promises: any[] = [];
+      promises.push(this.getProduto());
+      promises.push(this.getImagens());
+      promises.push(this.getTamanhos());
+
+      Promise.all(promises).then(() => this.setCarregado());
     });
-    this.getProduto();
-    this.getImagens();
-    this.getTamanhos();
   }
 
   getProduto () {
-    return this.produtoService.GetByID(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.produtoService.GetByID(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -56,7 +62,7 @@ export class ProdutoDetalheComponent implements OnInit {
   }
 
   getImagens() {
-    return this.imagemService.GetImagens(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.imagemService.GetImagens(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -67,7 +73,7 @@ export class ProdutoDetalheComponent implements OnInit {
   }
 
   getTamanhos() {
-    return this.tamanhoService.GetTamanho(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.tamanhoService.GetTamanho(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -170,5 +176,9 @@ export class ProdutoDetalheComponent implements OnInit {
   EditarProduto() {
     this.navController.navigateForward('/add-produto/' + this.ProdutoID);
     this.FecharModal();
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

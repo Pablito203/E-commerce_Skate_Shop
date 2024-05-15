@@ -19,6 +19,7 @@ import { EnderecoCadastroComponent } from './endereco-cadastro/endereco-cadastro
 import { PedidoDetalheComponent } from './pedido-detalhe/pedido-detalhe.component';
 import { PagamentoPixComponent } from './pagamento-pix/pagamento-pix.component';
 import { DirectivesModule } from '../directives/directives.module';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DirectivesModule } from '../directives/directives.module';
     PedidoCardListaComponent,
     EnderecoCadastroComponent,
     PedidoDetalheComponent,
-    PagamentoPixComponent
+    PagamentoPixComponent,
+    LoaderComponent
   ],
   imports: [
     IonicModule,
@@ -60,7 +62,8 @@ import { DirectivesModule } from '../directives/directives.module';
     PedidoCardListaComponent,
     EnderecoCadastroComponent,
     PedidoDetalheComponent,
-    PagamentoPixComponent
+    PagamentoPixComponent,
+    LoaderComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

@@ -18,6 +18,7 @@ export class ProdutosPage implements OnInit {
   chunckAtual = 0;
   lstChuncks: number[][]= [];
   math = Math;
+  carregado = false;
 
   constructor(private route: ActivatedRoute,
               private produtoService: ProdutoService) {
@@ -49,6 +50,7 @@ export class ProdutosPage implements OnInit {
 
       this.produtoService.GetByListaID(this.lstChuncks[this.chunckAtual]).subscribe((value: any) => {
         this.produtos = value.result;
+        this.setCarregado();
       });
     })
   }
@@ -71,5 +73,9 @@ export class ProdutosPage implements OnInit {
         e.target.complete();
       });
     }, 100);
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

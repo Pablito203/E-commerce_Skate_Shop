@@ -32,6 +32,8 @@ export class AddProdutoPage implements OnInit {
   Imagens: any[] = [];
   ImagensRemovidas: any[] = [];
 
+  carregado = false
+
   constructor(private produtoService: ProdutoService,
               private navController: NavController,
               private anexoLocalService: AnexoLocalService,
@@ -43,15 +45,21 @@ export class AddProdutoPage implements OnInit {
               }
 
   ngOnInit(): void {
-    if (this.ProdutoID) {
-      this.getProduto();
-      this.getImagens();
-      this.getTamanhos();
+    if (!this.ProdutoID) {
+      this.setCarregado()
+      return;
     }
+
+    let promises: any[] = [];
+    promises.push(this.getProduto());
+    promises.push(this.getImagens());
+    promises.push(this.getTamanhos());
+
+    Promise.all(promises).then(() => this.setCarregado());
   }
 
   getProduto () {
-    return this.produtoService.GetByID(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.produtoService.GetByID(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -62,7 +70,7 @@ export class AddProdutoPage implements OnInit {
   }
 
   getImagens() {
-    return this.imagemService.GetImagens(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.imagemService.GetImagens(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -73,7 +81,7 @@ export class AddProdutoPage implements OnInit {
   }
 
   getTamanhos() {
-    return this.tamanhoService.GetTamanho(this.ProdutoID).subscribe((data: any) => {
+    return lastValueFrom(this.tamanhoService.GetTamanho(this.ProdutoID)).then((data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -269,5 +277,9 @@ export class AddProdutoPage implements OnInit {
     ]
 
     this.alertaService.CriarAlerta(AlertaOptions);
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

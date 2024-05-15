@@ -5,7 +5,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ng-template #templateForm>
   <form #form="ngForm">
     <ion-list-header class="sub-titulo bold ion-no-padding">
@@ -124,52 +123,54 @@
 </ng-template>
 
 <ion-content>
-  <section>
-    <div class="produto-container">
-      <div class="form-container">
-        <ion-content class="tela-grande">
-          <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
-        </ion-content>
+  <ng-container *ngIf="carregado; else loader">
+    <section>
+      <div class="produto-container">
+        <div class="form-container">
+          <ion-content class="tela-grande">
+            <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
+          </ion-content>
 
-        <div class="tela-pequena">
-          <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
+          <div class="tela-pequena">
+            <ng-container [ngTemplateOutlet]="templateForm"></ng-container>
+          </div>
+
+          <ion-toolbar class="tela-grande">
+            <ion-row>
+              <ion-col size="auto">
+                <ion-button expand="block" fill="outline" color="dark"(click)="anexar()">
+                  Anexar
+                </ion-button>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-button expand="block" color="danger" [disabled]="!Produto.produtoID" (click)="excluir()">
+                  Excluir
+                </ion-button>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-button expand="block" color="dark" (click)="salvar()">
+                  Salvar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-toolbar>
         </div>
 
-        <ion-toolbar class="tela-grande">
-          <ion-row>
-            <ion-col size="auto">
-              <ion-button expand="block" fill="outline" color="dark"(click)="anexar()">
-                Anexar
-              </ion-button>
-            </ion-col>
-            <ion-col size="auto">
-              <ion-button expand="block" color="danger" [disabled]="!Produto.produtoID" (click)="excluir()">
-                Excluir
-              </ion-button>
-            </ion-col>
-            <ion-col size="auto">
-              <ion-button expand="block" color="dark" (click)="salvar()">
-                Salvar
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-toolbar>
-      </div>
+        <div class="imagens-container">
+          <ion-list-header class="sub-titulo bold">
+            Imagens
+          </ion-list-header>
 
-      <div class="imagens-container">
-        <ion-list-header class="sub-titulo bold">
-          Imagens
-        </ion-list-header>
-
-        <div class="anexos-container">
-          <anexo-card [Anexos]="Imagens" [editavel]="true" (excluir)="excluirImagem($event)"></anexo-card>
+          <div class="anexos-container">
+            <anexo-card [Anexos]="Imagens" [editavel]="true" (excluir)="excluirImagem($event)"></anexo-card>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </ng-container>
 </ion-content>
 
-<ion-footer class="tela-pequena">
+<ion-footer class="tela-pequena" *ngIf="carregado">
   <ion-toolbar>
     <ion-row>
       <ion-col>
@@ -192,4 +193,9 @@
     </ion-row>
   </ion-toolbar>
 </ion-footer>
+
+<ng-template #loader>
+  <loader></loader>
+</ng-template>
+
 

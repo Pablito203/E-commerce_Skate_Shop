@@ -12,10 +12,12 @@
   </ion-header>
 
   <ion-content>
-    <ng-container *ngIf="favoritos && favoritos.length; else noItens">
-      <div *ngFor="let produto of favoritos; let index = index">
-        <produto-card-lista [Tipo]="'Favoritos'" [Produto]="produto" (Excluir)="Excluir(produto, index)" (click)="AbrirModalProdutoDetalhe(produto)"></produto-card-lista>
-      </div>
+    <ng-container *ngIf="carregado; else loader">
+      <ng-container *ngIf="favoritos && favoritos.length; else noItens">
+        <div *ngFor="let produto of favoritos; let index = index">
+          <produto-card-lista [Tipo]="'Favoritos'" [Produto]="produto" (Excluir)="Excluir(produto, index)" (click)="AbrirModalProdutoDetalhe(produto)"></produto-card-lista>
+        </div>
+      </ng-container>
     </ng-container>
   </ion-content>
 </ng-container>
@@ -26,4 +28,8 @@
 
 <ng-template #noItens>
   <no-itens></no-itens>
+</ng-template>
+
+<ng-template #loader>
+  <loader></loader>
 </ng-template>

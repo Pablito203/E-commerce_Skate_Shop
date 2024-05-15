@@ -9,42 +9,44 @@
 </ion-header>
 
 <ion-content>
-  <section>
-    <div class="anexos-container">
-      <anexo-card [Anexos]="Imagens"></anexo-card>
-    </div>
+  <ng-container *ngIf="carregado; else loader">
+    <section>
+      <div class="anexos-container">
+        <anexo-card [Anexos]="Imagens"></anexo-card>
+      </div>
 
-    <div class="form-container">
-      <ion-row>
-        <ion-col>
-          <h1 class="horizontal-padding">{{Produto.nome}}</h1>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col>
-          <h3 class="horizontal-padding">{{Produto.valor | currency:'BRL'}}</h3>
-        </ion-col>
-      </ion-row>
-
-      <div *ngIf="Tamanhos.length > 0">
+      <div class="form-container">
         <ion-row>
           <ion-col>
-            <h3 class="horizontal-padding">Tamanhos</h3>
+            <h1 class="horizontal-padding">{{Produto.nome}}</h1>
           </ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col class="tamanho-container">
-            <tamanho *ngFor="let Tamanho of Tamanhos" [Tamanho]="Tamanho" [Disabled]="Tamanho.quantidade == 0" [Selecionado]="TamanhoSelecionadoID == Tamanho.tamanhoID" (click)="setTamanhoSelecionado(Tamanho)"></tamanho>
+          <ion-col>
+            <h3 class="horizontal-padding">{{Produto.valor | currency:'BRL'}}</h3>
           </ion-col>
         </ion-row>
+
+        <div *ngIf="Tamanhos.length > 0">
+          <ion-row>
+            <ion-col>
+              <h3 class="horizontal-padding">Tamanhos</h3>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="tamanho-container">
+              <tamanho *ngFor="let Tamanho of Tamanhos" [Tamanho]="Tamanho" [Disabled]="Tamanho.quantidade == 0" [Selecionado]="TamanhoSelecionadoID == Tamanho.tamanhoID" (click)="setTamanhoSelecionado(Tamanho)"></tamanho>
+            </ion-col>
+          </ion-row>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </ng-container>
 </ion-content>
 
-<ion-footer class="tela-pequena">
+<ion-footer class="tela-pequena" *ngIf="carregado">
   <ion-toolbar>
     <ion-row>
       <ion-col *ngIf="usuarioLogado && usuarioLogado.administrador">
@@ -67,3 +69,7 @@
     </ion-row>
   </ion-toolbar>
 </ion-footer>
+
+<ng-template #loader>
+  <loader></loader>
+</ng-template>

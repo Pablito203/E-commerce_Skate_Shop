@@ -12,10 +12,12 @@
 
 
 <ion-content>
-  <ng-container *ngIf="Sacola && Sacola.length; else noItens">
-    <div *ngFor="let Produto of Sacola; let index = index">
-      <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()" (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
-    </div>
+  <ng-container *ngIf="carregado; else loader">
+    <ng-container *ngIf="Sacola && Sacola.length; else noItens">
+      <div *ngFor="let Produto of Sacola; let index = index">
+        <produto-card-lista [Tipo]="'Sacola'" [Produto]="Produto" (Excluir)="Excluir(index)" (Alterado)="Salvar()" (click)="AbrirModalProdutoDetalhe(Produto)"></produto-card-lista>
+      </div>
+    </ng-container>
   </ng-container>
 </ion-content>
 
@@ -29,4 +31,8 @@
 
 <ng-template #noItens>
   <no-itens></no-itens>
+</ng-template>
+
+<ng-template #loader>
+  <loader></loader>
 </ng-template>

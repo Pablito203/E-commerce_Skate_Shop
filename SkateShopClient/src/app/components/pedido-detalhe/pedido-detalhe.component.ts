@@ -15,6 +15,7 @@ export class PedidoDetalheComponent  implements OnInit {
   vencido = false;
   situacao = '';
   usuarioLogado = UsuarioService.usuarioLogado;
+  carregado = false;
 
   constructor(private pedidoService: PedidoService) { }
 
@@ -24,8 +25,6 @@ export class PedidoDetalheComponent  implements OnInit {
     this.carregarProdutos();
   }
 
-  AbrirPagamento() {}
-
   FecharModal() {
     ModalService.FecharModal();
   }
@@ -33,6 +32,7 @@ export class PedidoDetalheComponent  implements OnInit {
   carregarProdutos() {
     this.pedidoService.GetProdutosPedido(this.pedido.pedidoID).subscribe((data: any) => {
       this.produtos = data.result;
+      this.setCarregado();
     });
   }
 
@@ -43,5 +43,9 @@ export class PedidoDetalheComponent  implements OnInit {
     }
 
     this.situacao = this.pedido.pagamentoRealizado ? 'Pagamento recebido' : 'Aguardando pagamento'
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

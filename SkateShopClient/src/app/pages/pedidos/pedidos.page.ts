@@ -15,6 +15,7 @@ export class PedidosPage implements OnInit {
   quantidadeChunks = 0;
   chunckAtual = 0;
   lstChuncks: number[][]= [];
+  carregado = false;
 
   constructor(private pedidoService: PedidoService,
               private modalService: ModalService) { }
@@ -30,6 +31,7 @@ export class PedidosPage implements OnInit {
 
         this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual]).subscribe((data: any) => {
           this.pedidos = data.result;
+          this.setCarregado();
         });
       })
     }, 100);
@@ -57,5 +59,9 @@ export class PedidosPage implements OnInit {
 
   AbrirPedidoDetalhe(pedido: any) {
     this.modalService.CriarModal(PedidoDetalheComponent, { pedido: pedido });
+  }
+
+  setCarregado() {
+    this.carregado = true;
   }
 }

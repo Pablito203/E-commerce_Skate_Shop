@@ -8,52 +8,58 @@
 </ion-header>
 
 <ion-content>
-  <section class="section-banner">
-    <div class="banner-container">
-      <div class="banner-container-2">
-        <banner [titulo]="'Calças'" [src]="'calças.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/calças')"></banner>
-        <banner [titulo]="'Camisetas'" [src]="'camisetas.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/camisetas')"></banner>
-        <banner [titulo]="'Moletons'" [src]="'moletons.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/moletons')"></banner>
-        <banner [titulo]="'Tênis'" [src]="'tenis.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/tênis')"></banner>
+  <ng-container *ngIf="carregado; else loader">
+    <section class="section-banner">
+      <div class="banner-container">
+        <div class="banner-container-2">
+          <banner [titulo]="'Calças'" [src]="'calças.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/calças')"></banner>
+          <banner [titulo]="'Camisetas'" [src]="'camisetas.webp'" [cssTamanho]="'mid'" (click)="navigate('/produtos/roupas/camisetas')"></banner>
+          <banner [titulo]="'Moletons'" [src]="'moletons.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/moletons')"></banner>
+          <banner [titulo]="'Tênis'" [src]="'tenis.webp'" [cssTamanho]="'small'" (click)="navigate('/produtos/roupas/tênis')"></banner>
+        </div>
+
+        <banner [titulo]="'Peças de skate'" [src]="'skate.webp'" [cssTamanho]="'big'" (click)="navigate('/produtos/skate')"></banner>
       </div>
+    </section>
 
-      <banner [titulo]="'Peças de skate'" [src]="'skate.webp'" [cssTamanho]="'big'" (click)="navigate('/produtos/skate')"></banner>
-    </div>
-  </section>
+    <section class="section-carrosel" *ngIf="lancamentos && lancamentos.length">
+      <div>
+        <ion-list-header class="titulo bold">
+          Lançamentos
+        </ion-list-header>
 
-  <section class="section-carrosel" *ngIf="lancamentos && lancamentos.length">
-    <div>
-      <ion-list-header class="titulo bold">
-        Lançamentos
-      </ion-list-header>
+        <swiper [navigation]="true"
+        [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
+         [initialSlide]="0">
+          <ng-template swiperSlide *ngFor="let produto of lancamentos">
+            <div style="display: flex;justify-content: center;">
+              <produto-catalogo [produto]="produto" [tipo]="'Lancamento'"></produto-catalogo>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+    </section>
 
-      <swiper [navigation]="true"
-      [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
-       [initialSlide]="0">
-        <ng-template swiperSlide *ngFor="let produto of lancamentos">
-          <div style="display: flex;justify-content: center;">
-            <produto-catalogo [produto]="produto" [tipo]="'Lancamento'"></produto-catalogo>
-          </div>
-        </ng-template>
-      </swiper>
-    </div>
-  </section>
+    <section class="section-carrosel" *ngIf="destaques && destaques.length">
+      <div>
+        <ion-list-header class="titulo bold">
+          Destaques
+        </ion-list-header>
 
-  <section class="section-carrosel" *ngIf="destaques && destaques.length">
-    <div>
-      <ion-list-header class="titulo bold">
-        Destaques
-      </ion-list-header>
-
-      <swiper [navigation]="true"
-      [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
-       [initialSlide]="0">
-        <ng-template swiperSlide *ngFor="let produto of destaques">
-          <div style="display: flex;justify-content: center;">
-            <produto-catalogo [produto]="produto" [tipo]="'Destaque'"></produto-catalogo>
-          </div>
-        </ng-template>
-      </swiper>
-    </div>
-  </section>
+        <swiper [navigation]="true"
+        [slidesPerView]="math.floor((documentElement.clientWidth > 1000 ? 1000 : documentElement.clientWidth) / 230)"
+         [initialSlide]="0">
+          <ng-template swiperSlide *ngFor="let produto of destaques">
+            <div style="display: flex;justify-content: center;">
+              <produto-catalogo [produto]="produto" [tipo]="'Destaque'"></produto-catalogo>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+    </section>
+  </ng-container>
 </ion-content>
+
+<ng-template #loader>
+  <loader></loader>
+</ng-template>

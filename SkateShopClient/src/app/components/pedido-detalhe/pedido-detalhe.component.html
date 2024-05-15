@@ -10,45 +10,52 @@
 </ion-header>
 
 <ion-content>
-  <section>
-    <h3>Dados do pedido</h3>
-    <div class="dados-container">
-      <ion-row>
-        <ion-col size="6">Nº {{('0000000' + pedido.pedidoID).slice(-7)}}</ion-col>
-        <ion-col size="6" class="valor">
-          <ion-badge color="{{pedido.pagamentoRealizado ? 'success' : 'danger'}}">
-            {{situacao}}
-          </ion-badge>
-      </ion-col>
-      </ion-row>
-      <ion-row *ngIf="usuarioLogado?.administrador">
-        <ion-col size="6">Cliente</ion-col>
-        <ion-col size="6" class="valor">{{pedido.clienteNome}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">Data</ion-col>
-        <ion-col size="6" class="valor">{{pedido.dataCriacao | date: 'short'}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">Total</ion-col>
-        <ion-col size="6" class="valor">{{pedido.valor | currency: 'BRL'}}</ion-col>
-      </ion-row>
-    </div>
-
-    <ng-container *ngIf="!this.pedido.pagamentoRealizado && !this.vencido">
-      <h3>Pagamento</h3>
+  <ng-container *ngIf="carregado; else loader">
+    <section>
+      <h3>Dados do pedido</h3>
       <div class="dados-container">
-        <pagamento-pix [caminhoImagem]="pedido.imagemPagamentoPix" [copiaCola]="pedido.codigoPagamentoPix"></pagamento-pix>
+        <ion-row>
+          <ion-col size="6">Nº {{('0000000' + pedido.pedidoID).slice(-7)}}</ion-col>
+          <ion-col size="6" class="valor">
+            <ion-badge color="{{pedido.pagamentoRealizado ? 'success' : 'danger'}}">
+              {{situacao}}
+            </ion-badge>
+        </ion-col>
+        </ion-row>
+        <ion-row *ngIf="usuarioLogado?.administrador">
+          <ion-col size="6">Cliente</ion-col>
+          <ion-col size="6" class="valor">{{pedido.clienteNome}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">Data</ion-col>
+          <ion-col size="6" class="valor">{{pedido.dataCriacao | date: 'short'}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">Total</ion-col>
+          <ion-col size="6" class="valor">{{pedido.valor | currency: 'BRL'}}</ion-col>
+        </ion-row>
       </div>
-    </ng-container>
 
-    <h3>Produtos</h3>
-    <div class="produto-container">
-      <ng-container *ngIf="produtos && produtos.length;">
-        <div *ngFor="let produto of produtos; let index = index" >
-          <produto-card-lista [Tipo]="'Pedido'" [Produto]="produto"></produto-card-lista>
+      <ng-container *ngIf="!this.pedido.pagamentoRealizado && !this.vencido">
+        <h3>Pagamento</h3>
+        <div class="dados-container">
+          <pagamento-pix [caminhoImagem]="pedido.imagemPagamentoPix" [copiaCola]="pedido.codigoPagamentoPix"></pagamento-pix>
         </div>
       </ng-container>
-    </div>
-  </section>
+
+      <h3>Produtos</h3>
+      <div class="produto-container">
+        <ng-container *ngIf="produtos && produtos.length;">
+          <div *ngFor="let produto of produtos; let index = index" >
+            <produto-card-lista [Tipo]="'Pedido'" [Produto]="produto"></produto-card-lista>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+  </ng-container>
 </ion-content>
+
+<ng-template #loader>
+  <loader></loader>
+</ng-template>
+

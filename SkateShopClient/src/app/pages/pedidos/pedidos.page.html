@@ -6,20 +6,26 @@
 </ion-header>
 
 <ion-content>
-  <section>
-    <div class="pedidos-container">
-      <ng-container *ngIf="pedidos && pedidos.length; else noItens">
-        <div *ngFor="let pedido of pedidos; let index = index">
-          <pedido-card-lista [pedido]="pedido" (click)="AbrirPedidoDetalhe(pedido)"></pedido-card-lista>
-        </div>
-      </ng-container>
-    </div>
-  </section>
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <ng-container *ngIf="carregado; else loader">
+    <section>
+      <div class="pedidos-container">
+        <ng-container *ngIf="pedidos && pedidos.length; else noItens">
+          <div *ngFor="let pedido of pedidos; let index = index">
+            <pedido-card-lista [pedido]="pedido" (click)="AbrirPedidoDetalhe(pedido)"></pedido-card-lista>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
 </ion-content>
 
 <ng-template #noItens>
   <no-itens></no-itens>
+</ng-template>
+
+<ng-template #loader>
+  <loader></loader>
 </ng-template>

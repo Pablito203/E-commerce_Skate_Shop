@@ -10,6 +10,7 @@ import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { EnderecoCadastroComponent } from 'src/app/components/endereco-cadastro/endereco-cadastro.component';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'finalizar-pedido',
@@ -23,6 +24,8 @@ export class FinalizarPedidoPage implements OnInit {
   enderecoSelecionadoID: number = 0;
   mostrarAvisoItensAJustados = false;
 
+  carregado = false;
+
   constructor(private sacolaService: SacolaService,
               private enderecoService: EnderecoService,
               private alertaService: AlertaService,
@@ -30,7 +33,8 @@ export class FinalizarPedidoPage implements OnInit {
               private navController: NavController,
               private tamanhoService: TamanhoService,
               private produtoService: ProdutoService,
-              private ModalService: ModalService) { }
+              private ModalService: ModalService,
+              private loadingController: LoadingController) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -39,21 +43,12 @@ export class FinalizarPedidoPage implements OnInit {
   }
 
   getDados() {
-    this.enderecoService.GetEnderecosUsuario(UsuarioService.usuarioLogado?.usuarioID).subscribe((data: any) => {
-      if (data.mensagemErro) {
-        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
-        return;
-      }
-
-      this.Enderecos = data.result;
-      if (this.Enderecos.length) {
-        this.enderecoSelecionadoID = this.Enderecos[0].enderecoID;
-      }
-    });
-
     this.sacolaService.getSacola().then((data) => {
       this.Sacola = data || [];
       this.CalcularTotal();
+
+      let promises: Promise<any>[] = [];
+      promises.push(this.getEndereco());
 
       if (this.Sacola.length > 0) {
         let lstProdutoIDComTamanho: any[] = [];
@@ -71,8 +66,6 @@ export class FinalizarPedidoPage implements OnInit {
           }
         });
 
-        let promises: Promise<any>[] = [];
-
         if (lstProdutoIDComTamanho.length) {
           promises.push(this.ajustarQuantidadeProdutoComTamanho(lstProdutoIDComTamanho));
         }
@@ -80,24 +73,39 @@ export class FinalizarPedidoPage implements OnInit {
         if (lstProdutoIDSemTamanho.length) {
           promises.push(this.ajustarQuantidadeProdutoSemTamanho(lstProdutoIDSemTamanho));
         }
-
-        Promise.all(promises).then(() => {
-          let sacolaNova = this.Sacola.filter((produto: any) => !produto.excluir);
-          this.sacolaService.salvarSacola(sacolaNova);
-          this.Sacola = sacolaNova;
-
-          if (this.mostrarAvisoItensAJustados) {
-            let options: ToastOptions = {
-              message: "Os itens podem ter sido excluídos ou ajustados, devido a quantidade em nosso estoque",
-              duration: 5000
-            }
-            this.alertaService.CriarToast(options, true);
-          }
-        });
       }
+
+      Promise.all(promises).then(() => {
+        let sacolaNova = this.Sacola.filter((produto: any) => !produto.excluir);
+        this.sacolaService.salvarSacola(sacolaNova);
+        this.Sacola = sacolaNova;
+
+        if (this.mostrarAvisoItensAJustados) {
+          let options: ToastOptions = {
+            message: "Os itens podem ter sido excluídos ou ajustados, devido a quantidade em nosso estoque",
+            duration: 5000
+          }
+          this.alertaService.CriarToast(options, true);
+        }
+
+        this.setCarregado();
+      });
     });
   }
 
+  getEndereco() {
+    return lastValueFrom(this.enderecoService.GetEnderecosUsuario(UsuarioService.usuarioLogado?.usuarioID)).then((data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+
+      this.Enderecos = data.result;
+      if (this.Enderecos.length) {
+        this.enderecoSelecionadoID = this.Enderecos[0].enderecoID;
+      }
+    });
+  }
   CalcularTotal() {
     this.Total = this.Sacola.reduce((acumulado, produto) => acumulado + produto.valor * produto.quantidade, 0);
   }
@@ -200,6 +208,15 @@ export class FinalizarPedidoPage implements OnInit {
   }
 
   novoEndereco() {
-    this.ModalService.CriarModal(EnderecoCadastroComponent);
+    const callback = (endereco: any) => {
+      this.Enderecos.push(endereco);
+      this.enderecoSelecionadoID = endereco.enderecoID;
+    };
+    this.ModalService.CriarModal(EnderecoCadastroComponent, {callback: callback});
   }
+
+  setCarregado() {
+    this.carregado = true;
+  }
+
 }
