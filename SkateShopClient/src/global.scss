@@ -129,3 +129,7 @@ ion-toast {
 login-register {
   height: calc(100% - 100px);
 }
+
+ion-spinner {
+  --spinner-color: var(--ion-color-dark);
+}

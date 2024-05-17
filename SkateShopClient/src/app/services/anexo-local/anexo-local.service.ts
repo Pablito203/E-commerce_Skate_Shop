@@ -1,3 +1,4 @@
+import { LoaderService } from './../loader/loader.service';
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { FilePicker, PickMediaOptions, PickedFile } from '@capawesome/capacitor-file-picker';
@@ -8,13 +9,14 @@ import imageCompression from 'browser-image-compression';
 })
 export class AnexoLocalService {
 
-  constructor() { }
+  constructor(private loaderService: LoaderService) { }
 
   Carregar(): Promise<any> {
     const opcoes: PickMediaOptions = {};
     opcoes.multiple = true;
 
     return FilePicker.pickImages(opcoes).then(({ files }) => {
+      this.loaderService.criarLoader();
       if ( files.length == 0 ) {
         return Promise.reject("Nenhum arquivo selecionado");
       }

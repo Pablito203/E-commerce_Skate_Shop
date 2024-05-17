@@ -8,7 +8,7 @@ import { AlertaService } from 'src/app/services/alerta/alerta.service';
   styleUrls: ['./produto-card-lista.component.scss'],
 })
 export class ProdutoCardListaComponent {
-
+  salvando = false;
   @Input() Tipo: String = "";
   @Input() Produto: any = {};
   @Output() Excluir: EventEmitter<void> = new EventEmitter<void>;
@@ -41,18 +41,22 @@ export class ProdutoCardListaComponent {
   }
 
   ExcluirClick() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     const AlertaOptions: AlertOptions =  {};
     AlertaOptions.header = 'Excluir';
     AlertaOptions.message = 'Deseja excluir o produto ' + (this.Tipo === 'Favoritos' ? 'dos favoritos' : 'da sacola') + '?';
     AlertaOptions.buttons = [
       {
         text: 'Cancelar',
-        handler: () => {}
+        handler: () => { this.salvando = false; }
       },
       {
         text: 'Excluir',
         handler: () => {
           this.Excluir.emit();
+          this.salvando = false;
         }
       }
     ]

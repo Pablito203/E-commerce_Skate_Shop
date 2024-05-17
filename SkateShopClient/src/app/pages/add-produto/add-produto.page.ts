@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { AlertaService } from './../../services/alerta/alerta.service';
 import { TamanhoService } from './../../services/tamanho/tamanho.service';
 import { ImagemService } from './../../services/imagem/imagem.service';
@@ -14,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-produto.page.scss'],
 })
 export class AddProdutoPage implements OnInit {
+  salvando = false;
   @Input() ProdutoID: number = 0;
 
   TiposRoupa = ProdutoService.TiposRoupa;
@@ -40,7 +42,8 @@ export class AddProdutoPage implements OnInit {
               private imagemService: ImagemService,
               private tamanhoService: TamanhoService,
               private alertaService: AlertaService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private loaderService: LoaderService) {
                 route.params.subscribe((params: any) => this.ProdutoID = parseInt(params.id));
               }
 
@@ -92,8 +95,14 @@ export class AddProdutoPage implements OnInit {
   }
 
   anexar() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     this.anexoLocalService.Carregar().then((values: any[]) => {
       this.Imagens = this.Imagens.concat(values);
+    }).finally(() => {
+      this.loaderService.fecharLoader();
+      this.salvando = false;
     });
   }
 
@@ -126,7 +135,11 @@ export class AddProdutoPage implements OnInit {
   }
 
   salvarTamanho() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     if (!this.validarDadosSalvarTamanho()) {
+      this.salvando = false;
       return;
     }
 
@@ -134,6 +147,7 @@ export class AddProdutoPage implements OnInit {
       this.TamanhoEdit.editado = true;
       this.TamanhoEdit = {};
       this.EditandoTamanho = false;
+      this.salvando = false;
       return;
     }
 
@@ -141,16 +155,20 @@ export class AddProdutoPage implements OnInit {
     this.Tamanhos.push(this.TamanhoEdit);
     this.TamanhoEdit = {};
     this.EditandoTamanho = false;
+    this.salvando = false;
   }
 
   excluirTamanho() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     const AlertaOptions: AlertOptions =  {};
     AlertaOptions.header = 'Excluir';
     AlertaOptions.message = 'Deseja excluir o tamanho?';
     AlertaOptions.buttons = [
       {
         text: 'Cancelar',
-        handler: () => {}
+        handler: () => { this.salvando = false; }
       },
       {
         text: 'Excluir',
@@ -158,6 +176,7 @@ export class AddProdutoPage implements OnInit {
           this.TamanhoEdit.excluido = true;
           this.TamanhoEdit = {};
           this.EditandoTamanho = false;
+          this.salvando = false;
         }
       }
     ]
@@ -200,12 +219,51 @@ export class AddProdutoPage implements OnInit {
   }
 
   salvar() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     if (!this.validarDadosSalvar()) {
+      this.salvando = false;
       return;
     }
 
-    let request = this.ProdutoID ? this.produtoService.PutProduto(this.Produto) : this.produtoService.PostProduto(this.Produto)
-    request.subscribe((data: any) => {
+    this.loaderService.criarLoader();
+    const observer = this.criarObserverSalvar();
+    let request = this.ProdutoID ? this.produtoService.PutProduto(this.Produto) : this.produtoService.PostProduto(this.Produto);
+    request.subscribe(observer);
+  }
+
+  excluir() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
+    const AlertaOptions: AlertOptions =  {};
+    AlertaOptions.header = 'Excluir';
+    AlertaOptions.message = 'Deseja excluir o produto?';
+    AlertaOptions.buttons = [
+      {
+        text: 'Cancelar',
+        handler: () => { this.salvando = false; }
+      },
+      {
+        text: 'Excluir',
+        handler: () => {
+          const observer = this.criarObserverExcluir();
+          this.produtoService.DeleteProduto(this.ProdutoID).subscribe(observer);
+        }
+      }
+    ]
+
+    this.alertaService.CriarAlerta(AlertaOptions);
+  }
+
+  setCarregado() {
+    this.carregado = true;
+  }
+
+  criarObserverSalvar() {
+    let observer: any = {};
+    observer.next = (data: any) => {
       if (data.mensagemErro) {
         this.alertaService.CriarToastMensagem(data.mensagemErro, true);
         return;
@@ -249,37 +307,32 @@ export class AddProdutoPage implements OnInit {
       } else {
         this.navController.navigateBack('/');
       }
-    });
+    };
+
+    observer.complete = () => {
+      this.loaderService.fecharLoader();
+      this.salvando = false;
+    }
+
+    return observer;
   }
 
-  excluir() {
-    const AlertaOptions: AlertOptions =  {};
-    AlertaOptions.header = 'Excluir';
-    AlertaOptions.message = 'Deseja excluir o produto?';
-    AlertaOptions.buttons = [
-      {
-        text: 'Cancelar',
-        handler: () => {}
-      },
-      {
-        text: 'Excluir',
-        handler: () => {
-          this.produtoService.DeleteProduto(this.ProdutoID).subscribe((data: any) => {
-            if (data.mensagemErro) {
-              this.alertaService.CriarToastMensagem(data.mensagemErro, true);
-              return;
-            }
-
-            this.navController.navigateBack('/');
-          });
-        }
+  criarObserverExcluir() {
+    let observer: any = {};
+    observer.next = (data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
       }
-    ]
 
-    this.alertaService.CriarAlerta(AlertaOptions);
-  }
+      this.navController.navigateBack('/');
+    };
 
-  setCarregado() {
-    this.carregado = true;
+    observer.complete = () => {
+      this.loaderService.fecharLoader();
+      this.salvando = false;
+    };
+
+    return observer;
   }
 }

@@ -1,16 +1,19 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import { AlertaService } from './../../services/alerta/alerta.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'pagamento-pix',
   templateUrl: './pagamento-pix.component.html',
   styleUrls: ['./pagamento-pix.component.scss'],
 })
-export class PagamentoPixComponent  implements OnInit {
+export class PagamentoPixComponent {
   @Input() caminhoImagem = '';
   @Input() copiaCola = '';
 
-  constructor() { }
+  constructor(private alertaService: AlertaService) { }
 
-  ngOnInit() {}
-
+  copiarPix() {
+    navigator.clipboard.writeText(this.copiaCola);
+    this.alertaService.CriarToastMensagem("Código pix copiado para a área de transferência");
+  }
 }

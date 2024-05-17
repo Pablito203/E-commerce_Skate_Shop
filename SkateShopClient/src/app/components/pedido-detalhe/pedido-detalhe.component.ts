@@ -8,7 +8,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
   templateUrl: './pedido-detalhe.component.html',
   styleUrls: ['./pedido-detalhe.component.scss'],
 })
-export class PedidoDetalheComponent  implements OnInit {
+export class PedidoDetalheComponent implements OnInit {
   @Input() pedido: any = {};
 
   produtos = [];

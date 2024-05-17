@@ -40,7 +40,10 @@ export class ProdutosPage implements OnInit {
   ngOnInit() {
     this.produtoService.GetProdutosID(this.tipo, this.tipoID, this.pesquisa).subscribe((data: any) => {
       let lstProdutosID = data.result;
-      if (!lstProdutosID.length) { return; }
+      if (!lstProdutosID.length) {
+        this.setCarregado();
+        return;
+       }
 
       this.quantidadeChunks = Math.ceil(lstProdutosID.length / this.produtosPorChunck) - 1;
 
@@ -62,17 +65,15 @@ export class ProdutosPage implements OnInit {
       return;
     }
 
-    setTimeout(() => {
-      this.produtoService.GetByListaID(this.lstChuncks[this.chunckAtual + 1]).subscribe((data: any) => {
-        this.produtos = this.produtos.concat(data.result);
-        this.chunckAtual += 1;
+    this.produtoService.GetByListaID(this.lstChuncks[this.chunckAtual + 1]).subscribe((data: any) => {
+      this.produtos = this.produtos.concat(data.result);
+      this.chunckAtual += 1;
 
-        if (this.chunckAtual >= this.quantidadeChunks) {
-          e.target.disabled = true;
-        }
-        e.target.complete();
-      });
-    }, 100);
+      if (this.chunckAtual >= this.quantidadeChunks) {
+        e.target.disabled = true;
+      }
+      e.target.complete();
+    });
   }
 
   setCarregado() {

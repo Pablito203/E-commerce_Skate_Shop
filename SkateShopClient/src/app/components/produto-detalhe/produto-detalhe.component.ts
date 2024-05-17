@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { lastValueFrom } from 'rxjs';
 import { FavoritosService } from './../../services/favoritos/favoritos.service';
 import { EventsService } from './../../services/events/events.service';
@@ -17,6 +18,7 @@ import { UsuarioService, usuario } from 'src/app/services/usuario/usuario.servic
   styleUrls: ['./produto-detalhe.component.scss'],
 })
 export class ProdutoDetalheComponent implements OnInit {
+  salvando = false;
   @Input() ProdutoID: number = 0;
 
   Produto: any = {};
@@ -34,7 +36,8 @@ export class ProdutoDetalheComponent implements OnInit {
               private alertaService: AlertaService,
               private navController: NavController,
               private events: EventsService,
-              private favoritosService: FavoritosService) { }
+              private favoritosService: FavoritosService,
+              private loaderService: LoaderService) { }
 
   ngOnInit() {
     this.usuarioLogado = UsuarioService.usuarioLogado;
@@ -101,28 +104,28 @@ export class ProdutoDetalheComponent implements OnInit {
   }
 
   addFavoritos() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     if (!UsuarioService.usuarioLogado) {
       this.alertaService.CriarToastMensagem('Acesse sua conta para adicionar aos favoritos', true);
+      this.salvando = false;
       return;
     }
 
+    this.loaderService.criarLoader();
+    const observer = this.criarObserverFavorito(this.Produto.favorito);
     if (this.Produto.favorito) {
-      this.favoritosService.RemoverFavorito(this.Produto.produtoID).subscribe((data: any) => {
-        this.events.publish('RemoveFavorito' + this.Produto.produtoID);
-        this.favoritosService.ExecutarEventos(this.Produto.produtoID, true);
-        this.Produto.favorito = false;
-        this.alertaService.CriarToastMensagem('Produto removido dos favoritos');
-      });
+      this.favoritosService.RemoverFavorito(this.Produto.produtoID).subscribe(observer);
     } else {
-      this.favoritosService.AdicionarFavorito(this.Produto.produtoID).subscribe((data: any) => {
-        this.favoritosService.ExecutarEventos(this.Produto.produtoID, false);
-        this.Produto.favorito = true;
-        this.alertaService.CriarToastMensagem('Produto adicionado aos favoritos');
-      });
+      this.favoritosService.AdicionarFavorito(this.Produto.produtoID).subscribe(observer);
     }
   }
 
   addSacola() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     let ProdutoSacola: any;
 
     if (this.Sacola.length > 0) {
@@ -147,7 +150,7 @@ export class ProdutoDetalheComponent implements OnInit {
         ProdutoSacola.quantidade++;
         this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
       }
-      this.sacolaService.salvarSacola(this.Sacola);
+      this.sacolaService.salvarSacola(this.Sacola).finally(() => this.salvando = false);
       return;
     }
 
@@ -169,16 +172,43 @@ export class ProdutoDetalheComponent implements OnInit {
     }
 
     this.Sacola.push(Produto);
-    this.sacolaService.salvarSacola(this.Sacola);
+    this.sacolaService.salvarSacola(this.Sacola).finally(() => this.salvando = false);
     this.alertaService.CriarToastMensagem('Produto adicionado na sacola');
   }
 
   EditarProduto() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     this.navController.navigateForward('/add-produto/' + this.ProdutoID);
     this.FecharModal();
+
+    this.salvando = false;
   }
 
   setCarregado() {
     this.carregado = true;
+  }
+
+  criarObserverFavorito(removerFavorito: boolean) {
+    let observer: any = {};
+    observer.next = (data: any) => {
+      this.Produto.favorito = !removerFavorito;
+      this.favoritosService.ExecutarEventos(this.Produto.produtoID, removerFavorito);
+
+      if (removerFavorito) {
+        this.events.publish('RemoveFavorito' + this.Produto.produtoID);
+        this.alertaService.CriarToastMensagem('Produto removido dos favoritos');
+      } else {
+        this.alertaService.CriarToastMensagem('Produto adicionado aos favoritos');
+      }
+    };
+
+    observer.complete = () => {
+      this.loaderService.fecharLoader();
+      this.salvando = false;
+    }
+
+    return observer;
   }
 }

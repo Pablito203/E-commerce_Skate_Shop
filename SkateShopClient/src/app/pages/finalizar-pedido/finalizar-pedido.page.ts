@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { ModalService } from './../../services/modal/modal.service';
 import { lastValueFrom } from 'rxjs';
 import { TamanhoService } from 'src/app/services/tamanho/tamanho.service';
@@ -10,7 +11,7 @@ import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { EnderecoCadastroComponent } from 'src/app/components/endereco-cadastro/endereco-cadastro.component';
-import { LoadingController } from '@ionic/angular';
+import { PedidoDetalheComponent } from 'src/app/components/pedido-detalhe/pedido-detalhe.component';
 
 @Component({
   selector: 'finalizar-pedido',
@@ -18,6 +19,7 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./finalizar-pedido.page.scss'],
 })
 export class FinalizarPedidoPage implements OnInit {
+  salvando = false;
   Sacola: any[] = [];
   Enderecos: any[] = [];
   Total: number = 0;
@@ -34,7 +36,7 @@ export class FinalizarPedidoPage implements OnInit {
               private tamanhoService: TamanhoService,
               private produtoService: ProdutoService,
               private ModalService: ModalService,
-              private loadingController: LoadingController) { }
+              private loaderService: LoaderService) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -106,6 +108,7 @@ export class FinalizarPedidoPage implements OnInit {
       }
     });
   }
+
   CalcularTotal() {
     this.Total = this.Sacola.reduce((acumulado, produto) => acumulado + produto.valor * produto.quantidade, 0);
   }
@@ -130,31 +133,31 @@ export class FinalizarPedidoPage implements OnInit {
   }
 
   FinalizarPedido() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     if (!this.Total) {
       this.alertaService.CriarToastMensagem("Nenhum item na sacola", true);
+      this.salvando = false;
       return;
     }
 
     if (!this.enderecoSelecionadoID) {
       this.alertaService.CriarToastMensagem("Nenhum endereço selecionado no pedido", true);
+      this.salvando = false;
       return;
     }
 
-    let pedido = {
+    this.loaderService.criarLoader();
+
+    const pedido = {
       usuarioID: UsuarioService.usuarioLogado?.usuarioID,
       enderecoID: this.enderecoSelecionadoID,
       listaProduto: this.Sacola
     }
 
-    this.pedidoService.CriarPedido(pedido).subscribe((data: any) => {
-      if (data.mensagemErro) {
-        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
-        return;
-      }
-      this.alertaService.CriarToastMensagem("Pedido Realizado com sucesso, aguardando pagamento")
-      this.sacolaService.salvarSacola([]);
-      this.navController.navigateBack('/')
-    });
+    const observer = this.criarObserverFinalizar();
+    this.pedidoService.CriarPedido(pedido).subscribe(observer);
   }
 
   ajustarQuantidadeProdutoSemTamanho(lstProdutoIDSemTamanho: number[]) {
@@ -208,15 +211,40 @@ export class FinalizarPedidoPage implements OnInit {
   }
 
   novoEndereco() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     const callback = (endereco: any) => {
       this.Enderecos.push(endereco);
       this.enderecoSelecionadoID = endereco.enderecoID;
     };
     this.ModalService.CriarModal(EnderecoCadastroComponent, {callback: callback});
+
+    this.salvando = false;
   }
 
   setCarregado() {
     this.carregado = true;
+  }
+
+  criarObserverFinalizar() {
+    let observer: any = {};
+    observer.next = (data: any) => {
+      if (data.mensagemErro) {
+        this.alertaService.CriarToastMensagem(data.mensagemErro, true);
+        return;
+      }
+      this.alertaService.CriarToastMensagem("Pedido Realizado com sucesso, aguardando pagamento")
+      this.sacolaService.salvarSacola([]);
+      this.navController.navigateBack('/pedidos');
+      this.ModalService.CriarModal(PedidoDetalheComponent, { pedido: data.result })
+    };
+    observer.complete = () => {
+      this.loaderService.fecharLoader();
+      this.salvando = false;
+    }
+
+    return observer;
   }
 
 }

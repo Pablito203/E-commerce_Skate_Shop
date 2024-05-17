@@ -2,7 +2,8 @@
   <ion-row>
     <div class="produto-container">
       <div class="img-container">
-        <ion-icon [name]="'heart' + (produto.favorito ? '' : '-outline')" [ngClass]="{'selected': produto.favorito}"
+        <ion-icon *ngIf="!usuarioLogado?.administrador"
+                  [name]="'heart' + (produto.favorito ? '' : '-outline')" [ngClass]="{'selected': produto.favorito}"
                   (click)="Favorito(); $event.stopPropagation()"></ion-icon>
         <ion-img [src]="'data:image/jpeg;base64, ' + produto.caminhoImagem"></ion-img>
       </div>

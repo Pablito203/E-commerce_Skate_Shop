@@ -13,6 +13,8 @@ export class AlertaService {
               private toastController: ToastController) { }
 
   CriarAlerta(options: AlertOptions) {
+    options.backdropDismiss = false;
+
     if (AlertaService.AlertaAberto) {
       this.AlertController.dismiss();
     }
@@ -53,5 +55,9 @@ export class AlertaService {
 
   CriarToastMensagem(message: string, erro: boolean = false) {
     this.CriarToast({message}, erro);
+  }
+
+  CriarToastConexao() {
+    this.CriarToast({message: "Verifique sua conexão e tente novamente"}, true);
   }
 }

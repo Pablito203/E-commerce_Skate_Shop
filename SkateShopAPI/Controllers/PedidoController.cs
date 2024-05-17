@@ -44,6 +44,7 @@ namespace SkateShopAPI.Controllers {
                 Pedido.ImagemPagamentoPix = AnexoService.BuscarArquivoBase64(Pedido.ImagemPagamentoPix);
             }
 
+            lstPedido = lstPedido.OrderByDescending(p => p.PedidoID).ToList();
             return new RespostaAPI(lstPedido);
         }
 
@@ -59,6 +60,7 @@ namespace SkateShopAPI.Controllers {
             }
 
             var lstPedidoID = iqPedido.Select((p) => p.Pedido1).ToList();
+            lstPedidoID = lstPedidoID.OrderDescending().ToList();
 
             return new RespostaAPI(lstPedidoID);
         }
@@ -101,6 +103,10 @@ namespace SkateShopAPI.Controllers {
             };
 
             AsaasService.DadosCobranca DadosCobranca = await AsaasService.CriarCobrança(DadosCriarCobranca);
+
+            if (Usuario == null) {
+                return new RespostaAPI("Erro integração asaas");
+            }
 
             Pedido Pedido = new () {
                 Usuario = PedidoBody.UsuarioID,
@@ -160,7 +166,7 @@ namespace SkateShopAPI.Controllers {
                 DataCriacao = Pedido.DataCriacao,
                 DataVencimento = Pedido.DataVencimento,
                 CodigoPagamentoPix = Pedido.CodigoPagamentoPix,
-                ImagemPagamentoPix = AnexoService.GetCaminhoAbsoluto(Pedido.CaminhoRelativoImagemPix)
+                ImagemPagamentoPix = AnexoService.BuscarArquivoBase64(Pedido.CaminhoRelativoImagemPix)
             };
             return new RespostaAPI(PedidoRetorno);
         }

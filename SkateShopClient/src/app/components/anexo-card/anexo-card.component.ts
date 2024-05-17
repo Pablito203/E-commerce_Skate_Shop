@@ -11,6 +11,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, Manipulation, Zoom]);
   styleUrls: ['./anexo-card.component.scss'],
 })
 export class AnexoCardComponent {
+  salvando = false;
   @Input() Anexos: any[] = [];
   @Input() editavel: boolean = false;
   @Output() excluir: EventEmitter<any> = new EventEmitter();
@@ -50,13 +51,16 @@ export class AnexoCardComponent {
   }
 
   excluirClick() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     const AlertaOptions: AlertOptions =  {};
     AlertaOptions.header = 'Excluir';
     AlertaOptions.message = 'Deseja excluir a imagem?';
     AlertaOptions.buttons = [
       {
         text: 'Cancelar',
-        handler: () => {}
+        handler: () => {this.salvando = false;}
       },
       {
         text: 'Excluir',
@@ -64,6 +68,7 @@ export class AnexoCardComponent {
           let index = this.swiper?.activeIndex || 0;
           this.swiper?.slidePrev();
           this.excluir.emit(index);
+          this.salvando = false;
         }
       }
     ]

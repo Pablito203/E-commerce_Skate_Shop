@@ -13,6 +13,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
   styleUrls: ['./sacola.component.scss'],
 })
 export class SacolaComponent implements OnInit {
+  salvando = false;
   Sacola = [];
   carregado = false;
 
@@ -42,16 +43,26 @@ export class SacolaComponent implements OnInit {
   }
 
   AbrirModalProdutoDetalhe(produto: any) {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     this.modalService.CriarModal(ProdutoDetalheComponent, { ProdutoID: produto.produtoID }, "big");
+
+    this.salvando = false;
   }
 
   FecharPedido() {
+    if (this.salvando) {return;}
+    this.salvando = true;
+
     if (UsuarioService.usuarioLogado) {
       this.navController.navigateForward('/finalizar-pedido');
       ModalService.FecharModal();
     } else {
       this.modalService.CriarModal(LoginRegisterComponent);
     }
+
+    this.salvando = false;
   }
 
   setCarregado() {
