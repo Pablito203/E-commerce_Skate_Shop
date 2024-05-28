@@ -1,3 +1,4 @@
+import { EnderecoService } from './../../services/endeco/endereco.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
@@ -17,7 +18,9 @@ export class PedidoDetalheComponent implements OnInit {
   usuarioLogado = UsuarioService.usuarioLogado;
   carregado = false;
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService,
+              private enderecoService: EnderecoService
+  ) { }
 
   ngOnInit() {
     this.vencido = new Date(this.pedido.dataVencimento) <= new Date();
@@ -47,5 +50,9 @@ export class PedidoDetalheComponent implements OnInit {
 
   setCarregado() {
     this.carregado = true;
+  }
+
+  GetNomeEndereco(endereco: any) {
+    return this.enderecoService.GetNomeEndereco(endereco);
   }
 }

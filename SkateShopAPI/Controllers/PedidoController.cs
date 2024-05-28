@@ -35,7 +35,16 @@ namespace SkateShopAPI.Controllers {
                 DataVencimento = p.DataVencimento,
                 CodigoPagamentoPix = p.CodigoPagamentoPix,
                 ImagemPagamentoPix = p.CaminhoRelativoImagemPix,
-                ClienteNome = p.UsuarioNavigation.Nome
+                ClienteNome = p.UsuarioNavigation.Nome,
+                Endereco = new EnderecoRetorno() {
+                    EnderecoID = p.EnderecoNavigation.Endereco1,
+                    UF = p.EnderecoNavigation.Uf,
+                    Cidade = p.EnderecoNavigation.Cidade,
+                    Bairro = p.EnderecoNavigation.Bairro,
+                    Rua = p.EnderecoNavigation.Rua,
+                    Numero = p.EnderecoNavigation.Numero,
+                    Complemento = p.EnderecoNavigation.Complemento
+                }
             }).ToList();
 
             Repository.Dispose();
