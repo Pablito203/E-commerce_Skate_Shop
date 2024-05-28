@@ -39,9 +39,7 @@ export class FinalizarPedidoPage implements OnInit {
               private loaderService: LoaderService) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.getDados();
-    }, 100);
+    this.getDados();
   }
 
   getDados() {

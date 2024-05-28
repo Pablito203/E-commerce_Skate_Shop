@@ -21,20 +21,18 @@ export class PedidosPage implements OnInit {
               private modalService: ModalService) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.pedidoService.GetPedidosID().subscribe((data: any) => {
-        let lstPedidosID = data.result;
-        this.quantidadeChunks = Math.ceil(lstPedidosID.length / this.pedidosPorChunck) - 1;
-        for (var i = 0; i <= this.quantidadeChunks; i++) {
-          this.lstChuncks.push(lstPedidosID.splice(0, this.pedidosPorChunck));
-        }
+    this.pedidoService.GetPedidosID().subscribe((data: any) => {
+      let lstPedidosID = data.result;
+      this.quantidadeChunks = Math.ceil(lstPedidosID.length / this.pedidosPorChunck) - 1;
+      for (var i = 0; i <= this.quantidadeChunks; i++) {
+        this.lstChuncks.push(lstPedidosID.splice(0, this.pedidosPorChunck));
+      }
 
-        this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual]).subscribe((data: any) => {
-          this.pedidos = data.result;
-          this.setCarregado();
-        });
-      })
-    }, 100);
+      this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual]).subscribe((data: any) => {
+        this.pedidos = data.result;
+        this.setCarregado();
+      });
+    });
   }
 
   onIonInfinite(e: any) {
@@ -44,17 +42,15 @@ export class PedidosPage implements OnInit {
       return;
     }
 
-    setTimeout(() => {
-      this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual + 1]).subscribe((data: any) => {
-        this.pedidos = this.pedidos.concat(data.result);
-        this.chunckAtual += 1;
+    this.pedidoService.GetPedidos(this.lstChuncks[this.chunckAtual + 1]).subscribe((data: any) => {
+      this.pedidos = this.pedidos.concat(data.result);
+      this.chunckAtual += 1;
 
-        if (this.chunckAtual >= this.quantidadeChunks) {
-          e.target.disabled = true;
-        }
-        e.target.complete();
-      });
-    }, 100);
+      if (this.chunckAtual >= this.quantidadeChunks) {
+        e.target.disabled = true;
+      }
+      e.target.complete();
+    });
   }
 
   AbrirPedidoDetalhe(pedido: any) {

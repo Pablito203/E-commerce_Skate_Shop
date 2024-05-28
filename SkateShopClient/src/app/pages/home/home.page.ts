@@ -27,9 +27,7 @@ export class HomePage implements OnInit {
     promises.push(this.carregarLancamentos());
     promises.push(this.carregarDestaques());
 
-    setTimeout(() => {
-      Promise.all(promises).then(() => this.setCarregado())
-    }, 100);
+    Promise.all(promises).then(() => this.setCarregado());
   }
 
   carregarLancamentos() {

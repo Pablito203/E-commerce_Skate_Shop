@@ -17,16 +17,11 @@ export class AppComponent {
   busca = '';
 
   constructor(private modalService: ModalService,
-              private storage: Storage,
               private usuarioService: UsuarioService,
               private navController: NavController,
               private menuController: MenuController)
   {
-    this.storage.create();
-    this.storage.get('usuario').then((value: usuario | null) => {
-      UsuarioService.usuarioLogado = value;
-      this.usuarioLogado = UsuarioService.usuarioLogado;
-    });
+    this.usuarioLogado = UsuarioService.usuarioLogado;
   }
 
   AbrirModalFavoritos() {

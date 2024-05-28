@@ -7,12 +7,18 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root'
 })
 export class UsuarioService {
-
   static usuarioLogado: usuario | null = null;
 
   constructor(private http: HttpClient,
               private storage: Storage,
-  ) {
+  ) {}
+
+  IniciarUsuarioLogado() {
+    return this.storage.create().then(() => {
+      return this.storage.get('usuario').then((value: usuario | null) => {
+        UsuarioService.usuarioLogado = value;
+      });
+    })
   }
 
   login(login: login) {
@@ -20,12 +26,9 @@ export class UsuarioService {
   }
 
   setUsuarioLogado(usuario: usuario | null) {
-    this.storage.set('usuario', usuario);
-    UsuarioService.usuarioLogado = usuario;
-
-    setTimeout(() => {
+    this.storage.set('usuario', usuario).then(() => {
       globalThis.window.location.reload();
-    }, 100);
+    });
   }
 
   AdicionarUsuario(cadastro: cadastro) {

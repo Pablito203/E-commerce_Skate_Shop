@@ -22,7 +22,8 @@ namespace SkateShopAPI
                 Options.UseSqlServer(ConnectionString);
             });
 
-            AppSettingsService.ChaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaas");
+            AppSettingsService.ChaveAsaas = builder.Configuration.GetValue<string>("ChaveAsaasSandBox");
+            AppSettingsService.UrlApiAsaas = builder.Configuration.GetValue<string>("UrlApiAsaasSandBox");
 
             builder.Services.AddCors(options =>
             {
