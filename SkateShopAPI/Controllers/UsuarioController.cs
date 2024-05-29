@@ -28,28 +28,38 @@ namespace SkateShopAPI.Controllers {
 
         [HttpPost]
         public async Task<RespostaAPI> PostUsuarioAsync(UsuarioBody UsuarioBody) {
-            Usuario Usuario = new() {
-                Nome = UsuarioBody.Nome,
-                Email = UsuarioBody.Email,
-                Senha = UsuarioBody.Senha,
-                Cpf = UsuarioBody.Cpf
-            };
+            using (Repository Repository = new()) {
+                bool emailJaCadastrado = Repository.FilterQuery<Usuario>(p => p.Email == UsuarioBody.Email).Any();
 
-            bool ClienteAsaasCriado = await AsaasService.CriarCliente(Usuario);
+                if (emailJaCadastrado) {
+                    return new RespostaAPI("Email já cadastrado");
+                }
 
-            if (!ClienteAsaasCriado) {
-                return new RespostaAPI("Erro integração asaas");
+                UsuarioBody.SetSenhaHash();
+                Usuario Usuario = new() {
+                    Nome = UsuarioBody.Nome,
+                    Email = UsuarioBody.Email,
+                    Senha = UsuarioBody.Senha,
+                    Cpf = UsuarioBody.Cpf
+                };
+
+                bool ClienteAsaasCriado = await AsaasService.CriarCliente(Usuario);
+
+                if (!ClienteAsaasCriado) {
+                    return new RespostaAPI("Erro integração asaas");
+                }
+
+                Repository.Insert(Usuario);
+                Repository.Dispose();
+
+                return new RespostaAPI(new { sucesso = true });
             }
-
-            Repository Repository = new();
-            Repository.Insert(Usuario);
-            Repository.Dispose();
-
-            return new RespostaAPI(new { sucesso = true });
         }
 
         [HttpPut]
         public RespostaAPI PutUsuario(UsuarioBody UsuarioBody) {
+            UsuarioBody.SetSenhaHash();
+
             if (UsuarioBody.UsuarioID is null) {
                 return new RespostaAPI("Registro não encontrado");
             }

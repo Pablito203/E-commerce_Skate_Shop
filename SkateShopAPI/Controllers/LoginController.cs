@@ -8,6 +8,8 @@ namespace SkateShopAPI.Controllers {
     public class LoginController : ControllerBase {
         [HttpPost]
         public RespostaAPI PostLogin(LoginBody LoginBody) {
+            LoginBody.SetSenhaHash();
+
             Repository Repository = new();
             var Usuario = Repository.FilterQuery<Usuario>((p) => p.Email == LoginBody.Email && p.Senha == LoginBody.Senha).Select((p) => new LoginRetorno() {
                 UsuarioID = p.Usuario1,

@@ -23,6 +23,11 @@ export class PedidosPage implements OnInit {
   ngOnInit() {
     this.pedidoService.GetPedidosID().subscribe((data: any) => {
       let lstPedidosID = data.result;
+      if (!lstPedidosID.length) {
+        this.setCarregado();
+        return;
+      }
+
       this.quantidadeChunks = Math.ceil(lstPedidosID.length / this.pedidosPorChunck) - 1;
       for (var i = 0; i <= this.quantidadeChunks; i++) {
         this.lstChuncks.push(lstPedidosID.splice(0, this.pedidosPorChunck));
