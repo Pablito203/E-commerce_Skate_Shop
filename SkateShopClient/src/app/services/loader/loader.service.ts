@@ -10,8 +10,12 @@ export class LoaderService {
   constructor(private loaderController: LoadingController) { }
 
   criarLoader() {
-    if (LoaderService.loader) {return;}
-    this.loaderController.create({spinner: 'crescent'}).then(loader => {
+    if (LoaderService.loader) { return Promise.resolve(); }
+    return this.loaderController.create({spinner: 'crescent', backdropDismiss: false}).then(loader => {
+      loader.onDidDismiss().then(() => {
+        LoaderService.loader = null;
+      });
+
       LoaderService.loader = loader;
       loader.present();
     })

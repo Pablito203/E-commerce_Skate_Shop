@@ -15,8 +15,8 @@ export class AnexoLocalService {
     const opcoes: PickMediaOptions = {};
     opcoes.multiple = true;
 
-    return FilePicker.pickImages(opcoes).then(({ files }) => {
-      this.loaderService.criarLoader();
+    return FilePicker.pickImages(opcoes).then(async ({ files }) => {
+      await this.loaderService.criarLoader();
       if ( files.length == 0 ) {
         return Promise.reject("Nenhum arquivo selecionado");
       }
@@ -34,9 +34,11 @@ export class AnexoLocalService {
       })
 
       return Promise.all(promisesComprimir).then(values => {
+        this.loaderService.fecharLoader();
         return values;
       });
     }).catch(erro => {
+      this.loaderService.fecharLoader();
       let msgErro = erro && erro.toString().includes("pickFiles canceled") ? "Nenhum arquivo selecionado" : "Não foi possível completar a operação";
       return Promise.reject(msgErro);
     })

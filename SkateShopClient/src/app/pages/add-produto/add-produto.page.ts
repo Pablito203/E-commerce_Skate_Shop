@@ -101,7 +101,6 @@ export class AddProdutoPage implements OnInit {
     this.anexoLocalService.Carregar().then((values: any[]) => {
       this.Imagens = this.Imagens.concat(values);
     }).finally(() => {
-      this.loaderService.fecharLoader();
       this.salvando = false;
     });
   }
@@ -287,7 +286,7 @@ export class AddProdutoPage implements OnInit {
         });
       }
 
-      if (!this.Produto.TamanhoUnico && this.Tamanhos.length > 0) {
+      if (!this.Produto.tamanhoUnico && this.Tamanhos.length > 0) {
         this.Tamanhos.forEach(tamanho => {
           if (!tamanho.tamanhoID && !tamanho.excluido) {
             tamanho.ProdutoID = data.result.produtoID;

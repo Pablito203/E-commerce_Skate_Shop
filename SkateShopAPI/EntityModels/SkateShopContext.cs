@@ -217,7 +217,6 @@ public partial class SkateShopContext : DbContext
             entity.Property(e => e.QuantidadeEstoque).HasColumnName("quantidade_estoque");
             entity.Property(e => e.TamanhoUnico)
                 .IsRequired()
-                .HasDefaultValueSql("((1))")
                 .HasColumnName("tamanho_unico");
             entity.Property(e => e.Tipo).HasColumnName("tipo");
             entity.Property(e => e.Valor)

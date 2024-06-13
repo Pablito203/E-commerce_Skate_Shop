@@ -111,7 +111,7 @@
         </ion-row>
 
         <ion-row>
-          <ion-col style="display: flex;">
+          <ion-col class="tamanho-container">
             <ng-container *ngFor="let tamanho of Tamanhos">
               <tamanho *ngIf="!tamanho.excluido" [Tamanho]="tamanho" (click)="editTamanho(tamanho)"></tamanho>
             </ng-container>

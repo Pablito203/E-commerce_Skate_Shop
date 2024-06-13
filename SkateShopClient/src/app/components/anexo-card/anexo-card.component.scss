@@ -20,9 +20,9 @@ ion-toolbar {
 
 swiper {
   background-color: rgb(0, 0, 0);
-  --swiper-pagination-color: white;
+  --swiper-pagination-color: blue;
   --swiper-pagination-bullet-inactive-color: white;
-  --swiper-navigation-color: white;
+  --swiper-navigation-color: blue;
   min-height: 480px;
   max-height: 480px;
   display: flex;
@@ -44,15 +44,11 @@ img {
   object-fit: cover;
 }
 
-// swiper-container {
-//   --swiper-pagination-color: black;
-//   min-height: 480px;
-//   max-height: 500px;
-//   display: flex;
-//   align-items: center;
-// }
-
 .flex {
   display: flex;
   justify-content: center;
+}
+
+.swiper-button-next:after {
+  background: #2224280d;
 }

@@ -133,3 +133,8 @@ login-register {
 ion-spinner {
   --spinner-color: var(--ion-color-dark);
 }
+
+.tamanho-container {
+  display: flex;
+  flex-wrap: wrap;
+}
