@@ -167,7 +167,7 @@ namespace SkateShopAPI.Controllers {
             Repository.Update(lstProdutoUpdate);
             Repository.Update(lstTamanhoUpdate);
 
-            Repository.Dispose();
+            Endereco Endereco = Repository.FilterQuery<Endereco>(p => p.Endereco1 == Pedido.Endereco).First();
             PedidoRetorno PedidoRetorno = new() {
                 PedidoID = Pedido.Pedido1,
                 Valor = Pedido.Valor,
@@ -175,8 +175,18 @@ namespace SkateShopAPI.Controllers {
                 DataCriacao = Pedido.DataCriacao,
                 DataVencimento = Pedido.DataVencimento,
                 CodigoPagamentoPix = Pedido.CodigoPagamentoPix,
-                ImagemPagamentoPix = AnexoService.BuscarArquivoBase64(Pedido.CaminhoRelativoImagemPix)
+                ImagemPagamentoPix = AnexoService.BuscarArquivoBase64(Pedido.CaminhoRelativoImagemPix),
+                Endereco = new EnderecoRetorno() {
+                    EnderecoID = Endereco.Endereco1,
+                    UF = Endereco.Uf,
+                    Cidade = Endereco.Cidade,
+                    Bairro = Endereco.Bairro,
+                    Rua = Endereco.Rua,
+                    Numero = Endereco.Numero,
+                    Complemento = Endereco.Complemento
+                }
             };
+            Repository.Dispose();
             return new RespostaAPI(PedidoRetorno);
         }
     }

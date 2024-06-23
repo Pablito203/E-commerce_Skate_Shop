@@ -6,12 +6,15 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoaderService {
   static loader: HTMLIonLoadingElement | null = null;
+  static loaderAberto = false;
 
   constructor(private loaderController: LoadingController) { }
 
   criarLoader() {
-    if (LoaderService.loader) { return Promise.resolve(); }
+    if (LoaderService.loaderAberto) { return Promise.resolve(); }
+    LoaderService.loaderAberto = true;
     return this.loaderController.create({spinner: 'crescent', backdropDismiss: false}).then(loader => {
+      if (!LoaderService.loaderAberto) {return;}
       loader.onDidDismiss().then(() => {
         LoaderService.loader = null;
       });
@@ -22,9 +25,10 @@ export class LoaderService {
   }
 
   fecharLoader() {
-    if (!LoaderService.loader) {return;}
+    if (!LoaderService.loaderAberto) {return;}
 
-    LoaderService.loader.dismiss();
+    LoaderService.loader?.dismiss();
     LoaderService.loader = null;
+    LoaderService.loaderAberto = false;
   }
 }

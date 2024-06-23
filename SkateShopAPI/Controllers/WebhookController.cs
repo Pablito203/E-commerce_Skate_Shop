@@ -16,7 +16,11 @@ namespace SkateShopAPI.Controllers {
 
             Repository repository = new Repository();
 
-            Pedido pedido = repository.FilterQuery<Pedido>((p) => p.IdAsaas == pagamento.payment.id).First();
+            var pedido = repository.FilterQuery<Pedido>((p) => p.IdAsaas == pagamento.payment.id).FirstOrDefault();
+
+            if (pedido == null) {
+                return;
+            }
 
             pedido.PagamentoRealizado = true;
 

@@ -150,6 +150,7 @@ namespace SkateShopAPI.Controllers {
         public RespostaAPI GetProdutoID() {
             Repository Repository = new();
             var iqProduto = Repository.FilterQuery<Produto>((p) => true);
+            iqProduto = iqProduto.Where(p => p.Ativo);
             SetIQueryableProduto(ref iqProduto);
 
             var lstProdutoID = iqProduto.Select((p)  => p.Produto1).ToList();
