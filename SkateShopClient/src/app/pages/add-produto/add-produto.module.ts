@@ -8,6 +8,7 @@ import { AddProdutoPageRoutingModule } from './add-produto-routing.module';
 
 import { AddProdutoPage } from './add-produto.page';
 import { ComponentsModule } from "../../components/components.module";
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
     declarations: [AddProdutoPage],
@@ -16,7 +17,8 @@ import { ComponentsModule } from "../../components/components.module";
         FormsModule,
         IonicModule,
         AddProdutoPageRoutingModule,
-        ComponentsModule
+        ComponentsModule,
+        DirectivesModule
     ]
 })
 export class AddProdutoPageModule {}

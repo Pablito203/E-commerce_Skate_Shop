@@ -16,7 +16,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="usuarioEdicao.nome"></ion-input>
+            <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="usuarioEdicao.nome" maxlength="200"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -24,7 +24,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input labelPlacement="floating" label="CPF" name="cpf" [(ngModel)]="usuarioEdicao.cpf"></ion-input>
+            <ion-input labelPlacement="floating" label="CPF" name="cpf" cpf [(ngModel)]="usuarioEdicao.cpf" maxlength="14"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -32,7 +32,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input [disabled]="true" labelPlacement="floating" label="Email" name="email" [(ngModel)]="usuarioEdicao.email"></ion-input>
+            <ion-input [disabled]="true" labelPlacement="floating" label="Email" name="email" [(ngModel)]="usuarioEdicao.email" maxlength="200"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -40,7 +40,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input label="Confirmar senha" labelPlacement="floating" name="senha" type="password" [(ngModel)]="usuarioEdicao.senha"></ion-input>
+            <ion-input label="Confirmar senha" labelPlacement="floating" name="senha" type="password" [(ngModel)]="usuarioEdicao.senha" maxlength="50"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

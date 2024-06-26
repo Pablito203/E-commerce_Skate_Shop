@@ -4,6 +4,7 @@ import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { UsuarioService, cadastro, usuario } from 'src/app/services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { CpfDirective } from 'src/app/directives/cpf/cpf.directive';
 
 @Component({
   selector: 'dados-usuario',
@@ -40,9 +41,17 @@ export class DadosUsuarioComponent implements OnInit {
     if (this.salvando) {return;}
     this.salvando = true;
 
+    if (!this.usuarioEdicao.senha || !this.usuarioEdicao.cpf || !CpfDirective.ValidarCpf(this.usuarioEdicao.cpf) || !this.usuarioEdicao.nome) {
+      this.alertaService.CriarToastMensagem("verifique seus dados e tente novamente", true);
+      this.salvando = false;
+      return;
+    }
+
     this.loaderService.criarLoader();
     const observer = this.criarObserverSalvar();
-    this.usuarioService.EditarUsuario(this.usuarioEdicao).subscribe(observer);
+    let usuarioSalvar = Object.assign({}, this.usuarioEdicao);
+    usuarioSalvar.cpf = usuarioSalvar.cpf.replace(/\./g, "").replace('-', '');
+    this.usuarioService.EditarUsuario(usuarioSalvar).subscribe(observer);
   }
 
   AbrirPedidos() {

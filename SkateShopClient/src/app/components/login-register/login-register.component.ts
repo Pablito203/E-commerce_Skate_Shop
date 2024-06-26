@@ -3,6 +3,7 @@ import { UsuarioService, login, cadastro } from 'src/app/services/usuario/usuari
 import { AlertaService } from 'src/app/services/alerta/alerta.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { CpfDirective } from 'src/app/directives/cpf/cpf.directive';
 
 @Component({
   selector: 'login-register',
@@ -39,8 +40,8 @@ export class LoginRegisterComponent {
     if (this.salvando) {return;}
     this.salvando = true;
 
-    if (!this.login.email || !this.login.senha) {
-      this.alertaService.CriarToastMensagem("login ou senha incorretos", true);
+    if (!this.login.email || !this.ValidarEmail(this.login.email) || !this.login.senha) {
+      this.alertaService.CriarToastMensagem("login ou senha incorretoss", true);
       this.salvando = false;
       return;
     }
@@ -54,7 +55,7 @@ export class LoginRegisterComponent {
     if (this.salvando) {return;}
     this.salvando = true;
 
-    if (!this.cadastro.email || !this.cadastro.senha || !this.cadastro.cpf || !this.cadastro.nome) {
+    if (!this.cadastro.email || !this.ValidarEmail(this.cadastro.email) || !this.cadastro.senha || !this.cadastro.cpf || !CpfDirective.ValidarCpf(this.cadastro.cpf) || !this.cadastro.nome) {
       this.alertaService.CriarToastMensagem("verifique seus dados e tente novamente", true);
       this.salvando = false;
       return;
@@ -78,6 +79,8 @@ export class LoginRegisterComponent {
       }
 
       this.alertaService.CriarToastMensagem("Login realizado com sucesso");
+      let usuario = data.result;
+      usuario.cpf = CpfDirective.convertToCpfCnpj(usuario.cpf)
       this.usuarioService.setUsuarioLogado(data.result);
     };
 
@@ -115,4 +118,10 @@ export class LoginRegisterComponent {
 
     return observer;
   }
+
+  ValidarEmail(email: string) {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  };
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start" defaultHref="/"></ion-back-button>
-    <ion-title>Novo produto</ion-title>
+    <ion-title>{{ProdutoID > 0 ? 'Editar' : 'Novo'}} produto</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Nome" labelPlacement="floating" required [(ngModel)]="Produto.nome" name="Nome"></ion-input>
+          <ion-input label="Nome" labelPlacement="floating" required [(ngModel)]="Produto.nome" name="Nome" maxlength="1000"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -22,7 +22,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input label="Valor" labelPlacement="floating" required [(ngModel)]="Produto.valor" name="Valor"></ion-input>
+          <ion-input label="Valor" labelPlacement="floating" required [(ngModel)]="Produto.valor" name="Valor" monetario inputmode="tel"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -41,7 +41,7 @@
     <ion-row *ngIf="Produto.tamanhoUnico">
       <ion-col>
         <ion-item>
-          <ion-input label="Quantidade" labelPlacement="floating" required [(ngModel)]="Produto.quantidadeEstoque" name="Quantidade"></ion-input>
+          <ion-input label="Quantidade" labelPlacement="floating" required [(ngModel)]="Produto.quantidadeEstoque" name="Quantidade" inputmode="tel" type="number"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -73,7 +73,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input label="Nome" labelPlacement="floating" [(ngModel)]="TamanhoEdit.nome" name="TamanhoNome"></ion-input>
+              <ion-input label="Nome" labelPlacement="floating" [(ngModel)]="TamanhoEdit.nome" name="TamanhoNome" maxlength="10"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -81,7 +81,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input label="Quantidade" labelPlacement="floating" [(ngModel)]="TamanhoEdit.quantidade" name="TamanhoQuantidade"></ion-input>
+              <ion-input label="Quantidade" labelPlacement="floating" [(ngModel)]="TamanhoEdit.quantidade" name="TamanhoQuantidade" inputmode="tel" type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>

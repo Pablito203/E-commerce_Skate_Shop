@@ -18,7 +18,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input labelPlacement="floating" label="Email" name="email" [(ngModel)]="login.email"></ion-input>
+              <ion-input labelPlacement="floating" label="Email" name="email" [(ngModel)]="login.email" maxlength="200"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -26,7 +26,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-input labelPlacement="floating" label="Senha" name="senha" type="password"[(ngModel)]="login.senha"></ion-input>
+              <ion-input labelPlacement="floating" label="Senha" name="senha" type="password"[(ngModel)]="login.senha" maxlength="50"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -59,7 +59,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="cadastro.nome"></ion-input>
+          <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="cadastro.nome" maxlength="200"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -67,7 +67,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="CPF" name="cpf" [(ngModel)]="cadastro.cpf"></ion-input>
+          <ion-input labelPlacement="floating" label="CPF" name="cpf" cpf [(ngModel)]="cadastro.cpf" maxlength="14"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -75,7 +75,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="Email" name="email" [(ngModel)]="cadastro.email"></ion-input>
+          <ion-input labelPlacement="floating" label="Email" name="email" [(ngModel)]="cadastro.email" maxlength="200"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -83,7 +83,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input labelPlacement="floating" label="Senha" name="senha" type="password" [(ngModel)]="cadastro.senha"></ion-input>
+          <ion-input labelPlacement="floating" label="Senha" name="senha" type="password" [(ngModel)]="cadastro.senha" maxlength="50"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

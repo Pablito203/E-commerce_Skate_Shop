@@ -228,6 +228,8 @@ export class AddProdutoPage implements OnInit {
 
     this.loaderService.criarLoader();
     const observer = this.criarObserverSalvar();
+    let produtoSalvar = Object.assign({}, this.Produto);
+    produtoSalvar.valor = parseFloat(produtoSalvar.valor.replace(/\./g, "").replace(',', '.'));
     let request = this.ProdutoID ? this.produtoService.PutProduto(this.Produto) : this.produtoService.PostProduto(this.Produto);
     request.subscribe(observer);
   }
