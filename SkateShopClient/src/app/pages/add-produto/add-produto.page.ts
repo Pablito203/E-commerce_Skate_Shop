@@ -8,6 +8,7 @@ import { ProdutoService } from './../../services/produto/produto.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { MonetarioDirective } from 'src/app/directives/monetario/monetario.directive';
 
 @Component({
   selector: 'add-produto',
@@ -69,6 +70,7 @@ export class AddProdutoPage implements OnInit {
       }
 
       this.Produto = data.result[0];
+      this.Produto.valor = MonetarioDirective.FormataValor(this.Produto.valor)
     })
   }
 
@@ -230,7 +232,7 @@ export class AddProdutoPage implements OnInit {
     const observer = this.criarObserverSalvar();
     let produtoSalvar = Object.assign({}, this.Produto);
     produtoSalvar.valor = parseFloat(produtoSalvar.valor.replace(/\./g, "").replace(',', '.'));
-    let request = this.ProdutoID ? this.produtoService.PutProduto(this.Produto) : this.produtoService.PostProduto(this.Produto);
+    let request = this.ProdutoID ? this.produtoService.PutProduto(produtoSalvar) : this.produtoService.PostProduto(produtoSalvar);
     request.subscribe(observer);
   }
 
