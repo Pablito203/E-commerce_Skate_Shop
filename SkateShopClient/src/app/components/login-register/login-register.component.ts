@@ -41,7 +41,7 @@ export class LoginRegisterComponent {
     this.salvando = true;
 
     if (!this.login.email || !this.ValidarEmail(this.login.email) || !this.login.senha) {
-      this.alertaService.CriarToastMensagem("login ou senha incorretoss", true);
+      this.alertaService.CriarToastMensagem("login ou senha incorretos", true);
       this.salvando = false;
       return;
     }

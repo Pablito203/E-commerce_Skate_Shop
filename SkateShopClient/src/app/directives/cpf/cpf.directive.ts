@@ -78,7 +78,6 @@ export class CpfDirective {
         r = (r <2)?0:11-r;
         if(r != cpf.substring(j, j+1)) result = false;
     });
-    console.log('cpf', result)
     return result;
   }
 }

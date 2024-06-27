@@ -42,7 +42,6 @@ export class ProdutoCatalogoComponent implements OnInit, OnDestroy {
     if (this.salvando) {return;}
     this.salvando = true;
 
-    console.log(UsuarioService.usuarioLogado)
     if (!UsuarioService.usuarioLogado) {
       this.salvando = false;
       this.abrirModalLogin();
