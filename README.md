@@ -7,7 +7,7 @@ webhook para realização de pagamentos por pix.
 
   - C#
   - .NET 7
-  - MSSQL SERVER
+  - MSSQL Server
   - Ionic
   - Capacitor
   - Angular
