@@ -26,7 +26,7 @@ webhook para realização de pagamentos por pix.
 
   - Adicionar a chave de integração do Asaas no arquivo "appsettings.json"
   - Alterar a chave de integração e url da api no arquivo "program.cs" de acordo com o sistema onde foi criado a conta digital
-  - Rodar o projeto selecionando com dev tunnels público \
+  - Rodar o projeto selecionando um dev tunnels público \
   ![dev tunnels](https://github.com/user-attachments/assets/8eeb9f5c-e47d-4b10-b8e1-dccd7b1459d5)
 
   - No sistema Asaas cadastrar um webhook para ouvir os eventos referentes a cobrança. exemplo \
